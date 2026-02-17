@@ -3,23 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE ENGRAMMERS | IASDO Collective Hub</title>
+    <title>THE ENGRAMMERS | IASDO Collective</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --cyan: #00f2ff;
-            --white: #ffffff;
-            --bg: #000000;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --cyan-glow: #00f2ff;
+            --void: #000000;
+            --slate-900: #020617;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--white);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
+            background-color: var(--void);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
@@ -27,83 +24,79 @@
         .syne { font-family: 'Syne', sans-serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* --- Custom Scrollbar --- */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--cyan); }
-
-        /* --- Background Architecture --- */
-        #neural-canvas {
+        .bg-canvas {
             position: fixed;
             inset: 0;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.03) 0%, transparent 70%),
+                radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 100% 100%, 40px 40px;
             z-index: -1;
-            opacity: 0.4;
         }
 
-        .grid-layer {
-            position: fixed;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(0, 242, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 242, 255, 0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: -2;
+        .logo-glow {
+            filter: drop-shadow(0 0 25px rgba(0, 242, 255, 0.3));
+        }
+        
+        @keyframes signal-move {
+            0% { stroke-dashoffset: 100; opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { stroke-dashoffset: 0; opacity: 0.3; }
         }
 
-        .spotlight {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.08) 0%, transparent 80%);
-            z-index: -2;
-            pointer-events: none;
+        .signal-trace {
+            stroke-dasharray: 40;
+            animation: signal-move 3s linear infinite;
         }
 
-        /* --- UI Components --- */
         .glass-nav {
             background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(24px);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .hero-text {
-            background: linear-gradient(to bottom, #ffffff 60%, var(--cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .card-stack {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .card-stack:hover {
-            border-color: var(--cyan);
-            background: rgba(0, 242, 255, 0.03);
+            border-color: var(--cyan-glow);
+            background: rgba(0, 242, 255, 0.02);
             transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(0, 242, 255, 0.25);
+        }
+
+        .hero-text {
+            letter-spacing: -0.05em;
+            background: linear-gradient(180deg, #ffffff 40%, #00f2ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .wide-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
         }
 
         .glow-btn {
             background: #ffffff;
             color: #000000;
-            font-weight: 700;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .glow-btn:hover {
-            background: var(--cyan);
-            box-shadow: 0 0 40px rgba(0, 242, 255, 0.6);
-            transform: translateY(-2px);
+            background: var(--cyan-glow);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.5);
         }
 
-        /* --- Animations --- */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: all 1s ease-out;
         }
 
         .reveal.active {
@@ -111,316 +104,297 @@
             transform: translateY(0);
         }
 
-        .logo-svg-main {
-            filter: drop-shadow(0 0 35px rgba(0, 242, 255, 0.4));
-        }
-
-        /* --- Ticker --- */
-        @keyframes ticker {
+        @keyframes ticker-scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-        .ticker-wrap {
+
+        .ticker-container {
             overflow: hidden;
-            background: rgba(0, 242, 255, 0.03);
-            border-top: 1px solid var(--glass-border);
-            border-bottom: 1px solid var(--glass-border);
             white-space: nowrap;
+            background: rgba(0, 242, 255, 0.02);
+            padding: 1rem 0;
+            border-y: 1px solid rgba(255, 255, 255, 0.05);
         }
+
         .ticker-content {
             display: inline-block;
-            animation: ticker 50s linear infinite;
+            animation: ticker-scroll 40s linear infinite;
         }
 
-        .terminal-box {
-            background: #080808;
-            border: 1px solid var(--glass-border);
+        .terminal-window {
+            background: #0a0a0a;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .stat-badge {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            padding: 8px 16px;
-            border-radius: 99px;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
+        .gradient-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
+            width: 100%;
+        }
+
+        .highlight-text {
+            color: var(--cyan-glow);
+            font-weight: 500;
         }
     </style>
 </head>
 <body class="selection:bg-cyan-500 selection:text-black">
-    <canvas id="neural-canvas"></canvas>
-    <div class="grid-layer"></div>
-    <div class="spotlight"></div>
+    <div class="bg-canvas"></div>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 p-6 glass-nav">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-5">
-                <!-- Mini Logo Monogram -->
-                <svg width="34" height="26" viewBox="0 0 100 80" fill="none" class="hover:scale-110 transition-transform cursor-pointer">
-                    <path d="M40 20 H20 V60 H40 M20 40 H35" stroke="var(--cyan)" stroke-width="8" stroke-linecap="round"/>
-                    <path d="M60 20 H80 V60 H60 V45 H70" stroke="var(--white)" stroke-width="8" stroke-linecap="round"/>
+                <svg width="40" height="24" viewBox="0 0 200 120" fill="none">
+                    <path d="M100 20 L134.6 40 V80 L100 100 L65.4 80 V40 L100 20Z" stroke="#00f2ff" stroke-width="2" opacity="0.3"/>
+                    <path d="M60 60 H140 M60 60 L40 40 M60 60 L40 80 M140 60 L160 40 H180 M140 60 H170 M140 60 L160 80 H180" stroke="#00f2ff" stroke-width="4" stroke-linecap="round"/>
                 </svg>
-                <span class="syne text-[10px] font-bold tracking-[0.5em] uppercase hidden md:block">The Engrammers</span>
+                <span class="wide-title text-sm tracking-[0.4em] hidden sm:block">The Engrammers</span>
             </div>
             
-            <div class="hidden lg:flex gap-12 text-[10px] font-bold tracking-[0.5em] uppercase opacity-40">
-                <a href="#identity" class="hover:text-cyan-400 transition-colors">Identity</a>
-                <a href="#stack" class="hover:text-cyan-400 transition-colors">Curriculum</a>
-                <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
-                <a href="#experts" class="hover:text-cyan-400 transition-colors">Interviews</a>
-                <a href="#sync" class="hover:text-cyan-400 transition-colors">Sync</a>
+            <div class="hidden lg:flex gap-10 text-[10px] font-bold tracking-[0.4em] uppercase opacity-40">
+                <a href="#identity" class="hover:text-cyan-400 transition-colors">Who are we?</a>
+                <a href="#mission" class="hover:text-cyan-400 transition-colors">Our Trajectory</a>
+                <a href="#provisions" class="hover:text-cyan-400 transition-colors">What we offer</a>
+                <a href="#join" class="hover:text-cyan-400 transition-colors">Sync</a>
             </div>
 
             <div class="flex items-center gap-4">
-                <span class="mono text-[9px] tracking-[0.3em] opacity-30 uppercase hidden sm:block">Live Node: 0x2.0</span>
-                <div class="h-2 w-2 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_10px_#00f2ff]"></div>
+                <div class="h-2 w-2 rounded-full bg-cyan-500 animate-pulse"></div>
+                <span class="mono text-[9px] tracking-[0.2em] opacity-30 uppercase">IASDO Collective</span>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center pt-24">
-        <div class="reveal mb-12">
-            <div class="stat-badge mono inline-flex gap-2 items-center">
-                <span class="text-cyan-500">●</span> 2024 IASDO Cohort // UMI
-            </div>
-        </div>
-
-        <div class="relative mb-20 logo-svg-main transition-transform duration-1000 hover:scale-110 cursor-crosshair">
-            <!-- RE-ENGINEERED E-G NEURAL NODE LOGO -->
-            <svg width="340" height="260" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Inner Decision Diamond (Central Focus) -->
-                <rect x="92" y="72" width="16" height="16" fill="var(--white)" transform="rotate(45 100 80)"/>
-                <rect x="96" y="76" width="8" height="8" fill="var(--cyan)" transform="rotate(45 100 80)"/>
-                
-                <g>
-                    <!-- LEFT SIDE: THE 'E' (Structural Logic) -->
-                    <path d="M100 20 L55 45 V115 L100 140" stroke="var(--cyan)" stroke-width="12" stroke-linecap="round"/>
-                    <path d="M55 45 H85" stroke="var(--cyan)" stroke-width="12" stroke-linecap="round"/>
-                    <path d="M55 80 H80" stroke="var(--white)" stroke-width="12" stroke-linecap="round"/>
-                    <path d="M55 115 H85" stroke="var(--cyan)" stroke-width="12" stroke-linecap="round"/>
-                    
-                    <!-- RIGHT SIDE: THE 'G' (Global Connectivity) -->
-                    <path d="M100 20 L145 45 V115 L100 140" stroke="var(--cyan)" stroke-width="12" stroke-linecap="round"/>
-                    <path d="M145 45 H115" stroke="var(--cyan)" stroke-width="12" stroke-linecap="round"/>
-                    <path d="M145 115 H115 V85 H132" stroke="var(--white)" stroke-width="12" stroke-linecap="round"/>
-                    
-                    <!-- THE NEURAL CONNECTORS (Signal Path) -->
-                    <path d="M80 80 H92" stroke="var(--white)" stroke-width="2" stroke-dasharray="6 4" opacity="0.4"/>
-                    <path d="M108 80 H115" stroke="var(--white)" stroke-width="2" stroke-dasharray="6 4" opacity="0.4"/>
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center pt-32">
+        <div class="relative mb-16 logo-glow">
+            <svg width="340" height="200" viewBox="0 0 240 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M120 20 L154.6 40 V80 L120 100 L85.4 80 V40 L120 20Z" stroke="#00f2ff" stroke-width="1" opacity="0.1"/>
+                <g class="signal-trace">
+                    <path d="M80 60 H160" stroke="#00f2ff" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M80 60 L60 40" stroke="#00f2ff" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M80 60 L60 80" stroke="#00f2ff" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M160 60 L180 40 H200" stroke="#00f2ff" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M160 60 H190" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M160 60 L180 80 H200" stroke="#00f2ff" stroke-width="3" stroke-linecap="round"/>
                 </g>
-                
-                <circle cx="55" cy="45" r="4.5" fill="var(--white)"/>
-                <circle cx="145" cy="45" r="4.5" fill="var(--white)"/>
-                <circle cx="55" cy="115" r="4.5" fill="var(--white)"/>
-                <circle cx="132" cy="85" r="4.5" fill="var(--cyan)"/>
+                <circle cx="200" cy="40" r="4" fill="#ffffff" />
+                <circle cx="190" cy="60" r="4" fill="#00f2ff" />
+                <circle cx="200" cy="80" r="4" fill="#ffffff" />
+                <circle cx="120" cy="60" r="12" stroke="#00f2ff" stroke-width="1" opacity="0.4"/>
+                <circle cx="120" cy="60" r="4" fill="#ffffff"/>
             </svg>
         </div>
 
-        <h1 class="syne text-6xl md:text-9xl mb-12 hero-text tracking-tighter font-extrabold leading-none">
-            Engrammers.
+        <h1 class="wide-title text-4xl md:text-9xl mb-8 hero-text">
+            IASDO.
         </h1>
         
-        <p class="max-w-4xl mx-auto text-slate-400 text-lg md:text-3xl font-light mb-20 tracking-wide leading-tight italic">
-            "A collective of young, passionate researchers architecting the bridge between academic intelligence and optimal industrial decisions."
+        <p class="max-w-4xl mx-auto text-slate-500 text-lg md:text-3xl font-light mb-16 tracking-wide leading-tight italic">
+            "Young Minds Architecting Optimal Futures through Intelligence & Decision Science"
         </p>
+
+        <div class="mono text-[10px] text-cyan-400 mb-12 tracking-[0.5em] uppercase">
+            Faculty of Sciences // Université Moulay Ismaïl
+        </div>
         
-        <div class="flex flex-col sm:flex-row gap-10 justify-center items-center reveal">
-            <button class="glow-btn px-20 py-6 rounded-sm syne text-xs uppercase tracking-[0.4em]">
-                Initialize Connection
+        <div class="flex flex-col sm:flex-row gap-8 justify-center items-center">
+            <button class="glow-btn px-16 py-5 rounded-sm wide-title text-xs tracking-[0.4em]">
+                Enter the Network
             </button>
-            <div class="flex items-center gap-4 group">
-                <span class="mono text-[11px] uppercase tracking-[0.6em] text-white/20 group-hover:text-white transition-all cursor-pointer">Read Manifesto</span>
-                <div class="h-[1px] w-8 bg-white/10 group-hover:w-16 transition-all group-hover:bg-cyan-500"></div>
-            </div>
+            <a href="#identity" class="mono text-[11px] uppercase tracking-[0.6em] text-white/20 hover:text-white transition-all">
+                → The Core Manifesto
+            </a>
         </div>
     </section>
 
-    <!-- Ticker -->
-    <div class="ticker-wrap py-6">
-        <div class="ticker-content mono text-[11px] uppercase tracking-[1em] text-cyan-500/50">
-            OPTIMAL_DECISION_SYSTEMS // STOCHASTIC_PROGRAMMING // NEURAL_NETWORKS // GRAPH_LOGIC // GAME_THEORY // MULTIOBJECTIVE_OPTIMIZATION // COMPUTER_VISION // UMI_FACULTY_OF_SCIENCES // 2024_COLLECTIVE // PASSION_DRIVEN_LOGIC // SHARED_LEARNING // GLOBAL_MAXIMUM // OPTIMAL_DECISION_SYSTEMS
+    <!-- Dynamic Ticker -->
+    <div class="ticker-container z-20">
+        <div class="ticker-content mono text-[10px] uppercase tracking-[0.8em] text-cyan-500/40">
+            WHO_ARE_WE // WHAT_WE_DO // WHAT_WE_OFFER // IASDO_COLLECTIVE // PASSIONATE_RESEARCHERS // UMI_MEKNES // OPTIMAL_DECISIONS // SHARED_LEARNING // GITHUB_SYNERGY // LINKEDIN_NETWORK
         </div>
     </div>
 
-    <!-- WHO WE ARE: Identity Expansion -->
-    <section id="identity" class="py-60 px-6">
+    <!-- IDENTITY: WHO ARE WE? -->
+    <section id="identity" class="py-40 px-6 border-t border-white/5">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row gap-32 items-center mb-40">
+            <div class="flex flex-col md:flex-row gap-20 items-center mb-32">
                 <div class="md:w-1/2 reveal">
-                    <div class="mono text-cyan-500 text-[10px] mb-8 tracking-[0.6em] uppercase">// THE_ORIGIN</div>
-                    <h2 class="syne text-6xl md:text-8xl font-extrabold uppercase mb-12 leading-none">
-                        Young <br> & <span class="text-cyan-500 italic">Passionate.</span>
+                    <h2 class="syne text-5xl md:text-7xl font-extrabold uppercase mb-8 leading-tight">
+                        Who <br> <span class="text-cyan-500 italic">Are We?</span>
                     </h2>
-                    <p class="text-slate-400 text-xl md:text-3xl font-light leading-relaxed mb-12">
-                        We are students of the <span class="text-white font-bold">IASDO</span> Master’s program at UMI Meknes. We refuse to let knowledge sit in textbooks; we are building a sanctuary where intelligence is lived, shared, and optimized.
+                    <p class="text-slate-400 text-xl md:text-3xl font-light leading-relaxed">
+                        We are <span class="text-white font-bold">The Engrammers</span>—a collective of ambitious young researchers from the <span class="text-white font-bold underline decoration-cyan-500 decoration-2 underline-offset-8">IASDO</span> program at the Faculty of Sciences, Meknes.
                     </p>
-                    <div class="flex gap-12 border-t border-white/5 pt-12">
-                        <div>
-                            <div class="mono text-[9px] text-slate-600 mb-2 uppercase tracking-widest">Growth_Rate</div>
-                            <div class="syne text-2xl font-bold">+120% /yr</div>
-                        </div>
-                        <div>
-                            <div class="mono text-[9px] text-slate-600 mb-2 uppercase tracking-widest">Core_Nodes</div>
-                            <div class="syne text-2xl font-bold">Active</div>
-                        </div>
-                        <div>
-                            <div class="mono text-[9px] text-slate-600 mb-2 uppercase tracking-widest">Region</div>
-                            <div class="syne text-2xl font-bold">Meknes-Fez</div>
-                        </div>
-                    </div>
                 </div>
                 <div class="md:w-1/2 reveal" style="transition-delay: 0.3s">
-                    <div class="relative group">
-                        <div class="absolute -inset-4 bg-cyan-500/10 rounded-2xl blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                        <div class="relative card-stack p-16 rounded-2xl">
-                            <h3 class="syne text-3xl font-extrabold mb-8 uppercase tracking-tighter italic text-cyan-400">Our Shared Vow</h3>
-                            <p class="text-slate-400 text-xl font-light leading-relaxed italic">
-                                "To imprint permanent traces of logic into our industries. To never stop learning. To grow the network until the manifold is solved."
-                            </p>
-                        </div>
-                    </div>
+                    <p class="text-slate-500 text-lg md:text-xl font-light leading-relaxed mb-8">
+                        Our identity is rooted in the <span class="highlight-text uppercase italic">Université Moulay Ismaïl</span>. We are a cohort of students who found a common passion in the complexity of artificial brains and the rigor of mathematical optimization. 
+                    </p>
+                    <p class="text-slate-500 text-lg md:text-xl font-light leading-relaxed">
+                        We are more than a class; we are an <span class="text-white">intellectual brotherhood</span>. Each member brings a unique perspective to the table, from pure algorithmic theory to hands-on neural implementation.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+                <div class="card-stack p-12 rounded-xl text-center">
+                    <div class="mono text-cyan-500 text-[10px] mb-6 tracking-widest uppercase">Spirit</div>
+                    <h4 class="syne text-2xl font-bold mb-4 uppercase">Youthful Ambition</h4>
+                    <p class="text-slate-500 text-sm font-light">We reject the status quo. Our energy is directed at solving the industry's most stagnant problems through fresh, AI-driven perspectives.</p>
+                </div>
+                <div class="card-stack p-12 rounded-xl text-center">
+                    <div class="mono text-cyan-500 text-[10px] mb-6 tracking-widest uppercase">Core</div>
+                    <h4 class="syne text-2xl font-bold mb-4 uppercase">Hyper-Specialized</h4>
+                    <p class="text-slate-500 text-sm font-light">Trained in the convergence of AI and OR. We navigate the search space of decision science with surgical precision.</p>
+                </div>
+                <div class="card-stack p-12 rounded-xl text-center">
+                    <div class="mono text-cyan-500 text-[10px] mb-6 tracking-widest uppercase">Unity</div>
+                    <h4 class="syne text-2xl font-bold mb-4 uppercase">Shared Growth</h4>
+                    <p class="text-slate-500 text-sm font-light">We believe that a single neuron is weak, but a synchronized network is unstoppable. We grow together, or not at all.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- THE CURRICULUM: Logic Stack -->
-    <section id="stack" class="py-40 px-6 border-y border-white/5 bg-white/[0.01]">
+    <!-- MISSION/TRAJECTORY: WHAT WE WANT TO DO -->
+    <section id="mission" class="py-40 px-6 bg-white/[0.01] border-y border-white/5">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-32 reveal">
-                <h2 class="syne text-5xl md:text-8xl font-extrabold uppercase mb-8">The <span class="text-cyan-500">Logic Stack.</span></h2>
-                <p class="mono text-[11px] text-slate-600 tracking-[0.8em] uppercase">Architecture of Master IASDO</p>
+            <div class="text-center mb-24 reveal">
+                <h2 class="syne text-5xl md:text-7xl font-extrabold uppercase mb-6">Our <span class="text-cyan-500 italic">Trajectory.</span></h2>
+                <p class="mono text-[10px] tracking-[0.5em] text-slate-600 uppercase">What We Want To Do</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="card-stack p-12 rounded-lg reveal">
-                    <div class="mono text-cyan-500 text-[10px] mb-8 uppercase tracking-widest">LAYER_01</div>
-                    <h3 class="syne text-xl font-bold mb-6 uppercase">Artificial Intelligence</h3>
-                    <ul class="text-slate-500 text-[11px] space-y-4 mono opacity-60">
-                        <li>• Deep Learning</li>
-                        <li>• LLMs & Generative AI</li>
-                        <li>• Computer Vision</li>
-                        <li>• Neural Inference</li>
-                    </ul>
-                </div>
-                <div class="card-stack p-12 rounded-lg reveal" style="transition-delay: 0.1s">
-                    <div class="mono text-cyan-500 text-[10px] mb-8 uppercase tracking-widest">LAYER_02</div>
-                    <h3 class="syne text-xl font-bold mb-6 uppercase">Decision Optimization</h3>
-                    <ul class="text-slate-500 text-[11px] space-y-4 mono opacity-60">
-                        <li>• Stochastic Programming</li>
-                        <li>• Math Programming v1/v2</li>
-                        <li>• Multiobjective Optim</li>
-                        <li>• Game Theory</li>
-                    </ul>
-                </div>
-                <div class="card-stack p-12 rounded-lg reveal" style="transition-delay: 0.2s">
-                    <div class="mono text-cyan-500 text-[10px] mb-8 uppercase tracking-widest">LAYER_03</div>
-                    <h3 class="syne text-xl font-bold mb-6 uppercase">Data Dynamics</h3>
-                    <ul class="text-slate-500 text-[11px] space-y-4 mono opacity-60">
-                        <li>• Data Visualization</li>
-                        <li>• Data Driven Decision Making</li>
-                        <li>• Science des Données</li>
-                        <li>• Algorithmic Structures</li>
-                    </ul>
-                </div>
-                <div class="card-stack p-12 rounded-lg reveal" style="transition-delay: 0.3s">
-                    <div class="mono text-cyan-500 text-[10px] mb-8 uppercase tracking-widest">LAYER_04</div>
-                    <h3 class="syne text-xl font-bold mb-6 uppercase">Industrial Strategy</h3>
-                    <ul class="text-slate-500 text-[11px] space-y-4 mono opacity-60">
-                        <li>• Simulation Tools</li>
-                        <li>• Cloud Security</li>
-                        <li>• Ethique & Responsabilité</li>
-                        <li>• Culture Entrepreneuriale</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PROJECTS & FORUM: The Collective Work -->
-    <section id="projects" class="py-60 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-32">
-                <!-- Projects Column -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
                 <div class="reveal">
-                    <div class="flex items-center gap-6 mb-16">
-                        <h2 class="syne text-5xl font-extrabold uppercase">The <span class="text-cyan-500">Repo.</span></h2>
-                        <div class="h-[1px] flex-grow bg-white/10"></div>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="opacity-30"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="h-[2px] w-12 bg-cyan-500"></div>
+                        <h3 class="syne text-3xl font-bold uppercase tracking-tighter">Network Expansion</h3>
                     </div>
-                    <div class="space-y-4">
-                        <div class="card-stack p-10 rounded-sm group cursor-pointer border-l-4 border-l-cyan-500">
-                            <h4 class="syne text-2xl font-bold mb-4 group-hover:text-cyan-400 transition-colors uppercase">NeuralSolver-v1.0</h4>
-                            <p class="text-slate-500 text-sm mb-6">A Python-based meta-heuristic engine for solving constrained OR problems using neural embeddings.</p>
-                            <div class="flex gap-4 mono text-[9px] opacity-30">
-                                <span>Stars: 124</span>
-                                <span>Forks: 12</span>
-                                <span>Lang: Python / C++</span>
-                            </div>
-                        </div>
-                        <div class="card-stack p-10 rounded-sm group cursor-pointer border-l-4 border-l-white/10 hover:border-l-cyan-500 transition-all">
-                            <h4 class="syne text-2xl font-bold mb-4 group-hover:text-cyan-400 transition-colors uppercase">DecisionGraph-JS</h4>
-                            <p class="text-slate-500 text-sm mb-6">Interactive visualization for stochastic decision trees and sensitivity analysis.</p>
-                        </div>
-                    </div>
+                    <p class="text-slate-400 text-lg md:text-xl font-light leading-relaxed mb-8">
+                        We aim to build the <span class="text-white">strongest professional network in Meknes and beyond</span>. By connecting our cohort with industry experts on LinkedIn, we are bridging the gap between academic brilliance and industrial reality. 
+                    </p>
+                    <p class="text-slate-400 text-lg md:text-xl font-light leading-relaxed">
+                        We are actively looking for peers and mentors who share our passion for <span class="highlight-text">optimal decision systems</span> to join our ecosystem.
+                    </p>
                 </div>
-
-                <!-- Forum/Interviews Column -->
-                <div id="experts" class="reveal" style="transition-delay: 0.3s">
-                    <div class="flex items-center gap-6 mb-16">
-                        <h2 class="syne text-5xl font-extrabold uppercase">The <span class="text-cyan-500">Forum.</span></h2>
-                        <div class="h-[1px] flex-grow bg-white/10"></div>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="opacity-30"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <div class="reveal" style="transition-delay: 0.2s">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="h-[2px] w-12 bg-cyan-500"></div>
+                        <h3 class="syne text-3xl font-bold uppercase tracking-tighter">Knowledge Proliferation</h3>
                     </div>
-                    <div class="card-stack p-12 rounded-2xl relative overflow-hidden group">
-                        <div class="absolute inset-0 bg-cyan-500/5 blur-3xl group-hover:bg-cyan-500/10 transition-all"></div>
-                        <div class="relative z-10">
-                            <div class="stat-badge mb-8">Next Expert Session</div>
-                            <h3 class="syne text-3xl font-extrabold mb-8 leading-tight uppercase">Mastering Stochastic Flows with <br> <span class="text-cyan-500">Pr. Khalid El Yassini</span></h3>
-                            <p class="text-slate-500 text-lg font-light italic mb-12">
-                                "An in-depth look into the future of optimal decision-making and the role of the next generation of researchers."
-                            </p>
-                            <button class="mono text-[10px] tracking-widest text-cyan-400 hover:text-white transition-all uppercase">>> Set Reminder_</button>
-                        </div>
-                    </div>
+                    <p class="text-slate-400 text-lg md:text-xl font-light leading-relaxed mb-8">
+                        Our mission is to <span class="text-white">broadcast our learning journey</span>. We take the complex modules from our IASDO program and transform them into accessible articles, GitHub repositories, and visual case studies.
+                    </p>
+                    <p class="text-slate-400 text-lg md:text-xl font-light leading-relaxed">
+                        We want to be the primary source for anyone looking to understand the real-world application of <span class="highlight-text">Linear Programming</span> and <span class="highlight-text">Deep Learning</span>.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SYNC: Handshake Terminal -->
-    <section id="sync" class="py-40 px-6">
-        <div class="max-w-4xl mx-auto terminal-box reveal">
-            <div class="bg-white/5 p-4 flex items-center justify-between border-bottom border-white/5">
-                <div class="flex gap-2">
-                    <div class="w-3 h-3 rounded-full bg-red-500/40"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-500/40"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-500/40"></div>
+    <!-- OFFERINGS: WHAT WE CAN OFFER -->
+    <section id="provisions" class="py-40 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-baseline mb-24 reveal">
+                <h2 class="syne text-5xl md:text-7xl font-extrabold uppercase leading-none">Our <br> <span class="text-cyan-500 italic">Provisions.</span></h2>
+                <span class="mono text-[10px] text-slate-600 tracking-[0.5em] uppercase">What We Can Offer</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Advanced Insights -->
+                <div class="card-stack p-12 rounded-[2.5rem] reveal">
+                    <div class="mono text-cyan-500 text-[9px] mb-8 uppercase tracking-widest">/ TECHNICAL_ASSET</div>
+                    <h3 class="syne text-2xl font-extrabold mb-6 uppercase italic">Elite Signal</h3>
+                    <p class="text-slate-500 font-light leading-relaxed mb-8">
+                        We offer high-fidelity insights into the synergy of AI and OR. We distill complex academic modules—like Stochastic Programming and Game Theory—into actionable insights.
+                    </p>
+                    <div class="p-6 bg-white/[0.02] rounded-xl border border-white/5">
+                        <span class="mono text-[10px] text-cyan-500 block mb-4">Latest Research:</span>
+                        <p class="text-xs text-slate-400 italic leading-relaxed">"Optimizing Multi-objective Decision Graphs for Smart Urban Logistics."</p>
+                    </div>
                 </div>
-                <span class="mono text-[9px] uppercase tracking-[0.4em] opacity-30 italic">Collective_Sync_v5.0_Secure</span>
-                <div class="w-10"></div>
+
+                <!-- Open Source Collaboration -->
+                <div class="card-stack p-12 rounded-[2.5rem] reveal" style="transition-delay: 0.1s">
+                    <div class="mono text-cyan-500 text-[9px] mb-8 uppercase tracking-widest">/ PROJECT_ASSET</div>
+                    <h3 class="syne text-2xl font-extrabold mb-6 uppercase italic">The Repo</h3>
+                    <p class="text-slate-500 font-light leading-relaxed mb-8">
+                        We provide access to our collaborative GitHub ecosystem. We are building open-source prototypes and solvers developed within our IASDO curriculum.
+                    </p>
+                    <div class="grid grid-cols-2 gap-3 text-[10px] mono text-cyan-500/60 uppercase">
+                        <div class="border border-white/10 p-2 text-center">Neural_Solver</div>
+                        <div class="border border-white/10 p-2 text-center">Graph_Logic</div>
+                        <div class="border border-white/10 p-2 text-center">Vision_AI</div>
+                        <div class="border border-white/10 p-2 text-center">LLM_Tuning</div>
+                    </div>
+                </div>
+
+                <!-- Expert Bridge -->
+                <div class="card-stack p-12 rounded-[2.5rem] reveal" style="transition-delay: 0.2s">
+                    <div class="mono text-cyan-500 text-[9px] mb-8 uppercase tracking-widest">/ NETWORK_ASSET</div>
+                    <h3 class="syne text-2xl font-extrabold mb-6 uppercase italic">The Forum</h3>
+                    <p class="text-slate-500 font-light leading-relaxed mb-8">
+                        We offer a gateway to the industry's veterans. Through our LinkedIn outreach and expert interviews, we curate a high-bandwidth space for career acceleration.
+                    </p>
+                    <ul class="mono text-[9px] text-cyan-500/40 space-y-3 uppercase tracking-widest">
+                        <li>• Expert Case Studies</li>
+                        <li>• Industry Trend Reports</li>
+                        <li>• Peer-to-Peer Peer Reviews</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SYLLABUS SPOTLIGHT -->
+    <section id="syllabus" class="py-32 px-6 border-y border-white/5 bg-white/[0.01]">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <h2 class="syne text-4xl font-extrabold uppercase mb-16">The IASDO <span class="text-cyan-500">Curriculum</span></h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-[10px] mono uppercase tracking-widest text-slate-500">
+                <div class="p-4 border border-white/5">Machine Learning</div>
+                <div class="p-4 border border-white/5">Linear Programming</div>
+                <div class="p-4 border border-white/5">LLMs & Gen AI</div>
+                <div class="p-4 border border-white/5">Graph Optim</div>
+                <div class="p-4 border border-white/5">Stochastic Prog</div>
+                <div class="p-4 border border-white/5">Game Theory</div>
+                <div class="p-4 border border-white/5">Computer Vision</div>
+                <div class="p-4 border border-white/5">Decision Systems</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SYNC SECTION (Handshake) -->
+    <section id="join" class="py-40 px-6">
+        <div class="max-w-4xl mx-auto terminal-window reveal">
+            <div class="bg-white/10 p-3 flex items-center justify-between">
+                <div class="flex gap-1.5">
+                    <div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
+                </div>
+                <span class="mono text-[9px] uppercase tracking-widest opacity-30">IASDO_NETWORK_INIT</span>
+                <div></div>
             </div>
             
             <div class="p-16 md:p-32 text-center">
-                <h2 class="syne text-4xl md:text-8xl font-extrabold uppercase mb-16 hero-text">Establish <span class="text-cyan-500">Sync.</span></h2>
-                <div class="max-w-md mx-auto space-y-12">
-                    <div class="relative group">
-                        <input type="text" id="node-id" placeholder="IDENTIFIER_ROOT" 
-                            class="w-full bg-transparent border-b-2 border-white/10 py-8 text-center mono text-lg focus:outline-none focus:border-cyan-500 transition-all uppercase tracking-[1em] placeholder:opacity-10">
-                    </div>
+                <h2 class="syne text-4xl md:text-7xl font-extrabold uppercase mb-12">Establish <span class="text-cyan-500">Sync.</span></h2>
+                <p class="text-slate-500 text-sm mb-12 italic uppercase tracking-widest opacity-40">Connecting Young Passionate Nodes</p>
+                <div class="max-w-md mx-auto space-y-10">
+                    <input type="text" id="node-id" placeholder="PASSION_IDENTIFIER" 
+                        class="w-full bg-transparent border-b-2 border-white/10 py-5 text-center mono text-sm focus:outline-none focus:border-cyan-500 transition-all uppercase tracking-[0.8em] placeholder:opacity-10">
                     
-                    <button onclick="runHandshake()" id="sync-btn" class="glow-btn w-full py-8 rounded-sm syne text-[11px] tracking-[0.5em] uppercase">
-                        Initialize Collective Sync
+                    <button onclick="runSync()" id="sync-btn" class="glow-btn w-full py-6 rounded-sm wide-title text-[10px] tracking-[0.4em]">
+                        Connect to Hub
                     </button>
                     
-                    <div id="terminal-log" class="mt-16 text-left mono text-[10px] text-cyan-500/40 space-y-3 h-28 overflow-hidden">
-                        <!-- Logs -->
+                    <div id="log" class="mt-12 text-left mono text-[9px] text-cyan-500/30 space-y-2 h-20 overflow-hidden">
+                        <!-- Handshake logs -->
                     </div>
                 </div>
             </div>
@@ -428,106 +402,44 @@
     </section>
 
     <!-- Footer -->
-    <footer class="p-32 border-t border-white/5 bg-[#020202]">
+    <footer class="p-32 border-t border-white/5 opacity-40 bg-[#020202]">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-16">
             <div class="text-center md:text-left">
-                <div class="syne text-3xl font-extrabold uppercase tracking-[0.5em] mb-4 text-white">Engrammers</div>
-                <p class="mono text-[10px] tracking-[0.8em] opacity-30 uppercase">Passion // Growth // Logic // 2024</p>
+                <div class="wide-title text-2xl mb-4">The Engrammers</div>
+                <p class="mono text-[10px] tracking-[0.4em] opacity-20 uppercase">Passion // Growth // Shared Intelligence</p>
             </div>
             
             <div class="flex gap-20">
                 <div class="text-center">
-                    <div class="mono text-[9px] text-cyan-500 mb-2 uppercase tracking-widest">Base</div>
-                    <div class="syne font-bold">Meknes</div>
+                    <div class="mono text-[10px] text-cyan-500 mb-2 uppercase tracking-widest">Cohort</div>
+                    <div class="syne font-bold uppercase">IASDO // UMI</div>
                 </div>
                 <div class="text-center">
-                    <div class="mono text-[9px] text-cyan-500 mb-2 uppercase tracking-widest">Institute</div>
-                    <div class="syne font-bold uppercase">UMI - FS</div>
+                    <div class="mono text-[10px] text-cyan-500 mb-2 uppercase tracking-widest">Purpose</div>
+                    <div class="syne font-bold uppercase">Shared Learning</div>
                 </div>
                 <div class="text-center">
-                    <div class="mono text-[9px] text-cyan-500 mb-2 uppercase tracking-widest">Status</div>
-                    <div class="syne font-bold uppercase text-cyan-500 animate-pulse">Syncing</div>
+                    <div class="mono text-[10px] text-cyan-500 mb-2 uppercase tracking-widest">Sync</div>
+                    <div class="syne font-bold uppercase">Open Network</div>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // --- Neural Particles Background ---
-        const canvas = document.getElementById('neural-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-            }
-        }
-
-        for (let i = 0; i < 80; i++) particles.push(new Particle());
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00f2ff';
-            ctx.strokeStyle = '#00f2ff';
-            particles.forEach(p => {
-                p.update();
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-                
-                particles.forEach(p2 => {
-                    const dx = p.x - p2.x;
-                    const dy = p.y - p2.y;
-                    const dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 100) {
-                        ctx.globalAlpha = 1 - (dist / 100);
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                        ctx.globalAlpha = 1;
-                    }
-                });
-            });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // --- Reveal Logic ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
             });
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // --- Handshake logic ---
-        function runHandshake() {
+        function runSync() {
             const btn = document.getElementById('sync-btn');
-            const log = document.getElementById('terminal-log');
+            const log = document.getElementById('log');
             const nodeId = document.getElementById('node-id').value;
             
             if(!nodeId) return;
@@ -536,13 +448,12 @@
             btn.innerText = "AUTHENTICATING...";
             
             const messages = [
-                `> INITIALIZING NODE: ${nodeId}...`,
-                "> DETECTING PASSION LEVELS: 100%...",
-                "> SYNCING IASDO CURRICULUM ARCHIVE...",
-                "> FETCHING GITHUB_REPO_STATUS...",
-                "> ESTABLISHING EXPERT_FORUM_HANDSHAKE...",
-                "> CALIBRATING GLOBAL_MAXIMUM...",
-                "> NODE SYNCHRONIZED. WELCOME HOME."
+                `> INITIALIZING PASSION_SYNC: ${nodeId}...`,
+                "> ALIGNING IASDO MISSION PARAMETERS...",
+                "> SYNCING COLLABORATIVE LEARNING MANIFOLD...",
+                "> EXPANDING NETWORK VERTICES ON LINKEDIN...",
+                "> SYNERGY ESTABLISHED.",
+                "> WELCOME TO THE MOVEMENT."
             ];
 
             let i = 0;
@@ -550,19 +461,23 @@
                 if(i < messages.length) {
                     const line = document.createElement('div');
                     line.innerText = messages[i];
-                    line.classList.add('opacity-0', 'transition-opacity', 'duration-500');
                     log.appendChild(line);
-                    setTimeout(() => line.classList.remove('opacity-0'), 10);
                     log.scrollTop = log.scrollHeight;
                     i++;
                 } else {
                     clearInterval(int);
-                    btn.innerText = "FULLY SYNCED";
-                    btn.style.background = "var(--cyan)";
-                    btn.style.boxShadow = "0 0 50px var(--cyan)";
+                    btn.innerText = "CONNECTED";
+                    btn.style.background = "#00f2ff";
                 }
-            }, 700);
+            }, 800);
         }
+
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 20;
+            const y = (e.clientY / window.innerHeight) * 20;
+            const canvas = document.querySelector('.bg-canvas');
+            if(canvas) canvas.style.backgroundPosition = `center, ${x}px ${y}px`;
+        });
     </script>
 </body>
 </html>
