@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regression vs. Classification: The Two Questions That Unlock Business AI | The Engrammers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{--cc-bg:#05070a;--cc-text:#fff;--cc-blue:#3A10E5;--cc-blue-glow:rgba(58,16,229,0.4);--cc-card-bg:#0f141e;--cc-border:#fff;--cc-muted:#94a3b8;--cc-success:#10b981;--cc-shadow:rgba(58,16,229,0.3);}
+    *{box-sizing:border-box;margin:0;padding:0;border-radius:0!important;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--cc-bg);color:var(--cc-text);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    ::-webkit-scrollbar{width:8px;}::-webkit-scrollbar-track{background:var(--cc-bg);}::-webkit-scrollbar-thumb{background:var(--cc-blue);}
+    .mono{font-family:'JetBrains Mono',monospace;}
+    .cc-lift{border:1px solid white;background:var(--cc-card-bg);transition:box-shadow .2s,transform .2s,border-color .2s;}
+    .cc-lift:hover{box-shadow:6px 6px 0 var(--cc-blue);transform:translate(-4px,-4px);border-color:var(--cc-blue);}
+    .btn-primary{display:inline-block;background:var(--cc-blue);color:#fff;border:1px solid var(--cc-blue);padding:14px 40px;text-transform:uppercase;font-size:.75rem;font-weight:800;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:transform .2s,box-shadow .2s;text-decoration:none;line-height:1;}
+    .btn-primary:hover{box-shadow:6px 6px 0 rgba(255,255,255,.3);transform:translate(-4px,-4px);}
+    .btn-outline{display:inline-block;background:transparent;color:#fff;border:1px solid #fff;padding:14px 40px;text-transform:uppercase;font-size:.75rem;font-weight:800;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:transform .2s,box-shadow .2s;text-decoration:none;line-height:1;}
+    .btn-outline:hover{box-shadow:6px 6px 0 var(--cc-blue);transform:translate(-4px,-4px);border-color:var(--cc-blue);}
+    .bg-grid{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(58,16,229,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(58,16,229,.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+    #reading-progress{position:fixed;top:0;left:0;width:0%;height:3px;background:var(--cc-blue);z-index:9999;transition:width .1s linear;}
+    .ticker-wrap{overflow:hidden;background:var(--cc-blue);border-top:2px solid #fff;border-bottom:2px solid #fff;padding:10px 0;}
+    .ticker-inner{display:flex;white-space:nowrap;animation:ticker-scroll 40s linear infinite;}
+    .ticker-inner:hover{animation-play-state:paused;}
+    .ticker-item{padding:0 2.5rem;font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;}
+    @keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    nav{position:sticky;top:0;z-index:100;background:rgba(5,7,10,.95);border-bottom:1px solid rgba(255,255,255,.15);backdrop-filter:blur(12px);}
+    .article-body h2{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;text-transform:uppercase;letter-spacing:-0.03em;line-height:1.1;margin-top:5rem;margin-bottom:2rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:1rem;color:#fff;}
+    .section-num{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:900;color:var(--cc-blue);letter-spacing:0.3em;text-transform:uppercase;flex-shrink:0;}
+    .article-body p{color:#94a3b8;font-size:1.125rem;line-height:1.8;margin-bottom:1.75rem;}
+    .article-body strong{color:#fff;font-weight:700;}
+    .article-body ul{list-style:none;margin-bottom:1.75rem;display:flex;flex-direction:column;gap:0.75rem;padding-left:0;}
+    .article-body ul li{border-left:2px solid var(--cc-blue);padding:0.6rem 1rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;font-size:0.875rem;color:var(--cc-muted);letter-spacing:0.05em;}
+    .article-body ul li::before{display:none;}
+    .key-insight{background:rgba(58,16,229,0.06);border-left:4px solid var(--cc-blue);padding:2rem;margin:3rem 0;position:relative;}
+    .key-insight .insight-label,.key-insight-label{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--cc-blue);font-weight:900;text-transform:uppercase;letter-spacing:0.5em;margin-bottom:0.75rem;}
+    .key-insight p{color:var(--cc-muted)!important;font-size:0.95rem!important;line-height:1.7!important;margin-bottom:0!important;}
+    .pullquote{border-left:6px solid var(--cc-blue);padding:2rem 2.5rem;margin:3rem 0;background:rgba(58,16,229,0.04);}
+    .pullquote p{font-size:1.4rem!important;font-weight:700!important;color:#fff!important;font-style:italic;line-height:1.5!important;margin-bottom:0!important;}
+    .code-block{background:#0a0d12;border:1px solid rgba(255,255,255,0.06);border-left:3px solid var(--cc-blue);padding:2rem 2.5rem;margin:2.5rem 0;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.8;color:#94a3b8;}
+    .code-block .cb-header{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);font-weight:700;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(58,16,229,.25);}
+    .code-block .cb-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.04);}
+    .code-block .cb-row.header-row{color:#fff;font-weight:700;font-size:.78rem;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:.6rem;margin-bottom:.2rem;}
+    .code-block .highlight{color:var(--cc-blue);font-weight:700;}
+    .code-block .dim{color:#475569;}
+    .cta-box{border:1px solid var(--cc-blue);background:rgba(58,16,229,.07);padding:2rem;margin:2.5rem 0;}
+    .cta-box .cta-title{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--cc-blue);margin-bottom:.75rem;}
+    .cta-box p{color:#e2e8f0;font-size:.95rem;line-height:1.75;margin-bottom:1.25rem;}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;}
+    .reveal.active{opacity:1;transform:translateY(0);}
+    .sidebar-widget{border:1px solid rgba(255,255,255,.12);background:var(--cc-card-bg);padding:1.25rem;margin-bottom:1.25rem;}
+    .sidebar-widget .sw-title{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(58,16,229,.25);}
+    .sidebar-widget .sw-index-item{display:flex;gap:.6rem;align-items:flex-start;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+    .sidebar-widget .sw-index-item:last-child{border-bottom:none;}
+    .sidebar-widget .sw-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--cc-blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+    .sidebar-widget .sw-label{font-size:.82rem;color:#cbd5e1;line-height:1.5;}
+    .tag-pill,.tag{display:inline-block;border:1px solid rgba(255,255,255,0.15);padding:4px 12px;font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--cc-muted);margin:3px;transition:border-color 0.2s,color 0.2s;}
+    .tag-pill:hover,.tag:hover{border-color:var(--cc-blue);color:var(--cc-blue);}
+    .tag.blue{border-color:var(--cc-blue);color:var(--cc-blue);}
+    .section-header{font-weight:900;font-size:clamp(2.5rem,6vw,5rem);line-height:0.95;letter-spacing:-0.04em;}
+    .metric-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-family:'JetBrains Mono',monospace;font-size:.7rem;}
+    .metric-row:last-child{border-bottom:none;}
+    .metric-row .mk{color:#475569;letter-spacing:.1em;text-transform:uppercase;}
+    .metric-row .mv{color:#e2e8f0;font-weight:700;}
+    .article-nav-link{border:1px solid rgba(255,255,255,.12);background:var(--cc-card-bg);padding:1rem 1.25rem;display:block;text-decoration:none;transition:box-shadow .2s,transform .2s,border-color .2s;}
+    .article-nav-link:hover{box-shadow:6px 6px 0 var(--cc-blue);transform:translate(-4px,-4px);border-color:var(--cc-blue);}
+    .article-nav-link .anl-dir{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:.35rem;}
+    .article-nav-link .anl-title{font-size:.85rem;color:#e2e8f0;font-weight:600;line-height:1.4;}
+    .related-card{border:1px solid rgba(255,255,255,.12);background:var(--cc-card-bg);padding:1.5rem;display:block;text-decoration:none;transition:box-shadow .2s,transform .2s,border-color .2s;}
+    .related-card:hover{box-shadow:6px 6px 0 var(--cc-blue);transform:translate(-4px,-4px);border-color:var(--cc-blue);}
+    .related-card .rc-dispatch{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:.4rem;}
+    .related-card .rc-title{font-size:.95rem;font-weight:700;color:#fff;line-height:1.4;margin-bottom:.5rem;}
+    .related-card .rc-cat{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cc-muted);}
+    footer{border-top:1px solid rgba(255,255,255,.1);background:var(--cc-bg);}
+    .banner-wrap{position:relative;background:var(--cc-card-bg);border:1px solid rgba(255,255,255,.12);overflow:hidden;}
+    .banner-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(58,16,229,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(58,16,229,.06) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}
+    .banner-panel{flex:1;padding:2rem;position:relative;z-index:1;}
+    .banner-panel-left{border-right:1px solid rgba(255,255,255,.1);}
+    .panel-type-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:1.25rem;padding-bottom:.6rem;border-bottom:1px solid rgba(58,16,229,.3);}
+    .panel-row{display:flex;flex-direction:column;gap:.2rem;margin-bottom:1rem;}
+    .panel-row-label{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:#475569;}
+    .panel-row-value{font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;color:#e2e8f0;}
+    .panel-row-value.blue{color:var(--cc-blue);}
+    .panel-row-value.success{color:var(--cc-success);}
+    .panel-row-value.large{font-size:1.2rem;}
+    .banner-divider{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem .75rem;position:relative;z-index:2;}
+    .banner-divider-line{flex:1;width:1px;background:rgba(255,255,255,.12);}
+    .banner-divider-or{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:800;letter-spacing:.15em;color:var(--cc-blue);padding:.4rem 0;}
+    .banner-algo-tag{display:inline-block;border:1px solid rgba(58,16,229,.4);background:rgba(58,16,229,.08);padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cc-blue);margin:2px;}
+    .banner-meta{display:flex;justify-content:space-between;align-items:center;padding:.65rem 1.25rem;border-top:1px solid rgba(255,255,255,.08);background:rgba(5,7,10,.5);position:relative;z-index:1;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#475569;}
+    .banner-meta .bm-highlight{color:var(--cc-blue);}
+    @media(max-width:640px){.banner-panel{padding:1.25rem;}.panel-row-value.large{font-size:1rem;}.banner-divider{padding:.6rem .4rem;}.code-block .cb-row{grid-template-columns:1fr;gap:.2rem;}}
+    @media(min-width:1024px){#article-grid{grid-template-columns:1fr 300px!important;}#article-sidebar{display:block!important;}}
+    /* MOBILE RESPONSIVE */
+    .nav-links{display:flex;align-items:center;gap:2.5rem;}
+    .nav-right{display:flex;align-items:center;gap:1.5rem;}
+    .nav-status{display:flex;align-items:center;gap:8px;}
+    .mobile-menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,0.2);padding:8px 12px;cursor:pointer;}
+    .mobile-menu{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(5,7,10,0.98);border-bottom:1px solid rgba(255,255,255,0.1);padding:1.5rem;flex-direction:column;gap:1rem;z-index:100;}
+    .mobile-menu.active{display:flex;}
+    @media(max-width:1023px){.nav-links,.nav-status{display:none;}.mobile-menu-btn{display:block;}aside,#article-sidebar{display:none!important;}}
+    @media(max-width:768px){.section-header{font-size:clamp(1.8rem,5vw,3rem)!important;}.article-body p{font-size:1rem;}.article-body h2{font-size:1.25rem;flex-direction:column;align-items:flex-start;gap:0.5rem;}.code-block{padding:1rem;font-size:0.7rem;}.code-block pre{white-space:pre-wrap;word-break:break-word;}.pullquote p{font-size:1.1rem!important;}.btn-primary,.btn-outline{padding:12px 20px;font-size:0.65rem;}}
+  </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div id="reading-progress"></div>
+
+<!-- TICKER TOP -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">PREDICT A NUMBER OR PREDICT A CATEGORY</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">REGRESSION // CLASSIFICATION</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">THE TWO MODELS THAT COVER 80% OF BUSINESS AI</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">IASDO // UMI MEKNES</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">DISPATCH #006</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">PREDICT A NUMBER OR PREDICT A CATEGORY</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">REGRESSION // CLASSIFICATION</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">THE TWO MODELS THAT COVER 80% OF BUSINESS AI</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">IASDO // UMI MEKNES</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">DISPATCH #006</span>
+    <span class="ticker-item">&times;</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav style="background:rgba(0,0,0,0.95);position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.1);padding:20px 32px;">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;position:relative;">
+    <a href="task1.html" style="text-decoration:none;flex-shrink:0;">
+      <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:160px;height:120px;object-fit:contain;" />
+    </a>
+    <div class="nav-links">
+      <a href="task1.html#about" class="nav-link" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;text-decoration:none;transition:color 0.2s;">Our Hub</a>
+      <a href="articles.html" class="nav-link" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#fff;text-decoration:none;transition:color 0.2s;">News &amp; Articles</a>
+      <a href="task1.html#roadmap" class="nav-link" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;text-decoration:none;transition:color 0.2s;">Roadmap</a>
+      <a href="task1.html#services" class="nav-link" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;text-decoration:none;transition:color 0.2s;">Services</a>
+      <a href="task1.html#forum" class="nav-link" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;text-decoration:none;transition:color 0.2s;">Forum</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-status">
+        <span style="width:8px;height:8px;background:#10b981;display:inline-block;animation:pulse-dot 1.5s ease-in-out infinite;"></span>
+        <span style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#94a3b8;text-transform:uppercase;letter-spacing:0.12em;">Knowledge Node Active</span>
+      </div>
+      <a href="task1.html#collaboration" class="btn-primary" style="padding:10px 24px;">Join Collective</a>
+      <button class="mobile-menu-btn" onclick="document.querySelector('.mobile-menu').classList.toggle('active')">
+        <svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div class="mobile-menu">
+      <a href="task1.html#about" class="nav-link">Our Hub</a>
+      <a href="articles.html" class="nav-link">News &amp; Articles</a>
+      <a href="task1.html#roadmap" class="nav-link">Roadmap</a>
+      <a href="task1.html#services" class="nav-link">Services</a>
+      <a href="task1.html#forum" class="nav-link">Forum</a>
+      <a href="task1.html#collaboration" class="btn-primary" style="padding:10px 24px;text-align:center;">Join Collective</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section style="position:relative;z-index:1;border-bottom:1px solid rgba(255,255,255,.08);padding:3.5rem 0 2.5rem;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="reveal" style="display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;margin-bottom:1.5rem;">
+      <span style="font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);border:1px solid var(--cc-blue);padding:4px 10px;">DISPATCH #006</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#475569;border:1px solid rgba(255,255,255,.1);padding:4px 10px;">MACHINE_LEARNING</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-success);border:1px solid rgba(16,185,129,.3);padding:4px 10px;">8 MIN READ</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#475569;">APR 20 2026</span>
+    </div>
+    <h1 class="reveal" style="font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;line-height:1.1;letter-spacing:-.02em;max-width:820px;margin-bottom:1.25rem;">
+      Regression vs.&nbsp;Classification:<br/><span style="color:var(--cc-blue);">The Two Questions That Unlock Business&nbsp;AI</span>
+    </h1>
+    <p class="reveal" style="color:var(--cc-muted);font-size:1.1rem;line-height:1.75;max-width:680px;margin-bottom:2rem;">
+      Predict a number, or predict a category. That&rsquo;s it. Every business AI project you&rsquo;ll ever run boils down to one of these two questions.
+    </p>
+    <div class="reveal" style="display:flex;flex-wrap:wrap;gap:.5rem;">
+      <span class="tag-pill">Regression</span>
+      <span class="tag-pill">Classification</span>
+      <span class="tag-pill">Machine Learning</span>
+      <span class="tag-pill">Business AI</span>
+      <span class="tag-pill">Predictions</span>
+    </div>
+  </div>
+</section>
+
+<!-- VISUAL BANNER -->
+<section style="position:relative;z-index:1;padding:2.5rem 0;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="reveal banner-wrap">
+      <div class="banner-grid"></div>
+      <div class="banner-meta">
+        <span>ML_FRAMEWORK // <span class="bm-highlight">PREDICTION_TYPE_SELECTOR</span></span>
+        <span>BUSINESS_COVERAGE: <span class="bm-highlight">~85% OF USE CASES</span></span>
+      </div>
+      <div style="display:flex;flex-direction:row;min-height:280px;">
+        <!-- LEFT: REGRESSION -->
+        <div class="banner-panel banner-panel-left">
+          <div class="panel-type-label">REGRESSION // PREDICT A NUMBER</div>
+          <div class="panel-row"><div class="panel-row-label">Output Type</div><div class="panel-row-value">Continuous Value</div></div>
+          <div class="panel-row"><div class="panel-row-label">Example Output</div><div class="panel-row-value large blue">847,320 MAD</div></div>
+          <div class="panel-row"><div class="panel-row-label">Question Answered</div><div class="panel-row-value">&ldquo;How much?&rdquo;</div></div>
+          <div class="panel-row">
+            <div class="panel-row-label">Algorithms</div>
+            <div style="margin-top:4px;">
+              <span class="banner-algo-tag">Linear Reg</span>
+              <span class="banner-algo-tag">Ridge</span>
+              <span class="banner-algo-tag">XGBoost</span>
+            </div>
+          </div>
+        </div>
+        <!-- DIVIDER -->
+        <div class="banner-divider">
+          <div class="banner-divider-line"></div>
+          <div class="banner-divider-or">OR</div>
+          <div class="banner-divider-line"></div>
+        </div>
+        <!-- RIGHT: CLASSIFICATION -->
+        <div class="banner-panel">
+          <div class="panel-type-label" style="color:#e2e8f0;border-bottom-color:rgba(255,255,255,.12);">CLASSIFICATION // PREDICT A CATEGORY</div>
+          <div class="panel-row"><div class="panel-row-label">Output Type</div><div class="panel-row-value">Discrete Class</div></div>
+          <div class="panel-row"><div class="panel-row-label">Example Output</div><div class="panel-row-value large success">WILL_CHURN: TRUE (94%)</div></div>
+          <div class="panel-row"><div class="panel-row-label">Question Answered</div><div class="panel-row-value">&ldquo;Which one? / Will it?&rdquo;</div></div>
+          <div class="panel-row">
+            <div class="panel-row-label">Algorithms</div>
+            <div style="margin-top:4px;">
+              <span class="banner-algo-tag">Logistic Reg</span>
+              <span class="banner-algo-tag">Random Forest</span>
+              <span class="banner-algo-tag">SVM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN ARTICLE -->
+<main style="position:relative;z-index:1;padding:0 0 4rem;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div id="article-grid" style="display:grid;grid-template-columns:1fr;gap:3rem;">
+
+      <!-- ARTICLE BODY -->
+      <article class="article-body reveal" style="min-width:0;">
+
+        <p>A restaurant owner asked us: <em style="color:#e2e8f0;">&ldquo;How do I use AI?&rdquo;</em> We asked him back: <em style="color:#e2e8f0;">&ldquo;Do you want to know how much food you will sell next Friday &mdash; or do you want to know which menu items are about to become unprofitable?&rdquo;</em> These are different questions. They require different models. And knowing the difference will save you months of confusion.</p>
+
+        <p>This is not a trivial distinction. The wrong choice of model type can mean building an entire pipeline, deploying it into production, and then realising after weeks that your output makes no sense &mdash; because you were running a classification model on a problem that needed a number, or vice versa. We have seen it happen.</p>
+
+        <p>Here is the good news: virtually every business AI project is a prediction task. And every prediction task is either predicting a <strong style="color:#fff;">number</strong> (regression) or predicting a <strong style="color:#fff;">category</strong> (classification). Master this single distinction and you immediately understand 80% of business AI &mdash; before writing a single line of code.</p>
+
+        <!-- SECTION 01 -->
+        <h2 id="section-01"><span class="section-num">// 01</span> REGRESSION: PREDICTING A NUMBER</h2>
+
+        <p>Regression outputs a <strong style="color:#fff;">continuous numeric value</strong>. It answers the questions <em>&ldquo;how much?&rdquo;</em> or <em>&ldquo;how many?&rdquo;</em> &mdash; questions where the answer lives on a number line, not in a fixed set of buckets.</p>
+
+        <p>The range of business problems that fit this shape is enormous:</p>
+
+        <ul>
+          <li><strong style="color:#e2e8f0;">Demand forecasting:</strong> What will next month&rsquo;s revenue be? How many units will we move in the next quarter?</li>
+          <li><strong style="color:#e2e8f0;">Real estate valuation:</strong> What is this property worth given its location, size, and local market data?</li>
+          <li><strong style="color:#e2e8f0;">Accounts receivable prediction:</strong> How many days until this specific invoice is paid, given the client&rsquo;s payment history?</li>
+          <li><strong style="color:#e2e8f0;">Price optimisation:</strong> What should we price this product at to maximise margin without sacrificing volume?</li>
+          <li><strong style="color:#e2e8f0;">Energy management:</strong> How many kilowatt-hours will this facility consume tomorrow, given weather forecasts and production schedules?</li>
+        </ul>
+
+        <p>At its simplest, linear regression draws the best-fit line through historical data. Think of it as learning the rules your business already runs by, expressed as equations. <em style="color:#e2e8f0;">&ldquo;Each time we run a promotion campaign, revenue increases by X dirhams. Each degree of temperature drop reduces heating equipment sales by Y units.&rdquo;</em> The model finds those relationships in your historical records and uses them to extrapolate to dates or scenarios it has never seen.</p>
+
+        <p>For non-linear relationships &mdash; where the rules are not clean straight lines but complex, interacting patterns &mdash; more powerful algorithms like Gradient Boosting or XGBoost learn curves and interactions across hundreds of variables simultaneously. The math becomes more sophisticated, but the output is still the same: <strong style="color:#fff;">a number on a scale</strong>.</p>
+
+        <div class="key-insight">
+          <div class="insight-label">REGRESSION_01</div>
+          <p>Don&rsquo;t be intimidated by the name. A linear regression model for sales forecasting can be built, validated, and deployed in 2&ndash;3 weeks. You do not need deep learning for this. A clean dataset with 18&ndash;24 months of history and 5&ndash;10 relevant features is enough to build something genuinely useful.</p>
+        </div>
+
+        <!-- SECTION 02 -->
+        <h2 id="section-02"><span class="section-num">// 02</span> CLASSIFICATION: PREDICTING A CATEGORY</h2>
+
+        <p>Classification outputs one of N <strong style="color:#fff;">discrete classes</strong>. It answers <em>&ldquo;which one?&rdquo;</em> or <em>&ldquo;will it?&rdquo;</em> &mdash; questions where the answer is a label, not a number. Binary classification gives you two options (yes/no, true/false, churn/retain). Multi-class classification gives you many.</p>
+
+        <p>The business applications are just as broad:</p>
+
+        <ul>
+          <li><strong style="color:#e2e8f0;">Churn prediction:</strong> Will this customer cancel their subscription in the next 30 days? Flag them before it happens.</li>
+          <li><strong style="color:#e2e8f0;">Fraud detection:</strong> Is this transaction fraudulent, or is it normal behaviour? Route it to review or let it pass.</li>
+          <li><strong style="color:#e2e8f0;">Lead scoring:</strong> Which customer segment does this new lead belong to? High-value prospect, nurture-required, or low-priority?</li>
+          <li><strong style="color:#e2e8f0;">Logistics quality control:</strong> Will this delivery be on time, or is it at risk of being late given current conditions?</li>
+          <li><strong style="color:#e2e8f0;">Medical triage (parallel):</strong> Does this patient profile match &ldquo;needs urgent intervention&rdquo; or &ldquo;standard monitoring&rdquo;?</li>
+        </ul>
+
+        <p>Logistic regression &mdash; confusingly named, since it is actually a classification algorithm &mdash; outputs a probability between 0 and 1. <em style="color:#e2e8f0;">&ldquo;This customer has a 78% probability of churning.&rdquo;</em> You then set a threshold: anything above 60% probability gets flagged for the retention team. The model becomes your automated early-warning system, reviewing every customer every day without human effort.</p>
+
+        <p>For multi-class problems, instead of a yes/no split, the model assigns one of many buckets. <em style="color:#e2e8f0;">&ldquo;Which product category will this customer buy next?&rdquo;</em> is a multi-class classification problem. The output might be: Household (62%) / Electronics (25%) / Food (13%). The model picks the highest-probability class as its prediction, but you can use the full probability distribution to make smarter recommendations.</p>
+
+        <div class="pullquote">
+          <p>&ldquo;Classification models are not magic. A logistic regression model predicting customer churn is &mdash; at its core &mdash; drawing a line that separates &lsquo;churned&rsquo; customers from &lsquo;loyal&rsquo; ones in a feature space made of their purchase history. Understanding this is what lets you interrogate the model when it gets something wrong.&rdquo;</p>
+        </div>
+
+        <!-- SECTION 03 -->
+        <h2 id="section-03"><span class="section-num">// 03</span> MATCHING THE QUESTION TO THE MODEL: A PRACTICAL GUIDE</h2>
+
+        <p>The fastest way to pick the right model type is to look at the shape of your answer. If the answer is a number on a scale, it&rsquo;s regression. If the answer is a label from a list, it&rsquo;s classification. Here is how that plays out across common business scenarios:</p>
+
+        <div class="code-block">
+          <div class="cb-header">DECISION_MATRIX // QUESTION TYPE &rarr; MODEL CLASS &rarr; RECOMMENDED ALGORITHM</div>
+          <div class="cb-row header-row"><span>Business Question</span><span>Problem Type</span><span>Recommended Model</span></div>
+          <div class="cb-row"><span>How many units will we sell?</span><span class="highlight">Regression</span><span class="dim">Linear Reg / XGBoost</span></div>
+          <div class="cb-row"><span>Will this customer renew?</span><span style="color:var(--cc-success);font-weight:700;">Classification</span><span class="dim">Logistic Reg / Random Forest</span></div>
+          <div class="cb-row"><span>What is fair pricing for this order?</span><span class="highlight">Regression</span><span class="dim">Ridge Regression</span></div>
+          <div class="cb-row"><span>Will this equipment fail this month?</span><span style="color:var(--cc-success);font-weight:700;">Classification</span><span class="dim">Gradient Boosting</span></div>
+          <div class="cb-row"><span>Optimal staff count for Saturday?</span><span class="highlight">Regression</span><span class="dim">ARIMA + Linear Reg</span></div>
+          <div class="cb-row"><span>Is this supplier invoice anomalous?</span><span style="color:var(--cc-success);font-weight:700;">Classification</span><span class="dim">Isolation Forest</span></div>
+        </div>
+
+        <p>A note on the last row: anomaly detection is technically a special case of classification where one class (anomalous) is extremely rare. Algorithms like Isolation Forest are specifically designed for this imbalance, which is why they appear in classification despite looking different from a standard churn model.</p>
+
+        <p>Also notice that &ldquo;optimal staff count&rdquo; is regression, not classification. Even though staffing is a whole number (you cannot schedule 4.7 people), the problem is continuous in nature &mdash; the model produces a number that you round to practical scheduling units. The output shape determines the model type, not the formatting of the final answer.</p>
+
+        <!-- SECTION 04 -->
+        <h2 id="section-04"><span class="section-num">// 04</span> THE HYBRID CASE: WHEN YOU NEED BOTH</h2>
+
+        <p>Many of the smartest business AI systems do not choose between regression and classification &mdash; they chain them together in a pipeline. The output of one model feeds the logic of the next, giving you accuracy that neither model could achieve alone.</p>
+
+        <p>Consider a <strong style="color:#fff;">wholesale distributor</strong> managing daily warehouse operations:</p>
+
+        <ul>
+          <li><strong style="color:#e2e8f0;">Step 1 &mdash; Classification:</strong> &ldquo;Will this specific customer place an order this week?&rdquo; (yes/no, 87% accuracy)</li>
+          <li><strong style="color:#e2e8f0;">Step 2 &mdash; Regression:</strong> &ldquo;IF yes: how large will the order be, in units and estimated weight?&rdquo; (MAD, within &plusmn;12%)</li>
+        </ul>
+
+        <p>Together, these two models let the operations team prepare warehouse staffing, cold storage allocation, and truck scheduling 48 hours in advance &mdash; with high enough accuracy to reduce last-minute scrambles by over 60%. Neither model alone could achieve this: the classification gives you the &ldquo;who and when&rdquo;, while the regression gives you the &ldquo;how much.&rdquo;</p>
+
+        <p>A second example: a <strong style="color:#fff;">restaurant group</strong> managing kitchen prep and ingredient ordering:</p>
+
+        <ul>
+          <li><strong style="color:#e2e8f0;">Step 1 &mdash; Classification:</strong> &ldquo;Will foot traffic on this day exceed the seasonal average?&rdquo; (above / at / below)</li>
+          <li><strong style="color:#e2e8f0;">Step 2 &mdash; Regression:</strong> &ldquo;If above: by how many covers, and which menu categories will drive the increase?&rdquo;</li>
+        </ul>
+
+        <p>The classification acts as a filter. Only when it predicts &ldquo;above average&rdquo; does the regression kick in to quantify the surplus. This cascade structure keeps the regression model focused on the cases where precision matters most, rather than wasting capacity trying to predict exact covers on a slow Tuesday.</p>
+
+        <p>In pipeline architecture terms, this is called a <strong style="color:#fff;">stacked ensemble</strong> or a <strong style="color:#fff;">cascaded prediction system</strong>. Building one is more technically involved than a single model &mdash; you need to handle the cases where the classifier&rsquo;s threshold is wrong, and you need both models to be retrained on synchronised data cadences. But the operational payoff is substantially higher, because the output precisely mirrors how business decisions are actually made: first &ldquo;should we prepare?&rdquo;, then &ldquo;prepare how much?&rdquo;</p>
+
+        <p>The key architectural principle: <strong style="color:#fff;">regression and classification are not rivals</strong>. They are complementary tools that address different aspects of the same business question. Most mature AI systems in production use both &mdash; often multiple instances of each &mdash; feeding outputs from one layer into inputs of the next.</p>
+
+        <div class="cta-box">
+          <div class="cta-title">// SCOPE YOUR MODEL</div>
+          <p>Have a business question that needs a number or a category as an answer? That is a machine learning problem we can scope, build, and validate. Tell us your question &mdash; in plain language &mdash; and we will map it to the right model type, the right data requirements, and a realistic delivery timeline.</p>
+          <a href="task1.html#collaboration" class="btn-primary">TELL US YOUR QUESTION</a>
+        </div>
+
+        <!-- PREV / NEXT NAV -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.08);">
+          <a href="article-clean-data.html" class="article-nav-link">
+            <div class="anl-dir">&larr; Previous &mdash; #005</div>
+            <div class="anl-title">Complex AI Won&rsquo;t Save You. Clean Data Will.</div>
+          </a>
+          <a href="article-rmse.html" class="article-nav-link" style="text-align:right;">
+            <div class="anl-dir">Next &mdash; #007 &rarr;</div>
+            <div class="anl-title">What Is RMSE and Why Should Businesses Care?</div>
+          </a>
+        </div>
+
+      </article>
+
+      <!-- SIDEBAR -->
+      <aside id="article-sidebar" style="display:none;">
+        <div style="position:sticky;top:80px;display:flex;flex-direction:column;gap:1rem;">
+
+          <!-- INDEX -->
+          <div class="sidebar-widget">
+            <div class="sw-title">Article Index</div>
+            <div class="sw-index-item"><span class="sw-num">01</span><a href="#section-01" class="sw-label" style="color:#cbd5e1;text-decoration:none;">Regression: Predicting a Number</a></div>
+            <div class="sw-index-item"><span class="sw-num">02</span><a href="#section-02" class="sw-label" style="color:#cbd5e1;text-decoration:none;">Classification: Predicting a Category</a></div>
+            <div class="sw-index-item"><span class="sw-num">03</span><a href="#section-03" class="sw-label" style="color:#cbd5e1;text-decoration:none;">Matching Question to Model</a></div>
+            <div class="sw-index-item"><span class="sw-num">04</span><a href="#section-04" class="sw-label" style="color:#cbd5e1;text-decoration:none;">Hybrid Systems</a></div>
+          </div>
+
+          <!-- TAGS -->
+          <div class="sidebar-widget">
+            <div class="sw-title">Tags</div>
+            <div style="padding-top:.25rem;">
+              <span class="tag-pill">Regression</span>
+              <span class="tag-pill">Classification</span>
+              <span class="tag-pill">Logistic Regression</span>
+              <span class="tag-pill">XGBoost</span>
+              <span class="tag-pill">Prediction</span>
+              <span class="tag-pill">Machine Learning</span>
+            </div>
+          </div>
+
+          <!-- RELATED PROJECT -->
+          <div class="sidebar-widget">
+            <div class="sw-title">Related Project</div>
+            <a href="task1.html#roadmap" style="text-decoration:none;display:block;padding:.75rem;border:1px solid rgba(58,16,229,.25);background:rgba(58,16,229,.05);transition:box-shadow .2s,transform .2s;">
+              <div style="font-family:JetBrains Mono,monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:.4rem;">Pipeline // 02</div>
+              <div style="font-size:.85rem;color:#e2e8f0;font-weight:600;line-height:1.4;">Logistics Optimizer</div>
+              <div style="font-family:JetBrains Mono,monospace;font-size:.6rem;color:#475569;margin-top:.35rem;text-transform:uppercase;letter-spacing:.1em;">IN DEVELOPMENT</div>
+            </a>
+          </div>
+
+          <!-- METRICS -->
+          <div class="sidebar-widget">
+            <div class="sw-title">Article Metrics</div>
+            <div class="metric-row"><span class="mk">Words</span><span class="mv">~1,600</span></div>
+            <div class="metric-row"><span class="mk">Sections</span><span class="mv">04</span></div>
+            <div class="metric-row"><span class="mk">Read Time</span><span class="mv">8 MIN</span></div>
+            <div class="metric-row"><span class="mk">Dispatch</span><span class="mv" style="color:var(--cc-blue);">#006</span></div>
+            <div class="metric-row"><span class="mk">Published</span><span class="mv">APR 20 2026</span></div>
+          </div>
+
+          <!-- DISPATCH SERIES NAV -->
+          <div class="sidebar-widget">
+            <div class="sw-title">In This Series</div>
+            <a href="article-clean-data.html" style="text-decoration:none;display:flex;gap:.6rem;align-items:flex-start;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.05);">
+              <span style="font-family:JetBrains Mono,monospace;font-size:.6rem;color:#475569;flex-shrink:0;margin-top:2px;">#005</span>
+              <span style="font-size:.8rem;color:#64748b;line-height:1.4;">Clean Data Will Save You</span>
+            </a>
+            <div style="display:flex;gap:.6rem;align-items:flex-start;padding:.5rem 1.25rem;background:rgba(58,16,229,.05);border-bottom:1px solid rgba(255,255,255,.05);margin:0 -1.25rem;">
+              <span style="font-family:JetBrains Mono,monospace;font-size:.6rem;color:var(--cc-blue);flex-shrink:0;margin-top:2px;">#006</span>
+              <span style="font-size:.8rem;color:#e2e8f0;font-weight:600;line-height:1.4;">Regression vs Classification</span>
+            </div>
+            <a href="article-rmse.html" style="text-decoration:none;display:flex;gap:.6rem;align-items:flex-start;padding:.5rem 0;">
+              <span style="font-family:JetBrains Mono,monospace;font-size:.6rem;color:#475569;flex-shrink:0;margin-top:2px;">#007</span>
+              <span style="font-size:.8rem;color:#64748b;line-height:1.4;">What Is RMSE?</span>
+            </a>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</main>
+
+<!-- RELATED ARTICLES -->
+<section style="position:relative;z-index:1;padding:3rem 0;border-top:1px solid rgba(255,255,255,.08);">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="reveal" style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;">
+      <span style="font-family:JetBrains Mono,monospace;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);">RELATED_DISPATCHES</span>
+      <div style="flex:1;height:1px;background:rgba(255,255,255,.08);"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;">
+      <a href="article-clean-data.html" class="related-card reveal">
+        <div class="rc-dispatch">DISPATCH #005</div>
+        <div class="rc-title">Complex AI Won&rsquo;t Save You. Clean Data Will.</div>
+        <div class="rc-cat">DATA_QUALITY // 7 MIN READ</div>
+      </a>
+      <a href="article-rmse.html" class="related-card reveal">
+        <div class="rc-dispatch">DISPATCH #007</div>
+        <div class="rc-title">What Is RMSE and Why Should Businesses Care?</div>
+        <div class="rc-cat">MACHINE_LEARNING // 6 MIN READ</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER TICKER -->
+<div class="ticker-wrap" style="border-top:1px solid rgba(255,255,255,.08);border-bottom:none;">
+  <div class="ticker-inner">
+    <span class="ticker-item">DISPATCH #006</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">REGRESSION // CLASSIFICATION</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">THE ENGRAMMERS</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">IASDO // UMI MEKNES</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">MACHINE LEARNING FOR MOROCCAN BUSINESS</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">DISPATCH #006</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">REGRESSION // CLASSIFICATION</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">THE ENGRAMMERS</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">IASDO // UMI MEKNES</span>
+    <span class="ticker-item">&times;</span>
+    <span class="ticker-item">MACHINE LEARNING FOR MOROCCAN BUSINESS</span>
+    <span class="ticker-item">&times;</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="padding:3rem 0;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2.5rem;margin-bottom:2.5rem;">
+      <div>
+        <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="height:32px;width:auto;margin-bottom:1rem;" />
+        <p style="color:#475569;font-size:.82rem;line-height:1.7;max-width:220px;">Applied AI research and implementation for Moroccan business. IASDO &mdash; Universit&eacute; Moulay Ismail, Mekn&egrave;s.</p>
+      </div>
+      <div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:1rem;">Navigation</div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;">
+          <a href="task1.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">Home</a>
+          <a href="articles.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">All Dispatches</a>
+          <a href="team.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">The Team</a>
+          <a href="task1.html#roadmap" style="color:#64748b;font-size:.82rem;text-decoration:none;">Projects</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:1rem;">Dispatches</div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;">
+          <a href="article-rag.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">RAG in Local Business</a>
+          <a href="article-clean-data.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">#005 &mdash; Clean Data</a>
+          <a href="article-regression.html" style="color:#e2e8f0;font-size:.82rem;text-decoration:none;">#006 &mdash; Regression vs Classification</a>
+          <a href="article-rmse.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">#007 &mdash; RMSE Explained</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:1rem;">Contact</div>
+        <p style="color:#64748b;font-size:.82rem;line-height:1.7;margin-bottom:1rem;">Have a business prediction problem? We scope and build it.</p>
+        <a href="task1.html#collaboration" class="btn-primary" style="padding:10px 20px;">WORK WITH US</a>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <span style="font-family:JetBrains Mono,monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#334155;">&copy; 2026 The Engrammers &mdash; IASDO, UMI Mekn&egrave;s</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#334155;">DISPATCH #006 &mdash; MACHINE_LEARNING</span>
+    </div>
+  </div>
+</footer>
+
+<!-- JS -->
+<script>
+  // Reading progress bar
+  window.addEventListener("scroll", function() {
+    var el = document.getElementById("reading-progress");
+    var doc = document.documentElement;
+    var scrollTop = doc.scrollTop || document.body.scrollTop;
+    var scrollHeight = doc.scrollHeight - doc.clientHeight;
+    var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    el.style.width = pct + "%";
+  });
+
+  // Reveal on scroll
+  var reveals = document.querySelectorAll(".reveal");
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add("active"); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(function(r) { observer.observe(r); });
+
+  // Mobile menu toggle
+  document.getElementById("mob-menu-btn").addEventListener("click", function() {
+    var m = document.getElementById("mob-menu");
+    m.style.display = m.style.display === "none" ? "block" : "none";
+  });
+</script>
+
+</body>
+</html>

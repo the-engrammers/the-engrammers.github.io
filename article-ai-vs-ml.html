@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI VS. ML VS. Data Science: What's the Actual Difference? | The Engrammers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --cc-bg: #05070a; --cc-text: #fff; --cc-blue: #3A10E5; --cc-blue-glow: rgba(58,16,229,0.4); --cc-card-bg: #0f141e; --cc-border: #fff; --cc-muted: #94a3b8; --cc-success: #10b981; --cc-shadow: rgba(58,16,229,0.3); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background:var(--cc-bg); color:var(--cc-text); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+    ::-webkit-scrollbar { width:8px; } ::-webkit-scrollbar-track { background:var(--cc-bg); } ::-webkit-scrollbar-thumb { background:var(--cc-blue); }
+    .mono { font-family:'JetBrains Mono',monospace; }
+    .cc-lift { border:1px solid white; background:var(--cc-card-bg); transition:box-shadow 0.2s,transform 0.2s,border-color 0.2s; }
+    .cc-lift:hover { box-shadow:6px 6px 0 var(--cc-blue); transform:translate(-4px,-4px); border-color:var(--cc-blue); }
+    .btn-primary { display:inline-block; background:var(--cc-blue); color:#fff; border:1px solid var(--cc-blue); padding:14px 40px; text-transform:uppercase; font-size:0.75rem; font-weight:800; letter-spacing:0.15em; font-family:'JetBrains Mono',monospace; cursor:pointer; transition:transform 0.2s,box-shadow 0.2s; text-decoration:none; line-height:1; }
+    .btn-primary:hover { transform:translate(-3px,-3px); box-shadow:5px 5px 0 #fff; }
+    .btn-outline { display:inline-block; background:transparent; color:#fff; border:1px solid #fff; padding:14px 40px; text-transform:uppercase; font-size:0.75rem; font-weight:800; letter-spacing:0.15em; font-family:'JetBrains Mono',monospace; cursor:pointer; transition:transform 0.2s,box-shadow 0.2s; text-decoration:none; line-height:1; }
+    .btn-outline:hover { transform:translate(-3px,-3px); box-shadow:5px 5px 0 var(--cc-blue); }
+    .section-header { font-weight:900; font-size:clamp(2.5rem,6vw,5rem); line-height:0.95; letter-spacing:-0.04em; }
+    .tag { display:inline-block; border:1px solid rgba(255,255,255,0.15); color:#94a3b8; padding:4px 12px; font-family:'JetBrains Mono',monospace; font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; }
+    .tag.blue { border-color:var(--cc-blue); color:var(--cc-blue); }
+    .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease,transform 0.7s ease; }
+    .reveal.active { opacity:1; transform:translateY(0); }
+    .bg-grid { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; background-image:linear-gradient(rgba(58,16,229,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(58,16,229,0.03) 1px,transparent 1px); background-size:50px 50px; pointer-events:none; }
+    .article-body h2 { font-size:clamp(1.5rem,3vw,2.25rem); font-weight:900; text-transform:uppercase; letter-spacing:-0.03em; line-height:1.1; margin-top:5rem; margin-bottom:2rem; padding-top:3rem; border-top:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; gap:1rem; }
+    .section-num { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:900; color:var(--cc-blue); letter-spacing:0.3em; text-transform:uppercase; flex-shrink:0; }
+    .article-body p { color:#94a3b8; font-size:1.125rem; line-height:1.8; margin-bottom:1.75rem; }
+    .article-body strong { color:#fff; font-weight:700; }
+    .article-body ul { list-style:none; margin-bottom:1.75rem; display:flex; flex-direction:column; gap:0.75rem; }
+    .article-body ul li { border-left:2px solid var(--cc-blue); padding:0.6rem 1rem; font-family:'JetBrains Mono',monospace; text-transform:uppercase; font-size:0.875rem; color:var(--cc-muted); letter-spacing:0.05em; }
+    .code-block { background:#0a0d12; border:1px solid rgba(255,255,255,0.06); border-left:3px solid var(--cc-blue); padding:2rem 2.5rem; margin:2.5rem 0; overflow-x:auto; font-family:'JetBrains Mono',monospace; font-size:0.8rem; line-height:1.8; }
+    .code-block pre { white-space:pre; }
+    .code-comment { color:#475569; } .code-keyword { color:#3A10E5; font-weight:700; } .code-string { color:#10b981; } .code-var { color:#f59e0b; }
+    .pullquote { border-left:6px solid var(--cc-blue); padding:2rem 0 2rem 2.5rem; margin:3rem 0; background:transparent; }
+    .pullquote p { font-size:1.4rem !important; font-weight:700; color:#fff; line-height:1.5; margin:0; font-style:normal; letter-spacing:-0.02em; }
+    .key-insight { background:rgba(58,16,229,0.06); border-left:4px solid var(--cc-blue); padding:2rem; margin:3rem 0; position:relative; }
+    .key-insight-label { font-family:"JetBrains Mono",monospace; font-size:0.7rem; font-weight:800; color:var(--cc-blue); letter-spacing:0.3em; text-transform:uppercase; display:block; margin-bottom:1rem; }
+    .key-insight p { color:#e2e8f0; font-size:1.1rem; line-height:1.75; margin:0; font-weight:500; }
+    @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .ticker-track { overflow:hidden; }
+    .ticker-inner { display:inline-flex; animation:ticker 50s linear infinite; white-space:nowrap; }
+    .ticker-inner:hover { animation-play-state:paused; }
+    #reading-progress { position:fixed; top:0; left:0; height:3px; background:var(--cc-blue); z-index:2000; width:0%; transition:width 0.05s linear; }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .pulse-dot { animation:pulse-dot 1.5s ease-in-out infinite; width:8px; height:8px; display:inline-block; }
+    .code-block-header { font-family:'JetBrains Mono',monospace; font-size:10px; color:#475569; text-transform:uppercase; letter-spacing:0.2em; font-weight:800; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:1rem; margin-bottom:1.5rem; }
+    .article-grid { display:grid; grid-template-columns:1fr; gap:4rem; }
+    @media (min-width:1024px) { .article-grid { grid-template-columns:1fr 320px; gap:5rem; } }
+    .sidebar-sticky { position:sticky; top:8rem; }
+    .banner-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(58,16,229,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(58,16,229,0.06) 1px,transparent 1px); background-size:30px 30px; }
+    .nav-link { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:#94a3b8; text-decoration:none; transition:color 0.2s; }
+    .nav-link:hover { color:#fff; }
+    .action-btn { border:1px solid rgba(255,255,255,0.1); font-family:'JetBrains Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:0.15em; font-weight:900; padding:8px 20px; color:#475569; background:transparent; cursor:pointer; transition:color 0.2s,border-color 0.2s; text-decoration:none; display:inline-block; }
+    .action-btn:hover { color:#fff; border-color:#fff; }
+    .metric-box { padding:0 1.5rem; border-right:1px solid rgba(255,255,255,0.05); }
+    .metric-box:first-child { padding-left:0; } .metric-box:last-child { border-right:none; }
+    .metric-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:#475569; text-transform:uppercase; letter-spacing:0.2em; display:block; margin-bottom:6px; }
+    .metric-value { font-family:'JetBrains Mono',monospace; font-size:12px; color:#fff; font-weight:900; letter-spacing:0.05em; }
+    .sidebar-section-link { font-family:'JetBrains Mono',monospace; font-size:11px; color:#64748b; text-decoration:none; text-transform:uppercase; letter-spacing:0.08em; transition:color 0.2s; display:block; padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.04); }
+    .sidebar-section-link:hover { color:var(--cc-blue); }
+    .related-card { border:1px solid rgba(255,255,255,0.08); background:var(--cc-card-bg); padding:1.5rem; transition:box-shadow 0.2s,transform 0.2s,border-color 0.2s; text-decoration:none; display:block; }
+    .related-card:hover { box-shadow:4px 4px 0 var(--cc-blue); transform:translate(-2px,-2px); border-color:var(--cc-blue); }
+    * { border-radius:0 !important; }
+    /* MOBILE RESPONSIVE */
+    .nav-links { display:flex; align-items:center; gap:2.5rem; }
+    .nav-right { display:flex; align-items:center; gap:1.5rem; }
+    .nav-status { display:flex; align-items:center; gap:8px; }
+    .mobile-menu-btn { display:none; background:none; border:1px solid rgba(255,255,255,0.2); padding:8px 12px; cursor:pointer; }
+    .mobile-menu { display:none; position:absolute; top:100%; left:0; right:0; background:rgba(5,7,10,0.98); border-bottom:1px solid rgba(255,255,255,0.1); padding:1.5rem; flex-direction:column; gap:1rem; z-index:100; }
+    .mobile-menu.active { display:flex; }
+    @media (max-width:1023px) { .nav-links,.nav-status { display:none; } .mobile-menu-btn { display:block; } aside { display:none; } }
+    @media (max-width:768px) { .section-header { font-size:clamp(1.8rem,5vw,3rem) !important; } .article-body p { font-size:1rem; } .article-body h2 { font-size:1.25rem; flex-direction:column; align-items:flex-start; gap:0.5rem; } .code-block { padding:1rem; font-size:0.7rem; } .code-block pre { white-space:pre-wrap; word-break:break-word; } .pullquote p { font-size:1.1rem !important; } .btn-primary,.btn-outline { padding:12px 20px; font-size:0.65rem; } }
+    @media (max-width:640px) { header,section { padding:60px 16px !important; } nav { padding:12px 16px !important; } .metric-box { border-right:none; padding:0.5rem 0; } }
+  </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div id="reading-progress"></div>
+<!-- STICKY NAV -->
+<nav style="background:rgba(0,0,0,0.95);position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.1);padding:20px 32px;">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;position:relative;">
+    <a href="task1.html" style="text-decoration:none;flex-shrink:0;"><img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:140px;height:36px;object-fit:contain;" /></a>
+    <div class="nav-links">
+      <a href="task1.html#about" class="nav-link">Our Hub</a>
+      <a href="articles.html" class="nav-link" style="color:#fff;">News &amp; Articles</a>
+      <a href="task1.html#roadmap" class="nav-link">Roadmap</a>
+      <a href="task1.html#services" class="nav-link">Services</a>
+      <a href="task1.html#forum" class="nav-link">Forum</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-status"><span class="pulse-dot" style="background:#10b981;"></span><span style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#94a3b8;text-transform:uppercase;letter-spacing:0.12em;">Node Active</span></div>
+      <a href="task1.html#collaboration" class="btn-primary" style="padding:10px 24px;">Join</a>
+      <button class="mobile-menu-btn" onclick="document.getElementById('mobile-menu').classList.toggle('active')"><svg width="20" height="20" viewBox="0 0 20 20" fill="white"><rect y="3" width="20" height="2"/><rect y="9" width="20" height="2"/><rect y="15" width="20" height="2"/></svg></button>
+    </div>
+    <div id="mobile-menu" class="mobile-menu">
+      <a href="task1.html#about" class="nav-link">Our Hub</a>
+      <a href="articles.html" class="nav-link" style="color:#fff;">News &amp; Articles</a>
+      <a href="task1.html#roadmap" class="nav-link">Roadmap</a>
+      <a href="task1.html#services" class="nav-link">Services</a>
+      <a href="task1.html#forum" class="nav-link">Forum</a>
+      <a href="task1.html#collaboration" class="btn-primary" style="text-align:center;">Join Collective</a>
+    </div>
+  </div>
+</nav>
+<!-- DISPATCH TOOLBAR -->
+<div style="background:#0a0d12;border-bottom:1px solid rgba(255,255,255,0.05);padding:20px 32px;">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:8px;font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;">
+      <a href="task1.html" style="color:#475569;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#475569'">HOME</a>
+      <span style="color:#333;">&rsaquo;</span>
+      <a href="articles.html" style="color:#475569;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#475569'">KNOWLEDGE HUB</a>
+      <span style="color:#333;">&rsaquo;</span>
+      <span style="color:var(--cc-blue);">AI NEWS</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;font-family:JetBrains Mono,monospace;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#475569;border:1px solid rgba(255,255,255,0.06);padding:6px 16px;">
+      <span class="pulse-dot" style="background:#10b981;"></span>
+      DISPATCH_STATUS: PUBLISHED
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="action-btn">CITE_ARTICLE</button>
+      <button class="action-btn">SAVE_DISPATCH</button>
+      <button class="action-btn">SHARE &rarr;</button>
+    </div>
+  </div>
+</div>
+<!-- ARTICLE HEADER -->
+<header style="padding:128px 32px;border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:2rem;">
+      <span class="tag blue">AI News</span>
+      <span class="tag">AI</span><span class="tag">ML</span><span class="tag">Data Science</span><span class="tag">Strategy</span>
+    </div>
+    <h1 class="section-header" style="color:#fff;text-transform:uppercase;max-width:1100px;">
+      AI VS. ML VS.<br>DATA SCIENCE:<br><span style="color:var(--cc-blue);font-style:italic;">WHAT&#39;S THE ACTUAL DIFFERENCE?</span>
+    </h1>
+    <p style="font-size:1.25rem;color:#94a3b8;font-style:italic;max-width:720px;line-height:1.7;margin-top:2rem;">
+      Everyone uses these three terms interchangeably. They are not the same thing &mdash; and confusing them costs businesses real money.
+    </p>
+    <div style="margin-top:6rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem;">
+      <div style="display:flex;align-items:stretch;flex-wrap:wrap;gap:0;">
+        <div class="metric-box"><span class="metric-label">Published</span><span class="metric-value">FEB 22 2026</span></div>
+        <div class="metric-box"><span class="metric-label">Author</span><span class="metric-value">THE COLLECTIVE</span></div>
+        <div class="metric-box"><span class="metric-label">Read Time</span><span class="metric-value">7 MINUTES</span></div>
+        <div class="metric-box" style="border-right:none;"><span class="metric-label">Node</span><span class="metric-value">UMI_FS_IASDO</span></div>
+      </div>
+      <div class="cc-lift" style="padding:1rem 1.5rem;display:flex;align-items:center;gap:10px;">
+        <span class="pulse-dot" style="background:var(--cc-blue);"></span>
+        <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;">DISPATCH #003</span>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- VISUAL BANNER -->
+<div style="padding:0 32px;margin:0 auto;max-width:1600px;" class="reveal">
+  <div style="height:26rem;background:#070b12;border:1px solid rgba(255,255,255,0.05);overflow:hidden;position:relative;">
+    <div class="banner-grid"></div>
+    <div style="position:absolute;top:0;left:0;width:25%;height:100%;background:linear-gradient(to right,#070b12,transparent);z-index:2;"></div>
+    <div style="position:absolute;top:0;right:0;width:25%;height:100%;background:linear-gradient(to left,#070b12,transparent);z-index:2;"></div>
+    <div style="position:absolute;top:1.25rem;left:1.5rem;z-index:4;font-family:JetBrains Mono,monospace;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:rgba(58,16,229,0.5);">CONCEPT_MAP // TAXONOMY_DIAGRAM_V1</div>
+    <div style="position:absolute;top:1.25rem;right:1.5rem;z-index:4;border:1px solid rgba(58,16,229,0.2);padding:8px 14px;background:rgba(58,16,229,0.05);">
+      <span style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:rgba(58,16,229,0.7);">AI &sup; ML &sup; DEEP_LEARNING &nbsp;|&nbsp; DATA_SCIENCE: METHODOLOGY_ARC</span>
+    </div>
+    <div style="position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+        <!-- Outermost: AI -->
+        <div style="position:absolute;width:520px;height:200px;border:1px solid rgba(58,16,229,0.25);display:flex;align-items:flex-start;justify-content:flex-start;padding:10px 14px;">
+          <span style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;color:rgba(58,16,229,0.5);text-transform:uppercase;letter-spacing:0.3em;">ARTIFICIAL INTELLIGENCE</span>
+        </div>
+        <!-- Middle: ML -->
+        <div style="position:absolute;width:360px;height:136px;border:1px solid rgba(58,16,229,0.45);display:flex;align-items:flex-start;justify-content:flex-start;padding:10px 14px;">
+          <span style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;color:rgba(58,16,229,0.7);text-transform:uppercase;letter-spacing:0.3em;">MACHINE LEARNING</span>
+        </div>
+        <!-- Innermost: Deep Learning -->
+        <div style="position:absolute;width:200px;height:70px;border:1px solid rgba(58,16,229,0.85);background:rgba(58,16,229,0.07);display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;color:var(--cc-blue);text-transform:uppercase;letter-spacing:0.2em;">DEEP LEARNING</span>
+        </div>
+        <!-- Data Science arc -->
+        <div style="position:absolute;bottom:18px;font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;color:rgba(255,255,255,0.2);text-transform:uppercase;letter-spacing:0.4em;border-top:1px dashed rgba(255,255,255,0.08);padding-top:8px;width:520px;text-align:center;">
+          &mdash;&mdash; DATA SCIENCE: THE METHODOLOGY ARC SPANNING ALL THREE &mdash;&mdash;
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ARTICLE BODY -->
+<section style="padding:128px 32px;">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div class="article-grid">
+      <div class="article-body reveal">
+        <p>Open any job board, any technology blog, or any corporate strategy deck and you will encounter them stacked together like synonyms: Artificial Intelligence, Machine Learning, Data Science. Used interchangeably. Bundled into the same budget line. Listed as equivalent qualifications for a single hire. <strong>They are not the same thing.</strong></p>
+        <p>This is not a pedantic complaint about terminology. The confusion has direct operational consequences. Companies hire data analysts when they need ML engineers. They buy AI platforms when they need a statistics workflow. They set expectations around intelligent automation that no amount of dashboarding will ever meet. The definitional difference is not academic &mdash; <strong>it is strategic.</strong></p>
+        <h2><span class="section-num">// 01</span> Why the Confusion Matters</h2>
+        <p>The conflation of AI, ML, and Data Science is not accidental. Vendors have every incentive to label their products as &ldquo;AI-powered&rdquo; regardless of what is actually running under the hood. A rule-based recommendation engine, a linear regression model, and a transformer-based language model all get the same badge. The label sells. The distinction is left to the buyer to make &mdash; after the contract is signed.</p>
+        <p>For businesses building or buying technology capability, the cost of this confusion manifests in three specific patterns:</p>
+        <ul>
+          <li>Hiring the wrong people &mdash; a data scientist cannot replace an ML engineer, and vice versa</li>
+          <li>Buying the wrong tools &mdash; an analytics platform will not produce an autonomous decision system</li>
+          <li>Setting wrong expectations &mdash; dashboards tell you what happened, not what to do next</li>
+        </ul>
+        <p>Getting the definitions right before making hiring or procurement decisions is not due diligence. It is the minimum viable intelligence for anyone operating in a technology-dependent business environment.</p>
+        <h2><span class="section-num">// 02</span> Artificial Intelligence: The Objective</h2>
+        <p>Artificial Intelligence is the broadest of the three terms. It refers to any system that mimics or approximates human-like problem solving, reasoning, or decision-making. The term encompasses an enormous range of approaches: rule-based expert systems, search algorithms, symbolic reasoning, probabilistic inference, and yes &mdash; machine learning. <strong>AI is the goal, not the method.</strong></p>
+        <p>Think of it this way: &ldquo;build an AI system&rdquo; is a statement of intent. It tells you what the system should be able to do &mdash; behave intelligently &mdash; but says nothing about how that intelligence is implemented. A chess engine built on minimax search with alpha-beta pruning is AI. A large language model is AI. A fraud detection system running on hand-crafted if/else rules is AI. None of these require machine learning.</p>
+        <div class="key-insight">
+          <span class="key-insight-label">KEY_INSIGHT</span>
+          <p>AI is not a technology. It is an objective. You can build AI without a single machine learning model &mdash; using decision trees and lookup tables. The &ldquo;intelligence&rdquo; is in the behavior, not the substrate.</p>
+        </div>
+        <p>The practical implication: when a vendor tells you their product is &ldquo;AI-powered,&rdquo; the correct follow-up question is not &ldquo;is it AI?&rdquo; but &ldquo;what mechanism produces the intelligent behavior?&rdquo; The answer to that question tells you everything about reliability, maintainability, and failure modes.</p>
+        <h2><span class="section-num">// 03</span> Machine Learning: The Method</h2>
+        <p>Machine Learning is a subset of AI &mdash; one specific method for achieving intelligent behavior. The defining characteristic is that ML systems improve their performance through exposure to data, without being explicitly programmed for each individual case. Instead of handcrafting rules, you expose the system to examples and allow it to extract patterns. <strong>Think of ML as the method.</strong></p>
+        <p>The field organises into three core learning paradigms. Each addresses a different structural relationship between the data and the signal you are trying to capture:</p>
+        <ul>
+          <li>Supervised Learning &mdash; the system trains on labelled input/output pairs to learn a mapping function</li>
+          <li>Unsupervised Learning &mdash; the system discovers latent structure in unlabelled data (clustering, dimensionality reduction)</li>
+          <li>Reinforcement Learning &mdash; the system learns through trial-and-error interaction with an environment, maximising a reward signal</li>
+        </ul>
+        <p>The power of ML is that it handles complexity that explicit programming cannot. Writing rules to distinguish spam from legitimate email at scale is effectively impossible &mdash; the patterns are too varied, too context-dependent, too adversarially dynamic. A classifier trained on millions of examples handles this effortlessly. <strong>ML does not replace engineering. It replaces rule-writing.</strong></p>
+        <p>The critical boundary: ML requires data. Substantial, clean, representative, correctly labelled data. A business with no reliable historical data cannot effectively apply ML, regardless of how sophisticated the algorithm. This is where many ML projects fail &mdash; not at the model level, but at the data foundation level.</p>
+        <h2><span class="section-num">// 04</span> Data Science: The Workflow</h2>
+        <p>Data Science is not a technology and not a type of system &mdash; it is a <strong>practice discipline.</strong> It is the application of the scientific method to business questions using data as evidence. The Data Scientist&rsquo;s toolkit spans data collection and cleaning, exploratory analysis, statistical modeling, visualisation, and the communication of findings to decision-makers. The objective is insight, not deployment.</p>
+        <p>This distinction matters because Data Science often produces outputs that are not software products: a report identifying the primary drivers of customer churn, a statistical analysis of pricing elasticity, a visualisation showing which operational bottlenecks are costing the most. These are valuable. They are not AI systems.</p>
+        <div class="pullquote">
+          <p>&ldquo;Data Science is not a technology stack. It is a thinking process &mdash; the scientific method applied to business questions with data as evidence.&rdquo;</p>
+        </div>
+        <p>The confusion arises because Data Science frequently involves machine learning as one tool among many. A Data Scientist building a churn prediction model is using ML. But the role extends far beyond model building: defining what question to ask, acquiring and validating the data, interpreting results in business context, and communicating findings to non-technical stakeholders. <strong>The model is 20% of the job.</strong></p>
+        <p>A Data Scientist who only produces dashboards and pivot tables is doing analytics, not Data Science. A Data Scientist who only tunes hyperparameters without understanding the business question is doing ML engineering without the strategic layer. The full practice requires both the technical toolkit and the investigative mindset.</p>
+        <h2><span class="section-num">// 05</span> How They Relate in Practice</h2>
+        <p>The relationship between the three terms is best understood as a containment hierarchy combined with a methodology overlay. The containment is strict: Deep Learning is a subset of ML; ML is a subset of AI. Data Science is not contained &mdash; it is a methodology arc that spans across all three.</p>
+        <div class="code-block">
+          <div class="code-block-header">Taxonomy // AI_ML_DS_Relationship_Map</div>
+          <pre><span class="code-comment">// CONTAINMENT HIERARCHY</span>
+
+<span class="code-keyword">ARTIFICIAL INTELLIGENCE</span>  <span class="code-comment">// The broadest category: the objective</span>
+  |
+  +-- <span class="code-var">Rule-Based Systems</span>       <span class="code-comment">// IF/THEN logic, expert systems</span>
+  +-- <span class="code-var">Search Algorithms</span>         <span class="code-comment">// A*, minimax, MCTS</span>
+  +-- <span class="code-var">Symbolic Reasoning</span>        <span class="code-comment">// Logic, constraint satisfaction</span>
+  +-- <span class="code-keyword">MACHINE LEARNING</span>          <span class="code-comment">// Subset: learns from data</span>
+        |
+        +-- <span class="code-var">Linear / Logistic Regression</span>
+        +-- <span class="code-var">Decision Trees, Random Forests</span>
+        +-- <span class="code-var">SVMs, Naive Bayes, KNN</span>
+        +-- <span class="code-string">DEEP LEARNING</span>            <span class="code-comment">// Subset of ML: neural architectures</span>
+              |
+              +-- <span class="code-var">CNNs, RNNs, Transformers</span>
+              +-- <span class="code-var">LLMs, Diffusion Models</span>
+
+<span class="code-comment">// METHODOLOGY ARC (not a subset &mdash; spans across all)</span>
+
+<span class="code-string">DATA SCIENCE</span>  =  <span class="code-var">Question Framing</span>
+               +  <span class="code-var">Data Acquisition &amp; Cleaning</span>
+               +  <span class="code-var">Exploratory Analysis</span>
+               +  <span class="code-var">Statistical Modeling</span>  <span class="code-comment">// may use ML tools</span>
+               +  <span class="code-var">Visualisation &amp; Communication</span>
+               +  <span class="code-var">Insight Delivery to Decision-Makers</span></pre>
+        </div>
+        <p>The key insight from this map: a Data Scientist uses ML techniques to build AI systems &mdash; but this is only one configuration. A Data Scientist who only produces dashboards is not doing AI. An AI system built on explicit rules contains no ML whatsoever. The three terms describe three different layers of abstraction, and none of them is interchangeable.</p>
+        <h2><span class="section-num">// 06</span> What to Ask When Hiring</h2>
+        <p>The definitional clarity above has direct implications for talent acquisition. The three roles are not interchangeable &mdash; they require different training, different tooling, and they produce different outputs. The hiring question is not &ldquo;do we need AI talent?&rdquo; but a more precise set of three questions that follow directly from the taxonomy:</p>
+        <ul>
+          <li>Do you need someone to find patterns in existing data and communicate insights? &mdash; Hire a Data Scientist</li>
+          <li>Do you need someone to automate predictions at scale in a production system? &mdash; Hire an ML Engineer</li>
+          <li>Do you need someone to build an intelligent product or pipeline end-to-end? &mdash; Hire an AI Engineer</li>
+        </ul>
+        <p>In practice, these roles overlap at the boundaries. A strong ML Engineer understands enough Data Science to validate their training data. A strong Data Scientist understands enough ML to build and evaluate models. But the core output differs: <strong>insights vs. models vs. systems.</strong></p>
+        <p>The most expensive hiring mistake in the AI space is not hiring the wrong seniority level. It is hiring for the wrong role entirely &mdash; bringing in a Data Scientist to build a real-time inference pipeline, or hiring an AI Engineer to run exploratory analysis. The job spec must be anchored to the output required, not to the prestige of the title. Clarity on the taxonomy is where that discipline begins.</p>
+      </div>
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="sidebar-sticky">
+          <div class="cc-lift" style="padding:2.5rem;">
+            <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1.25rem;">ARTICLE_INDEX</div>
+            <div style="display:flex;flex-direction:column;">
+              <a href="#" class="sidebar-section-link">// 01 &nbsp; Why the Confusion Matters</a>
+              <a href="#" class="sidebar-section-link">// 02 &nbsp; Artificial Intelligence</a>
+              <a href="#" class="sidebar-section-link">// 03 &nbsp; Machine Learning</a>
+              <a href="#" class="sidebar-section-link">// 04 &nbsp; Data Science</a>
+              <a href="#" class="sidebar-section-link">// 05 &nbsp; How They Relate</a>
+              <a href="#" class="sidebar-section-link">// 06 &nbsp; What to Ask When Hiring</a>
+            </div>
+            <div style="border-top:1px solid rgba(255,255,255,0.06);margin:1.75rem 0;"></div>
+            <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1rem;">TAGS</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              <span class="tag blue">AI</span><span class="tag">ML</span><span class="tag">Data Science</span><span class="tag">Strategy</span>
+            </div>
+            <div style="border-top:1px solid rgba(255,255,255,0.06);margin:1.75rem 0;"></div>
+            <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1rem;">RELATED PROJECT</div>
+            <a href="task1.html#roadmap" style="border:1px solid rgba(58,16,229,0.2);background:rgba(58,16,229,0.04);padding:1rem;display:block;text-decoration:none;transition:border-color 0.2s;">
+              <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:var(--cc-blue);font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px;">Pipeline // 01</div>
+              <div style="font-size:0.875rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.05em;">AI Taxonomy Framework</div>
+            </a>
+            <div style="border-top:1px solid rgba(255,255,255,0.06);margin:1.75rem 0;"></div>
+            <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1rem;">ARTICLE METRICS</div>
+            <div style="display:flex;flex-direction:column;">
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:0.15em;">WORDS</span>
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#fff;font-weight:900;">~1,750</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:0.15em;">SECTIONS</span>
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#fff;font-weight:900;">06</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;">
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:0.15em;">PUBLISHED</span>
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#fff;font-weight:900;">FEB 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+<!-- DISPATCH ACTIONS BAR -->
+<div style="padding:80px 32px;border-top:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+    <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#475569;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;">DISPATCH_COMPLETE // END_OF_ARTICLE</span>
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+      <a href="article-ml-explainer.html" class="btn-outline">&larr; PREV: DISPATCH #002</a>
+      <button class="btn-outline">CITE DISPATCH</button>
+      <a href="article-gut-feeling.html" class="btn-primary">NEXT: DISPATCH #004 &rarr;</a>
+    </div>
+  </div>
+</div>
+<!-- AUTHOR CARD -->
+<div style="padding:96px 32px;border-top:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div class="cc-lift" style="padding:4rem;max-width:56rem;">
+      <div style="display:flex;align-items:flex-start;gap:3rem;flex-wrap:wrap;">
+        <div style="width:80px;height:80px;background:var(--cc-blue);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-weight:900;font-size:2rem;color:#fff;flex-shrink:0;">E</div>
+        <div style="flex:1;min-width:200px;">
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:#475569;font-weight:800;text-transform:uppercase;letter-spacing:0.4em;margin-bottom:0.75rem;">AUTHOR // NODE_CONTRIBUTOR</div>
+          <div style="font-size:1.25rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;color:#fff;margin-bottom:0.25rem;">The Engrammers Collective</div>
+          <div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--cc-blue);font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:1.25rem;">IASDO / UMI MEKNES</div>
+          <p style="color:#94a3b8;font-size:0.9rem;line-height:1.7;">The Engrammers is a student AI and Operations Research collective at the Faculty of Sciences, Universit&eacute; Moulay Ismail, Meknes. We build, document, and deploy AI systems for real-world problems in the Moroccan context &mdash; with a focus on grounded, auditable, locally-deployable intelligence.</p>
+          <div style="margin-top:1.5rem;display:flex;align-items:center;gap:1rem;">
+            <a href="task1.html#about" class="btn-outline" style="padding:10px 24px;font-size:0.65rem;">VIEW NODE</a>
+            <a href="articles.html" class="action-btn" style="padding:10px 20px;">ALL DISPATCHES &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- RELATED ARTICLES -->
+<section style="padding:128px 32px;border-top:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4rem;flex-wrap:wrap;gap:1.5rem;">
+      <div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.5em;color:#475569;margin-bottom:1rem;">// FURTHER READING</div>
+        <h2 class="section-header" style="font-size:clamp(2rem,4vw,3.5rem);">RELATED<br>DISPATCHES</h2>
+      </div>
+      <a href="articles.html" class="btn-outline">VIEW ALL ARTICLES</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;">
+      <a href="article-ml-explainer.html" class="related-card">
+        <div style="margin-bottom:1.25rem;"><span class="tag blue" style="font-size:0.6rem;">ML</span><span class="tag" style="font-size:0.6rem;margin-left:6px;">Explainability</span></div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:#475569;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px;">DISPATCH #002</div>
+        <h3 style="font-size:1.125rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;color:#fff;line-height:1.2;margin-bottom:1rem;">The ML Explainer: How Models Actually Learn</h3>
+        <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:1.25rem;">A ground-up explanation of how machine learning models extract patterns from data and what that means for real-world deployment.</p>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:var(--cc-blue);font-weight:800;text-transform:uppercase;letter-spacing:0.15em;">READ DISPATCH &rarr;</div>
+      </a>
+      <a href="article-gut-feeling.html" class="related-card">
+        <div style="margin-bottom:1.25rem;"><span class="tag blue" style="font-size:0.6rem;">Strategy</span><span class="tag" style="font-size:0.6rem;margin-left:6px;">Decision-Making</span></div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:#475569;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px;">DISPATCH #004</div>
+        <h3 style="font-size:1.125rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;color:#fff;line-height:1.2;margin-bottom:1rem;">Gut Feeling vs. Data: When to Trust Each</h3>
+        <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:1.25rem;">A framework for deciding when data-driven decisions outperform intuition &mdash; and when they do not. Neither is universally superior.</p>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:var(--cc-blue);font-weight:800;text-transform:uppercase;letter-spacing:0.15em;">READ DISPATCH &rarr;</div>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- TICKER -->
+<div style="background:#0a0d12;border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);padding:18px 0;overflow:hidden;">
+  <div class="ticker-track">
+    <div class="ticker-inner">
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">THE ENGRAMMERS</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">AI &sup; ML &sup; DEEP LEARNING</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">UMI MEKNES // IASDO</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">DATA SCIENCE: THE METHODOLOGY ARC</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">KNOWLEDGE NODE ACTIVE</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">DISPATCH #003 &mdash; PUBLISHED</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">THE ENGRAMMERS</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">AI &sup; ML &sup; DEEP LEARNING</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">UMI MEKNES // IASDO</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">DATA SCIENCE: THE METHODOLOGY ARC</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">KNOWLEDGE NODE ACTIVE</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">DISPATCH #003 &mdash; PUBLISHED</span>
+    </div>
+  </div>
+</div>
+<!-- FOOTER -->
+<footer style="background:#05070a;border-top:1px solid rgba(255,255,255,0.05);padding:80px 32px 40px;">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:3rem;margin-bottom:4rem;">
+      <div>
+        <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:140px;height:35px;object-fit:contain;margin-bottom:1.5rem;" />
+        <p style="font-size:0.8rem;color:#475569;line-height:1.7;margin-bottom:1.5rem;">Student AI &amp; OR Collective.<br>UMI Meknes &mdash; IASDO Node.</p>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="pulse-dot" style="background:#10b981;"></span>
+          <span style="font-family:JetBrains Mono,monospace;font-size:0.6rem;color:#475569;text-transform:uppercase;letter-spacing:0.15em;">Node Online</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1.25rem;">Navigation</div>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <a href="task1.html#about" class="nav-link">Our Hub</a>
+          <a href="articles.html" class="nav-link">News_Hub</a>
+          <a href="task1.html#roadmap" class="nav-link">Roadmap</a>
+          <a href="task1.html#services" class="nav-link">Services</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1.25rem;">Community</div>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <a href="task1.html#forum" class="nav-link">Forum</a>
+          <a href="task1.html#collaboration" class="nav-link">Join Collective</a>
+          <a href="team.html" class="nav-link">The Team</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1.25rem;">System Status</div>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <div style="display:flex;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.05);"><span style="color:#475569;">KNOWLEDGE NODE</span><span style="color:#10b981;">ACTIVE</span></div>
+          <div style="display:flex;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.05);"><span style="color:#475569;">FORUM</span><span style="color:#10b981;">ONLINE</span></div>
+          <div style="display:flex;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;"><span style="color:#475569;">PIPELINE</span><span style="color:var(--cc-blue);">BUILDING</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <span style="font-family:JetBrains Mono,monospace;font-size:9px;color:#1e293b;text-transform:uppercase;letter-spacing:0.15em;">&copy; 2026 THE ENGRAMMERS // UMI MEKNES // ALL RIGHTS RESERVED</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:9px;color:#1e293b;text-transform:uppercase;letter-spacing:0.15em;">DISPATCH #003 // FEB 2026</span>
+    </div>
+  </div>
+</footer>
+<!-- JAVASCRIPT -->
+<script>
+  const revealEls = document.querySelectorAll(".reveal");
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
+  );
+  revealEls.forEach((el) => revealObserver.observe(el));
+  const progressBar = document.getElementById("reading-progress");
+  window.addEventListener("scroll", () => {
+    const docHeight = document.documentElement.scrollHeight;
+    const windowHeight = window.innerHeight;
+    const scrolled = window.scrollY;
+    const progress = Math.min((scrolled / (docHeight - windowHeight)) * 100, 100);
+    progressBar.style.width = progress + "%";
+  });
+</script>
+</body>
+</html>

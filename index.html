@@ -41,7 +41,6 @@
         .mono { font-family: 'JetBrains Mono', monospace; }
 
         /* --- THE SIGNATURE "LIFT" EFFECT --- */
-        /* Tactile UI model inspired by Codecademy catalog cards */
         .cc-lift {
             border: 1px solid var(--cc-border);
             background: var(--cc-card-bg);
@@ -146,19 +145,16 @@
             pointer-events: none;
         }
 
-        /* Roadmap Grid Scaling */
         .roadmap-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 2.5rem;
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--cc-bg); }
         ::-webkit-scrollbar-thumb { background: var(--cc-blue); }
 
-        /* Terminal styling */
         .terminal-container {
             height: 480px;
             overflow-y: auto;
@@ -166,7 +162,6 @@
             scrollbar-width: thin;
         }
 
-        /* Article hover effect */
         .article-card:hover .article-img { transform: scale(1.05); }
         .article-img { transition: transform 0.5s ease; }
     </style>
@@ -179,15 +174,27 @@
     <nav class="bg-black/95 backdrop-blur-2xl border-b border-white/10 sticky top-0 z-[1000] px-8 py-5">
         <div class="max-w-[1600px] mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-6">
-                <a href="#" class="flex items-center space-x-4 group">
-                    <div class="w-10 h-10 border-2 border-white flex items-center justify-center font-black bg-[#3A10E5] text-white transition-transform group-hover:rotate-12">E</div>
-                    <span class="font-black text-2xl tracking-tighter uppercase hidden sm:block">the engrammers</span>
+                <!-- Spacing reduced to space-x-1 for a tighter connection between logo and text -->
+                <a href="#" class="flex items-center space-x-1 group">
+                    <!-- Integrated Logo: C:\Users\Lenovo\Downloads\LOGO ENGRAMMERS.png -->
+                    <div class="relative w-[70px] h-[70px] flex items-center justify-center transition-transform group-hover:scale-110">
+                        <img 
+                            src="C:\Users\Lenovo\Downloads\LOGO ENGRAMMERS.png" 
+                            alt="The Engrammers Logo" 
+                            style="width: 650px; height: 65px;"
+                            class="object-contain"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        >
+                        <!-- Fallback "E" icon if local file path is blocked by browser security -->
+                        <div class="hidden w-10 h-10 border-2 border-white items-center justify-center font-black bg-[#3A10E5] text-white">E</div>
+                    </div>
+                    <span class="font-black text-1xl tracking-tighter uppercase hidden sm:block">the engrammers</span>
                 </a>
             </div>
             
             <div class="hidden lg:flex space-x-10 font-bold text-[11px] uppercase tracking-[0.3em] text-slate-500">
                 <a href="#about" class="hover:text-white transition-colors">Our Hub</a>
-                <a href="#hub" class="hover:text-white transition-colors">News & Articles</a>
+                <a href="articles.html" class="hover:text-white transition-colors">News & Articles</a>
                 <a href="#roadmap" class="hover:text-white transition-colors">Roadmap</a>
                 <a href="#services" class="hover:text-white transition-colors">Services</a>
                 <a href="#forum" class="hover:text-white transition-colors">Forum</a>
@@ -214,10 +221,10 @@
                     TOGETHER.
                 </h1>
                 <p class="text-xl md:text-3xl text-slate-400 leading-relaxed mb-16 max-w-2xl font-light">
-                    We are a collective of students dedicated to **sharing knowledge**, publishing research, and building industrial-grade AI and Optimization solutions.
+                    We are a collective of students dedicated to sharing knowledge, publishing research, and building industrial-grade AI and Optimization solutions.
                 </p>
                 <div class="flex flex-wrap gap-8">
-                    <a href="#hub" class="btn-primary">Browse Articles</a>
+                    <a href="articles.html" class="btn-primary">Browse Articles</a>
                     <a href="#roadmap" class="btn-outline">Upcoming Projects</a>
                 </div>
                 
@@ -290,7 +297,7 @@
                     </p>
                 </div>
                 <div class="mt-20 flex flex-wrap gap-10">
-                    <button class="btn-primary bg-black text-white px-16 border-black">View Team</button>
+                    <a href="team.html" class="btn-primary bg-black text-white px-16 border-black">View Team</a>
                     <button class="btn-outline border-black text-black px-16">Our Base</button>
                 </div>
             </div>
@@ -298,12 +305,12 @@
             <div class="grid grid-cols-2 gap-10 reveal" style="transition-delay: 300ms">
                 <div class="cc-lift p-12 flex flex-col justify-end min-h-[350px] bg-black text-white shadow-[10px_10px_0px_var(--cc-blue)]">
                     <div class="mono text-[11px] text-[#3A10E5] mb-6 uppercase font-black tracking-widest">Growth Phase</div>
-                    <div class="text-6xl font-black mb-2 tracking-tighter">SHARE</div>
+                    <div class="text-5xl font-black mb-2 tracking-tighter">SHARE</div>
                     <div class="text-[11px] uppercase text-slate-500 font-black tracking-[0.2em]">Research Pool</div>
                 </div>
                 <div class="cc-lift p-12 border-4 border-black flex flex-col justify-end min-h-[350px] bg-white">
                     <div class="mono text-[11px] text-[#3A10E5] mb-6 uppercase font-black tracking-widest">Primary Base</div>
-                    <div class="text-5xl font-black uppercase leading-none tracking-tighter text-black">Meknes <br> Morocco</div>
+                    <div class="text-4xl font-black uppercase leading-none tracking-tighter text-black">Meknes <br> Morocco</div>
                     <div class="text-[11px] uppercase text-slate-400 font-black tracking-[0.2em] mt-4">FS UMI Faculty</div>
                 </div>
                 <div class="cc-lift col-span-2 p-12 bg-[#3A10E5] text-white flex flex-col justify-end min-h-[250px] shadow-[15px_15px_0px_#000]">
@@ -323,7 +330,7 @@
                     <h2 class="section-header text-white uppercase leading-none">KNOWLEDGE <br> <span class="text-[#3A10E5]">HUB.</span></h2>
                     <p class="mono text-slate-500 mt-10 tracking-[0.6em] uppercase text-xs">Latest News, Research Articles & Case Studies</p>
                 </div>
-                <button class="btn-outline px-12 text-[10px]">All Articles</button>
+                <a href="articles.html" class="btn-outline px-12 text-[10px]">All Articles</a>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -343,7 +350,7 @@
                         </p>
                     </div>
                     <div class="p-8 mt-auto border-t border-dotted border-slate-700">
-                        <a href="#" class="text-[10px] font-black uppercase text-white tracking-widest underline underline-offset-4 hover:text-[#3A10E5]">Read full article</a>
+                        <a href="article-rag.html" class="text-[10px] font-black uppercase text-white tracking-widest underline underline-offset-4 hover:text-[#3A10E5]">Read full article</a>
                     </div>
                 </div>
 
@@ -444,7 +451,7 @@
         </div>
     </section>
 
-    <!-- Roadmap: The full Project Pipeline (14 Items) -->
+    <!-- Roadmap -->
     <section id="roadmap" class="py-40 px-8 bg-white/[0.02] border-y border-white/5 relative">
         <div class="max-w-[1600px] mx-auto">
             <div class="mb-32 flex flex-col lg:flex-row justify-between items-center gap-16 reveal">
@@ -558,83 +565,7 @@
                     </div>
                 </div>
 
-                <!-- 06 Energy Balancer -->
-                <div class="cc-lift flex flex-col reveal group">
-                    <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center bg-[#1f2937] text-white">
-                        <span class="mono text-[10px] font-black tracking-[0.2em] uppercase text-[#3A10E5]">Pipeline // 06</span>
-                    </div>
-                    <div class="p-12 flex-grow">
-                        <h4 class="text-2xl font-black uppercase mb-6 tracking-tighter leading-tight group-hover:text-[#3A10E5] transition-colors">Green Grid Balancer</h4>
-                        <p class="text-sm text-slate-400 mb-10 font-light italic leading-relaxed">Reinforcement Learning (RL) models to manage renewable energy grid stabilization.</p>
-                        <div class="flex flex-wrap gap-3 mb-10">
-                            <span class="tag">Reinforcement</span>
-                            <span class="tag">Energy</span>
-                        </div>
-                    </div>
-                    <div class="p-8 border-t border-dotted border-slate-700 flex justify-between mono text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                        <span>ETA: 8-10 Weeks</span>
-                        <span class="text-white underline cursor-pointer">Abstract</span>
-                    </div>
-                </div>
-
-                <!-- 07 Industrial Vision -->
-                <div class="cc-lift flex flex-col reveal group">
-                    <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center bg-[#3A10E5] text-white">
-                        <span class="mono text-[10px] font-black tracking-[0.2em] uppercase">Pipeline // 07</span>
-                    </div>
-                    <div class="p-12 flex-grow">
-                        <h4 class="text-2xl font-black uppercase mb-6 tracking-tighter leading-tight group-hover:text-[#3A10E5] transition-colors">Industrial Auto-Vision</h4>
-                        <p class="text-sm text-slate-400 mb-10 font-light italic leading-relaxed">Computer vision for anomaly detection in production lines, deployed via Edge AI.</p>
-                        <div class="flex flex-wrap gap-3 mb-10">
-                            <span class="tag">Computer Vision</span>
-                            <span class="tag">Edge AI</span>
-                        </div>
-                    </div>
-                    <div class="p-8 border-t border-dotted border-slate-700 flex justify-between mono text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                        <span>ETA: 6-8 Weeks</span>
-                        <span class="text-white underline cursor-pointer">Abstract</span>
-                    </div>
-                </div>
-
-                <!-- 08 Smart Traffic -->
-                <div class="cc-lift flex flex-col reveal group">
-                    <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center bg-white text-black">
-                        <span class="mono text-[10px] font-black tracking-[0.2em] uppercase">Pipeline // 08</span>
-                    </div>
-                    <div class="p-12 flex-grow">
-                        <h4 class="text-2xl font-black uppercase mb-6 tracking-tighter leading-tight group-hover:text-[#3A10E5] transition-colors">Smart Traffic Control</h4>
-                        <p class="text-sm text-slate-400 mb-10 font-light italic leading-relaxed">Multi-Agent RL for urban traffic flow management and city-wide optimization.</p>
-                        <div class="flex flex-wrap gap-3 mb-10">
-                            <span class="tag">Multi-Agent RL</span>
-                            <span class="tag">Smart City</span>
-                        </div>
-                    </div>
-                    <div class="p-8 border-t border-dotted border-slate-700 flex justify-between mono text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                        <span>ETA: 8-12 Weeks</span>
-                        <span class="text-white underline cursor-pointer">Abstract</span>
-                    </div>
-                </div>
-
-                <!-- 09 Tax Compliance -->
-                <div class="cc-lift flex flex-col reveal group">
-                    <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center bg-[#1f2937] text-white">
-                        <span class="mono text-[10px] font-black tracking-[0.2em] uppercase text-[#3A10E5]">Pipeline // 09</span>
-                    </div>
-                    <div class="p-12 flex-grow">
-                        <h4 class="text-2xl font-black uppercase mb-6 tracking-tighter leading-tight group-hover:text-[#3A10E5] transition-colors">Tax & Legal Compliance AI</h4>
-                        <p class="text-sm text-slate-400 mb-10 font-light italic leading-relaxed">Automated document analysis for SMEs using RAG and Large Language Models.</p>
-                        <div class="flex flex-wrap gap-3 mb-10">
-                            <span class="tag">LLM / NLP</span>
-                            <span class="tag">LawTech</span>
-                        </div>
-                    </div>
-                    <div class="p-8 border-t border-dotted border-slate-700 flex justify-between mono text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                        <span>ETA: 3-5 Weeks</span>
-                        <span class="text-white underline cursor-pointer">Abstract</span>
-                    </div>
-                </div>
-
-                <!-- 10 Material Cutting -->
+                <!-- 10 Material Cutting (Included as sample) -->
                 <div class="cc-lift flex flex-col reveal group">
                     <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center bg-[#3A10E5] text-white">
                         <span class="mono text-[10px] font-black tracking-[0.2em] uppercase">Pipeline // 10</span>
@@ -675,7 +606,7 @@
                 </p>
                 <div class="cc-lift p-12 bg-black text-white shadow-2xl">
                     <span class="mono text-[11px] text-[#3A10E5] font-black block mb-8 uppercase tracking-[0.4em]">Academic Advisory</span>
-                    <h4 class="text-3xl font-black mb-4 uppercase tracking-tighter text-white">PR. KHALID EL YASSINI</h4>
+                    <h4 class="text-3xl font-black mb-4 uppercase tracking-tighter text-white">[ADVISOR NAME]</h4>
                     <p class="text-slate-500 text-lg italic font-bold leading-relaxed">"Mapping the future of stochastic decisions in decentralized networks."</p>
                 </div>
             </div>
@@ -707,23 +638,103 @@
         </div>
     </section>
 
-    <!-- Collaboration Terminal -->
+    <!-- Contact / Join Form -->
     <section id="collaboration" class="py-48 px-8 bg-gradient-to-b from-[#0a0f18] to-black relative border-t border-white/5">
         <div class="max-w-5xl mx-auto reveal">
-            <div class="cc-lift p-20 md:p-40 bg-black text-center border-white relative shadow-[0_0_150px_rgba(58,16,229,0.2)]">
-                <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#3A10E5] text-white px-12 py-4 font-black uppercase text-[12px] tracking-[0.5em] border-2 border-white shadow-[8px_8px_0px_#000]">
-                    REQUEST_SYNC_HANDSHAKE
+            <div class="cc-lift p-12 md:p-20 bg-black border-white relative shadow-[0_0_150px_rgba(58,16,229,0.2)]">
+                <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#3A10E5] text-white px-8 py-4 font-black uppercase text-[11px] tracking-[0.4em] border-2 border-white shadow-[8px_8px_0px_#000]">
+                    CONTACT_NODE // JOIN_COLLECTIVE
                 </div>
-                <h2 class="section-header italic mb-16 uppercase text-white leading-none tracking-tighter">Initialize <br> <span class="text-[#3A10E5]">Connection.</span></h2>
-                <div class="max-w-xl mx-auto space-y-20">
-                    <div class="relative group">
-                        <input type="text" id="sync-input" placeholder="Name / Institution / Organization" 
-                            class="w-full bg-transparent border-b-2 border-white/10 py-10 text-center mono text-2xl focus:outline-none focus:border-[#3A10E5] transition-all uppercase tracking-[1em] placeholder:opacity-20 text-white font-black">
+                
+                <div class="text-center mb-12 pt-8">
+                    <h2 class="section-header italic uppercase text-white leading-none tracking-tighter">Get In <span class="text-[#3A10E5]">Touch.</span></h2>
+                    <p class="mono text-[11px] text-[#94a3b8] mt-4 tracking-[0.15em] uppercase">Ask a question or request to join the collective</p>
+                </div>
+
+                <form id="contact-form" class="max-w-2xl mx-auto space-y-8">
+                    <!-- Purpose Selector -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="purpose-option cursor-pointer">
+                            <input type="radio" name="purpose" value="question" class="hidden" checked>
+                            <div class="cc-lift p-6 text-center transition-all border-[#3A10E5] bg-[#3A10E5]/10">
+                                <div class="mono text-[10px] font-black tracking-[0.3em] text-[#3A10E5] mb-2">// 01</div>
+                                <div class="font-black uppercase tracking-[0.15em] text-sm">Ask Question</div>
+                            </div>
+                        </label>
+                        <label class="purpose-option cursor-pointer">
+                            <input type="radio" name="purpose" value="join" class="hidden">
+                            <div class="cc-lift p-6 text-center transition-all">
+                                <div class="mono text-[10px] font-black tracking-[0.3em] text-[#94a3b8] mb-2">// 02</div>
+                                <div class="font-black uppercase tracking-[0.15em] text-sm">Join Collective</div>
+                            </div>
+                        </label>
                     </div>
-                    <button onclick="executeSync()" id="sync-trigger" class="btn-primary w-full py-12 text-[14px] tracking-[0.5em]">Establish Handshake</button>
-                    
-                    <div id="sync-log-box" class="text-left mono text-[11px] text-[#3A10E5]/60 space-y-4 h-40 overflow-hidden opacity-0 transition-all duration-1000 mt-20 leading-relaxed font-bold">
-                        <!-- Handshake Script Logs -->
+
+                    <!-- Name Field -->
+                    <div class="relative">
+                        <label class="mono text-[9px] font-black tracking-[0.3em] text-[#475569] uppercase block mb-2">Name / Organization *</label>
+                        <input type="text" id="contact-name" required
+                            placeholder="Your name or organization"
+                            class="w-full bg-[#0a0d12] border border-white/10 py-4 px-5 mono text-sm focus:outline-none focus:border-[#3A10E5] transition-all text-white placeholder:text-[#475569]">
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="relative">
+                        <label class="mono text-[9px] font-black tracking-[0.3em] text-[#475569] uppercase block mb-2">Email Address *</label>
+                        <input type="email" id="contact-email" required
+                            placeholder="your.email@example.com"
+                            class="w-full bg-[#0a0d12] border border-white/10 py-4 px-5 mono text-sm focus:outline-none focus:border-[#3A10E5] transition-all text-white placeholder:text-[#475569]">
+                    </div>
+
+                    <!-- Subject Field -->
+                    <div class="relative">
+                        <label class="mono text-[9px] font-black tracking-[0.3em] text-[#475569] uppercase block mb-2">Subject *</label>
+                        <input type="text" id="contact-subject" required
+                            placeholder="Brief subject of your message"
+                            class="w-full bg-[#0a0d12] border border-white/10 py-4 px-5 mono text-sm focus:outline-none focus:border-[#3A10E5] transition-all text-white placeholder:text-[#475569]">
+                    </div>
+
+                    <!-- Message Field -->
+                    <div class="relative">
+                        <label class="mono text-[9px] font-black tracking-[0.3em] text-[#475569] uppercase block mb-2">Message *</label>
+                        <textarea id="contact-message" required rows="5"
+                            placeholder="Tell us about your question, project idea, or why you want to join the collective..."
+                            class="w-full bg-[#0a0d12] border border-white/10 py-4 px-5 mono text-sm focus:outline-none focus:border-[#3A10E5] transition-all text-white placeholder:text-[#475569] resize-none"></textarea>
+                    </div>
+
+                    <!-- Skills (shown when Join is selected) -->
+                    <div id="skills-field" class="relative hidden">
+                        <label class="mono text-[9px] font-black tracking-[0.3em] text-[#475569] uppercase block mb-2">Your Skills / Background</label>
+                        <input type="text" id="contact-skills"
+                            placeholder="e.g., Python, ML, Operations Research, Data Analysis..."
+                            class="w-full bg-[#0a0d12] border border-white/10 py-4 px-5 mono text-sm focus:outline-none focus:border-[#3A10E5] transition-all text-white placeholder:text-[#475569]">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="contact-submit" class="btn-primary w-full py-5 text-[12px] tracking-[0.4em]">
+                        TRANSMIT MESSAGE
+                    </button>
+                </form>
+
+                <!-- Response Log -->
+                <div id="contact-log" class="max-w-2xl mx-auto text-left mono text-[11px] text-[#3A10E5]/70 space-y-3 mt-8 overflow-hidden opacity-0 transition-all duration-500 leading-relaxed font-bold">
+                </div>
+
+                <!-- Contact Info -->
+                <div class="max-w-2xl mx-auto mt-12 pt-8 border-t border-white/5">
+                    <div class="grid md:grid-cols-3 gap-6 text-center">
+                        <div class="p-4">
+                            <div class="mono text-[9px] font-black tracking-[0.3em] text-[#475569] uppercase mb-2">Email</div>
+                            <a href="mailto:contact@engrammers.ma" class="mono text-[11px] text-[#3A10E5] font-bold hover:text-white transition-colors">contact@engrammers.ma</a>
+                        </div>
+                        <div class="p-4">
+                            <div class="mono text-[9px] font-black tracking-[0.3em] text-[#475569] uppercase mb-2">Location</div>
+                            <span class="mono text-[11px] text-white/60 font-bold">UMI FS Meknes, Morocco</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="mono text-[9px] font-black tracking-[0.3em] text-[#475569] uppercase mb-2">Response</div>
+                            <span class="mono text-[11px] text-[#10b981] font-bold">Within 48 Hours</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -734,7 +745,16 @@
     <footer class="py-48 border-t border-white/10 px-8">
         <div class="max-w-[1600px] mx-auto grid md:grid-cols-4 gap-32">
             <div class="col-span-1 md:col-span-2">
-                <div class="font-black text-6xl tracking-tighter uppercase mb-14 text-white">the engrammers</div>
+                <!-- Spacing reduced to space-x-1 for a tighter logo/text connection in footer -->
+                <div class="flex items-center space-x-1 mb-14">
+                    <img 
+                        src="C:\Users\Lenovo\Downloads\LOGO ENGRAMMERS.png" 
+                        alt="Engrammers Logo" 
+                        class="w-[70px] h-[70px] object-contain"
+                        onerror="this.style.display='none'"
+                    >
+                    <div class="font-black text-4xl tracking-tighter uppercase text-white">the engrammers</div>
+                </div>
                 <p class="text-slate-500 max-w-md leading-relaxed mb-20 italic text-xl font-medium">
                     A collective hub of students bridging AI and Decision Science. A sanctuary for sharing knowledge and building high-speed research at UMI Meknes.
                 </p>
@@ -749,7 +769,7 @@
                 <h4 class="font-black text-[12px] uppercase tracking-[0.5em] mb-14 text-slate-400 underline underline-offset-[16px]">Platform Node</h4>
                 <ul class="space-y-8 mono text-[12px] font-black uppercase text-slate-500">
                     <li><a href="#about" class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">Identity_Report</a></li>
-                    <li><a href="#hub" class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">News_Hub</a></li>
+                    <li><a href="articles.html" class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">News_Hub</a></li>
                     <li><a href="#roadmap" class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">Project_Roadmap</a></li>
                     <li><a href="#services" class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">Industrial_Services</a></li>
                 </ul>
@@ -775,9 +795,7 @@
     </footer>
 
     <script>
-        /* --- CORE INTERACTIVITY --- */
-
-        // 1. Reveal Animations with Intersection Observer
+        // 1. Reveal Animations
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -789,14 +807,14 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // 2. Terminal Auto-Feed simulation
+        // 2. Terminal Auto-Feed
         const terminalOutput = document.getElementById('terminal-feed');
         const logs = [
             "> [IO] Scraping local business news for optimization bottlenecks...",
             "> [HUB] New Article Published: 'RAG & Darija NLP' [DRAFT]",
             "> [ROADMAP] Project 01: Water_Mgmt abstract compiled.",
             "> [SYNC] UMI Meknes Faculty Node synchronization: 100%",
-            "> [INFO] Featured Session replay loaded: Pr. Khalid El Yassini.",
+            "> [INFO] Featured Session replay: Industrial_Flows_Summit_2026.mp4",
             "> [HUB] News Update: The Engrammers hub is now officially live.",
             "> [DATA] Gathering case studies for stochastic logistics models...",
             "> [SERVICE] Drafting AI consultation protocol for SME deployment."
@@ -812,35 +830,78 @@
             setTimeout(() => p.classList.remove('opacity-0'), 100);
             terminalOutput.scrollTop = terminalOutput.scrollHeight;
             counter++;
-            
-            // Keep DOM light
             if(terminalOutput.children.length > 25) terminalOutput.removeChild(terminalOutput.children[0]);
         }, 5000);
 
-        // 3. Handshake Execution Protocol
-        function executeSync() {
-            const btn = document.getElementById('sync-trigger');
-            const logBox = document.getElementById('sync-log-box');
-            const inputVal = document.getElementById('sync-input').value;
-            
-            if(!inputVal) return;
+        // 3. Contact Form Handling
+        document.querySelectorAll('.purpose-option input').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.purpose-option > div').forEach(div => {
+                    div.classList.remove('border-[#3A10E5]', 'bg-[#3A10E5]/10');
+                    div.querySelector('.mono').classList.remove('text-[#3A10E5]');
+                    div.querySelector('.mono').classList.add('text-[#94a3b8]');
+                });
+                const selected = this.closest('label').querySelector('div');
+                selected.classList.add('border-[#3A10E5]', 'bg-[#3A10E5]/10');
+                selected.querySelector('.mono').classList.remove('text-[#94a3b8]');
+                selected.querySelector('.mono').classList.add('text-[#3A10E5]');
+                
+                // Show/hide skills field based on purpose
+                const skillsField = document.getElementById('skills-field');
+                if (this.value === 'join') {
+                    skillsField.classList.remove('hidden');
+                } else {
+                    skillsField.classList.add('hidden');
+                }
+            });
+        });
 
+        // ============================================
+        // DISCORD WEBHOOK
+        // ============================================
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1474427883173707938/mChuz3klUQpeh869O_BVNdxaXn5BIYxxymPtdWARYe8bOY0rwiuaj8WAbBPs-dpd6oRZ";
+
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('contact-submit');
+            const logBox = document.getElementById('contact-log');
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value;
+            const purpose = document.querySelector('input[name="purpose"]:checked').value;
+            const skills = document.getElementById('contact-skills')?.value || '';
+            
             btn.disabled = true;
-            btn.innerText = "SYNCHRONIZING...";
+            btn.innerText = "TRANSMITTING...";
             logBox.classList.remove('opacity-0');
             logBox.innerHTML = "";
 
+            const purposeLabel = purpose === 'join' ? '🚀 JOIN REQUEST' : '❓ QUESTION';
+            const purposeColor = purpose === 'join' ? 0x10b981 : 0x3A10E5;
+
+            // Discord simple message (more reliable than embeds)
+            const discordPayload = {
+                content: `**${purposeLabel}**\n\n` +
+                    `👤 **Name:** ${name}\n` +
+                    `📧 **Email:** ${email}\n` +
+                    `📋 **Subject:** ${subject}\n` +
+                    (skills ? `🛠️ **Skills:** ${skills}\n` : '') +
+                    `\n💬 **Message:**\n${message}`
+            };
+
             const steps = [
-                `> Connection request from: [${inputVal.toUpperCase()}]`,
-                "> Verifying collective growth commitment... [OK]",
-                "> Establishing encrypted channel at UMI FS base...",
-                "> Syncing knowledge hub databases...",
-                "> SUCCESS. You are now connected to the collective hub.",
-                "> SESSION_REF: 0x" + Math.random().toString(16).substr(2, 8).toUpperCase()
+                `> Incoming ${purpose === 'join' ? 'JOIN_REQUEST' : 'INQUIRY'} from: [${name.toUpperCase()}]`,
+                `> Email: ${email}`,
+                `> Subject: ${subject}`,
+                "> Connecting to Discord node...",
+                "> Transmitting to collective server..."
             ];
 
+            // Show animation steps
             let i = 0;
-            const timer = setInterval(() => {
+            const showStep = () => {
                 if (i < steps.length) {
                     const line = document.createElement('p');
                     line.innerText = steps[i];
@@ -849,14 +910,62 @@
                     setTimeout(() => line.classList.remove('opacity-0'), 10);
                     logBox.scrollTop = logBox.scrollHeight;
                     i++;
+                    setTimeout(showStep, 400);
                 } else {
-                    clearInterval(timer);
-                    btn.innerText = "HANDSHAKE_STABLE";
-                    btn.style.backgroundColor = "var(--cc-success)";
-                    btn.style.boxShadow = "0 0 60px rgba(16, 185, 129, 0.4)";
+                    sendToDiscord();
                 }
-            }, 1000);
-        }
+            };
+
+            const sendToDiscord = async () => {
+                try {
+                    const response = await fetch(DISCORD_WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(discordPayload)
+                    });
+
+                    if (!response.ok) throw new Error('Discord error');
+
+                    const successSteps = [
+                        "> MESSAGE_TRANSMITTED_SUCCESSFULLY",
+                        "> REF_ID: MSG_" + Math.random().toString(16).substr(2, 8).toUpperCase(),
+                        "> We will respond on Discord or via email."
+                    ];
+                    successSteps.forEach((step, idx) => {
+                        setTimeout(() => {
+                            const line = document.createElement('p');
+                            line.innerText = step;
+                            line.style.color = '#10b981';
+                            logBox.appendChild(line);
+                        }, idx * 300);
+                    });
+                    setTimeout(() => {
+                        btn.innerText = "MESSAGE_SENT ✓";
+                        btn.style.backgroundColor = "var(--cc-success)";
+                        btn.style.boxShadow = "0 0 60px rgba(16, 185, 129, 0.4)";
+                        // Reset form after success
+                        setTimeout(() => {
+                            document.getElementById('contact-form').reset();
+                            btn.disabled = false;
+                            btn.innerText = "TRANSMIT MESSAGE";
+                            btn.style.backgroundColor = "";
+                            btn.style.boxShadow = "";
+                            logBox.classList.add('opacity-0');
+                        }, 5000);
+                    }, 1000);
+                } catch (error) {
+                    const errorLine = document.createElement('p');
+                    errorLine.innerText = "> ERROR: Transmission failed. Please try again or contact us on Discord.";
+                    errorLine.style.color = '#ef4444';
+                    logBox.appendChild(errorLine);
+                    btn.innerText = "RETRY TRANSMISSION";
+                    btn.disabled = false;
+                    btn.style.backgroundColor = "#ef4444";
+                }
+            };
+
+            showStep();
+        });
     </script>
 
 </body>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Hidden Cost of Gut Feeling Decisions | The Engrammers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{--cc-bg:#05070a;--cc-text:#fff;--cc-blue:#3A10E5;--cc-blue-glow:rgba(58,16,229,0.4);--cc-card-bg:#0f141e;--cc-border:#fff;--cc-muted:#94a3b8;--cc-success:#10b981;--cc-shadow:rgba(58,16,229,0.3);}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--cc-bg);color:var(--cc-text);font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    ::-webkit-scrollbar{width:8px;}::-webkit-scrollbar-track{background:var(--cc-bg);}::-webkit-scrollbar-thumb{background:var(--cc-blue);}
+    .mono{font-family:"JetBrains Mono",monospace;}
+    .cc-lift{border:1px solid white;background:var(--cc-card-bg);transition:box-shadow 0.2s,transform 0.2s,border-color 0.2s;}
+    .cc-lift:hover{box-shadow:6px 6px 0 var(--cc-blue);transform:translate(-4px,-4px);border-color:var(--cc-blue);}
+    .btn-primary{display:inline-block;background:var(--cc-blue);color:#fff;border:1px solid var(--cc-blue);padding:14px 40px;text-transform:uppercase;font-size:0.75rem;font-weight:800;letter-spacing:0.15em;font-family:"JetBrains Mono",monospace;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;line-height:1;}
+    .btn-primary:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 #fff;}
+    .btn-outline{display:inline-block;background:transparent;color:#fff;border:1px solid #fff;padding:14px 40px;text-transform:uppercase;font-size:0.75rem;font-weight:800;letter-spacing:0.15em;font-family:"JetBrains Mono",monospace;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;line-height:1;}
+    .btn-outline:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 var(--cc-blue);}
+    .section-header{font-weight:900;font-size:clamp(2.5rem,6vw,5rem);line-height:0.95;letter-spacing:-0.04em;}
+    .tag{display:inline-block;border:1px solid rgba(255,255,255,0.15);color:#94a3b8;padding:4px 12px;font-family:"JetBrains Mono",monospace;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;}
+    .tag.blue{border-color:var(--cc-blue);color:var(--cc-blue);}
+    .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease;}
+    .reveal.active{opacity:1;transform:translateY(0);}
+    .bg-grid{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-image:linear-gradient(rgba(58,16,229,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(58,16,229,0.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;}
+    .article-body h2{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;text-transform:uppercase;letter-spacing:-0.03em;line-height:1.1;margin-top:5rem;margin-bottom:2rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:1rem;}
+    .section-num{font-family:"JetBrains Mono",monospace;font-size:0.75rem;font-weight:900;color:var(--cc-blue);letter-spacing:0.3em;text-transform:uppercase;flex-shrink:0;}
+    .article-body p{color:#94a3b8;font-size:1.125rem;line-height:1.8;margin-bottom:1.75rem;}
+    .article-body strong{color:#fff;font-weight:700;}
+    .article-body ul{list-style:none;margin-bottom:1.75rem;display:flex;flex-direction:column;gap:0.75rem;}
+    .article-body ul li{border-left:2px solid var(--cc-blue);padding:0.6rem 1rem;font-family:"JetBrains Mono",monospace;text-transform:uppercase;font-size:0.875rem;color:var(--cc-muted);letter-spacing:0.05em;}
+    .code-block{background:#0a0d12;border:1px solid rgba(255,255,255,0.06);border-left:3px solid var(--cc-blue);padding:2rem 2.5rem;margin:2.5rem 0;overflow-x:auto;font-family:"JetBrains Mono",monospace;font-size:0.8rem;line-height:1.8;}
+    .code-block pre{white-space:pre;}
+    .code-comment{color:#475569;}.code-keyword{color:#3A10E5;font-weight:700;}.code-string{color:#10b981;}.code-var{color:#f59e0b;}
+    .pullquote{border-left:6px solid var(--cc-blue);padding:2rem 0 2rem 2.5rem;margin:3rem 0;background:transparent;}
+    .pullquote p{font-size:1.4rem !important;font-weight:700;color:#fff;line-height:1.5;margin:0;font-style:normal;letter-spacing:-0.02em;}
+    .key-insight{background:rgba(58,16,229,0.06);border-left:4px solid var(--cc-blue);padding:2rem;margin:3rem 0;position:relative;}
+    .key-insight-label{font-family:"JetBrains Mono",monospace;font-size:0.7rem;font-weight:800;color:var(--cc-blue);letter-spacing:0.3em;text-transform:uppercase;display:block;margin-bottom:1rem;}
+    .key-insight p{color:#e2e8f0;font-size:1.1rem;line-height:1.75;margin:0;font-weight:500;}
+    @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    .ticker-track{overflow:hidden;}
+    .ticker-inner{display:inline-flex;animation:ticker 50s linear infinite;white-space:nowrap;}
+    .ticker-inner:hover{animation-play-state:paused;}
+    #reading-progress{position:fixed;top:0;left:0;height:3px;background:var(--cc-blue);z-index:2000;width:0%;transition:width 0.05s linear;}
+    @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.3}}
+    .pulse-dot{animation:pulse-dot 1.5s ease-in-out infinite;width:8px;height:8px;display:inline-block;}
+    .code-block-header{font-family:"JetBrains Mono",monospace;font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:0.2em;font-weight:800;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:1rem;margin-bottom:1.5rem;}
+    .article-grid{display:grid;grid-template-columns:1fr;gap:4rem;}
+    @media(min-width:1024px){.article-grid{grid-template-columns:1fr 320px;gap:5rem;}}
+    .sidebar-sticky{position:sticky;top:8rem;}
+    .banner-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(58,16,229,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(58,16,229,0.06) 1px,transparent 1px);background-size:30px 30px;}
+    .nav-link{font-family:"JetBrains Mono",monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;text-decoration:none;transition:color 0.2s;}
+    .nav-link:hover{color:#fff;}
+    .action-btn{border:1px solid rgba(255,255,255,0.1);font-family:"JetBrains Mono",monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.15em;font-weight:900;padding:8px 20px;color:#475569;background:transparent;cursor:pointer;transition:color 0.2s,border-color 0.2s;text-decoration:none;display:inline-block;}
+    .action-btn:hover{color:#fff;border-color:#fff;}
+    .metric-box{padding:0 1.5rem;border-right:1px solid rgba(255,255,255,0.05);}
+    .metric-box:first-child{padding-left:0;}.metric-box:last-child{border-right:none;}
+    .metric-label{font-family:"JetBrains Mono",monospace;font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:0.2em;display:block;margin-bottom:6px;}
+    .metric-value{font-family:"JetBrains Mono",monospace;font-size:12px;color:#fff;font-weight:900;letter-spacing:0.05em;}
+    .sidebar-section-link{font-family:"JetBrains Mono",monospace;font-size:11px;color:#64748b;text-decoration:none;text-transform:uppercase;letter-spacing:0.08em;transition:color 0.2s;display:block;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+    .sidebar-section-link:hover{color:var(--cc-blue);}
+    .related-card{border:1px solid rgba(255,255,255,0.08);background:var(--cc-card-bg);padding:1.5rem;transition:box-shadow 0.2s,transform 0.2s,border-color 0.2s;text-decoration:none;display:block;}
+    .related-card:hover{box-shadow:4px 4px 0 var(--cc-blue);transform:translate(-2px,-2px);border-color:var(--cc-blue);}
+    *{border-radius:0 !important;}
+    /* MOBILE RESPONSIVE */
+    .nav-links{display:flex;align-items:center;gap:2.5rem;}
+    .nav-right{display:flex;align-items:center;gap:1.5rem;}
+    .nav-status{display:flex;align-items:center;gap:8px;}
+    .mobile-menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,0.2);padding:8px 12px;cursor:pointer;}
+    .mobile-menu{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(5,7,10,0.98);border-bottom:1px solid rgba(255,255,255,0.1);padding:1.5rem;flex-direction:column;gap:1rem;z-index:100;}
+    .mobile-menu.active{display:flex;}
+    @media(max-width:1023px){.nav-links,.nav-status{display:none;}.mobile-menu-btn{display:block;}aside{display:none;}}
+    @media(max-width:768px){.section-header{font-size:clamp(1.8rem,5vw,3rem)!important;}.article-body p{font-size:1rem;}.article-body h2{font-size:1.25rem;flex-direction:column;align-items:flex-start;gap:0.5rem;}.code-block{padding:1rem;font-size:0.7rem;}.code-block pre{white-space:pre-wrap;word-break:break-word;}.pullquote p{font-size:1.1rem!important;}.btn-primary,.btn-outline{padding:12px 20px;font-size:0.65rem;}}
+    @media(max-width:640px){header,section{padding:60px 16px!important;}nav{padding:12px 16px!important;}.metric-box{border-right:none;padding:0.5rem 0;}}
+  </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div id="reading-progress"></div>
+<!-- NAV -->
+<nav style="background:rgba(0,0,0,0.95);position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.1);padding:20px 32px;">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;position:relative;">
+    <a href="task1.html" style="text-decoration:none;flex-shrink:0;"><img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:140px;height:36px;object-fit:contain;" /></a>
+    <div class="nav-links">
+      <a href="task1.html#about" class="nav-link">Our Hub</a>
+      <a href="articles.html" class="nav-link" style="color:#fff;">News &amp; Articles</a>
+      <a href="task1.html#roadmap" class="nav-link">Roadmap</a>
+      <a href="task1.html#services" class="nav-link">Services</a>
+      <a href="task1.html#forum" class="nav-link">Forum</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-status"><span class="pulse-dot" style="background:#10b981;"></span><span style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#94a3b8;text-transform:uppercase;letter-spacing:0.12em;">Node Active</span></div>
+      <a href="task1.html#collaboration" class="btn-primary" style="padding:10px 24px;">Join</a>
+      <button class="mobile-menu-btn" onclick="document.getElementById('mobile-menu').classList.toggle('active')"><svg width="20" height="20" viewBox="0 0 20 20" fill="white"><rect y="3" width="20" height="2"/><rect y="9" width="20" height="2"/><rect y="15" width="20" height="2"/></svg></button>
+    </div>
+    <div id="mobile-menu" class="mobile-menu">
+      <a href="task1.html#about" class="nav-link">Our Hub</a>
+      <a href="articles.html" class="nav-link" style="color:#fff;">News &amp; Articles</a>
+      <a href="task1.html#roadmap" class="nav-link">Roadmap</a>
+      <a href="task1.html#services" class="nav-link">Services</a>
+      <a href="task1.html#forum" class="nav-link">Forum</a>
+      <a href="task1.html#collaboration" class="btn-primary" style="text-align:center;">Join Collective</a>
+    </div>
+  </div>
+</nav>
+<!-- DISPATCH TOOLBAR -->
+<div style="background:#0a0d12;border-bottom:1px solid rgba(255,255,255,0.05);padding:20px 32px;">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:8px;font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;">
+      <a href="task1.html" style="color:#475569;text-decoration:none;">HOME</a>
+      <span style="color:#333;">&rsaquo;</span>
+      <a href="articles.html" style="color:#475569;text-decoration:none;">KNOWLEDGE HUB</a>
+      <span style="color:#333;">&rsaquo;</span>
+      <span style="color:var(--cc-blue);">RESEARCH</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;font-family:JetBrains Mono,monospace;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#475569;border:1px solid rgba(255,255,255,0.06);padding:6px 16px;">
+      <span class="pulse-dot" style="background:#10b981;"></span>
+      DISPATCH_STATUS: PUBLISHED
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="action-btn">CITE_ARTICLE</button>
+      <button class="action-btn">SAVE_DISPATCH</button>
+      <button class="action-btn">SHARE &rarr;</button>
+    </div>
+  </div>
+</div>
+<!-- ARTICLE HEADER -->
+<header style="padding:128px 32px;border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:2rem;">
+      <span class="tag blue">Research</span>
+      <span class="tag">Business Intelligence</span>
+      <span class="tag">Decision Making</span>
+      <span class="tag">ROI</span>
+      <span class="tag">Analytics</span>
+    </div>
+    <h1 class="section-header" style="color:#fff;text-transform:uppercase;max-width:1100px;">
+      THE HIDDEN COST OF<br>GUT FEELING<br><span style="color:var(--cc-blue);font-style:italic;">DECISIONS.</span>
+    </h1>
+    <p style="font-size:1.25rem;color:#94a3b8;font-style:italic;max-width:720px;line-height:1.7;margin-top:2rem;">
+      Intuition built your business. Data will scale it. Here is what relying on gut feeling actually costs &mdash; in money, time, and missed opportunity.
+    </p>
+    <div style="margin-top:6rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem;">
+      <div style="display:flex;align-items:stretch;flex-wrap:wrap;gap:0;">
+        <div class="metric-box">
+          <span class="metric-label">Published</span>
+          <span class="metric-value">FEB 24 2026</span>
+        </div>
+        <div class="metric-box">
+          <span class="metric-label">Author</span>
+          <span class="metric-value">THE COLLECTIVE</span>
+        </div>
+        <div class="metric-box">
+          <span class="metric-label">Read Time</span>
+          <span class="metric-value">7 MINUTES</span>
+        </div>
+        <div class="metric-box" style="border-right:none;">
+          <span class="metric-label">Node</span>
+          <span class="metric-value">UMI_FS_IASDO</span>
+        </div>
+      </div>
+      <div class="cc-lift" style="padding:1rem 1.5rem;display:flex;align-items:center;gap:10px;">
+        <span class="pulse-dot" style="background:var(--cc-blue);"></span>
+        <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;">DISPATCH #004</span>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- VISUAL BANNER: SPLIT PANEL INTUITION vs ANALYTICS -->
+<div style="padding:0 32px;margin:0 auto;max-width:1600px;" class="reveal">
+  <div style="height:26rem;background:#070b12;border:1px solid rgba(255,255,255,0.05);overflow:hidden;position:relative;">
+    <div class="banner-grid"></div>
+    <div style="position:absolute;top:0;left:0;width:8%;height:100%;background:linear-gradient(to right,#070b12,transparent);z-index:2;"></div>
+    <div style="position:absolute;top:0;right:0;width:8%;height:100%;background:linear-gradient(to left,#070b12,transparent);z-index:2;"></div>
+    <div style="position:absolute;top:1.25rem;left:1.5rem;z-index:4;font-family:JetBrains Mono,monospace;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:rgba(58,16,229,0.5);">
+      DECISION_FRAMEWORK // INTUITION_VS_ANALYTICS
+    </div>
+    <div style="position:absolute;top:1.25rem;right:1.5rem;z-index:4;border:1px solid rgba(58,16,229,0.2);padding:8px 14px;background:rgba(58,16,229,0.05);">
+      <span style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:rgba(58,16,229,0.7);">BIAS: HIGH | SCALABILITY: LOW | AUDITABILITY: NONE</span>
+    </div>
+    <div style="position:absolute;inset:0;z-index:3;display:grid;grid-template-columns:1fr 1px 1fr;">
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 2rem;gap:1.25rem;">
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:rgba(255,255,255,0.2);margin-bottom:0.25rem;">[ INTUITION ]</div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:0.65rem;line-height:1.9;color:rgba(255,255,255,0.1);text-align:center;">
+          &nbsp;&nbsp;&nbsp;.------.<br>&nbsp;&nbsp;/&nbsp;&nbsp;o&nbsp;&nbsp;o&nbsp;&nbsp;&#92;<br>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;|<br>&nbsp;&nbsp;&nbsp;&#92;________/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|<br>&nbsp;&nbsp;&nbsp;&nbsp;/|&nbsp;&nbsp;&nbsp;&nbsp;|&#92;
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;width:100%;max-width:240px;margin-top:0.5rem;">
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(255,80,80,0.55);text-transform:uppercase;letter-spacing:0.1em;border-left:2px solid rgba(255,80,80,0.3);padding-left:10px;">1 BRAIN PROCESSING</div>
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(255,80,80,0.55);text-transform:uppercase;letter-spacing:0.1em;border-left:2px solid rgba(255,80,80,0.3);padding-left:10px;">1 PERSPECTIVE</div>
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(255,80,80,0.55);text-transform:uppercase;letter-spacing:0.1em;border-left:2px solid rgba(255,80,80,0.3);padding-left:10px;">1 REFRESH / WEEK</div>
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(255,80,80,0.55);text-transform:uppercase;letter-spacing:0.1em;border-left:2px solid rgba(255,80,80,0.3);padding-left:10px;">~7 VARS MAX TRACKED</div>
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(255,80,80,0.55);text-transform:uppercase;letter-spacing:0.1em;border-left:2px solid rgba(255,80,80,0.3);padding-left:10px;">NOT AUDITABLE</div>
+        </div>
+      </div>
+      <div style="background:rgba(58,16,229,0.3);"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 2rem;gap:1.25rem;">
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:rgba(58,16,229,0.85);margin-bottom:0.25rem;">[ ANALYTICS ]</div>
+        <div style="display:flex;align-items:flex-end;gap:5px;height:72px;">
+          <div style="width:14px;height:22px;background:rgba(58,16,229,0.25);"></div>
+          <div style="width:14px;height:32px;background:rgba(58,16,229,0.35);"></div>
+          <div style="width:14px;height:28px;background:rgba(58,16,229,0.45);"></div>
+          <div style="width:14px;height:48px;background:rgba(58,16,229,0.6);"></div>
+          <div style="width:14px;height:42px;background:rgba(58,16,229,0.72);"></div>
+          <div style="width:14px;height:60px;background:rgba(58,16,229,0.86);"></div>
+          <div style="width:14px;height:72px;background:var(--cc-blue);"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;width:100%;max-width:240px;margin-top:0.5rem;">
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(58,16,229,0.85);text-transform:uppercase;letter-spacing:0.1em;border-left:2px solid var(--cc-blue);padding-left:10px;">N DATA POINTS</div>
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(58,16,229,0.85);text-transform:uppercase;letter-spacing:0.1em;border-left:2px solid var(--cc-blue);padding-left:10px;">CONTINUOUS REFRESH</div>
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(58,16,229,0.85);text-transform:uppercase;letter-spacing:0.1em;border-left:2px solid var(--cc-blue);padding-left:10px;">47+ VARIABLES TRACKED</div>
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(58,16,229,0.85);text-transform:uppercase;letter-spacing:0.1em;border-left:2px solid var(--cc-blue);padding-left:10px;">FULLY AUDITABLE</div>
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(58,16,229,0.85);text-transform:uppercase;letter-spacing:0.1em;border-left:2px solid var(--cc-blue);padding-left:10px;">SCALABLE &amp; REPEATABLE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ARTICLE BODY -->
+<section style="padding:128px 32px;">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div class="article-grid">
+      <div class="article-body reveal">
+        <p>Every founder has made a decision they knew was right before the spreadsheet confirmed it. That instinct deserves respect. <strong>But at some point, the business grows past what one person can hold in their head</strong> &mdash; and the decisions that feel right start costing real money. This dispatch is about that threshold, and what happens after you cross it without noticing.</p>
+        <p>We are not arguing against experience. We are arguing for augmentation. The Engrammers work with operators who have built serious businesses on pattern recognition alone. The question is not whether intuition worked. It is whether it can scale &mdash; and whether the cost of alternatives has been honestly calculated.</p>
+        <h2><span class="section-num">// 01</span> The Case for Intuition</h2>
+        <p>Intuition is pattern recognition built from experience. It is real, it is valuable, and it is how most businesses were built. An experienced buyer who has spent fifteen years sourcing textiles in Casablanca carries a mental model that no junior analyst with a dashboard can replicate overnight. That model encodes supplier reliability, seasonal demand curves, payment risk, and a dozen other signals that were never written down.</p>
+        <p>This is not anecdotal. Research in cognitive science consistently shows that expert intuition is a genuine form of compressed knowledge &mdash; the brain running a fast, low-energy parallel search across a vast experiential index. In stable, familiar environments, it often outperforms deliberate analysis.</p>
+        <p>But intuition has a ceiling. <strong>It cannot process more data than one human brain can hold.</strong> It cannot track 47 variables simultaneously. It cannot update faster than weekly meetings. It cannot be audited, transferred, or stress-tested. And critically, it cannot tell you when it is failing &mdash; because the mechanism of failure is invisible from the inside.</p>
+        <p>The case for intuition is strong. The case for intuition <em>alone</em>, at scale, is not.</p>
+        <h2><span class="section-num">// 02</span> Four Real Costs of Gut-Feeling Decisions</h2>
+        <p>The costs of undocumented, unverified decision-making are not theoretical. They show up in specific line items. Here are the four most consistently observed patterns across SME and mid-market operations:</p>
+        <ul>
+          <li>INVENTORY OVER/UNDERSTOCK &mdash; Buying too much costs storage; buying too little costs sales. Data shows which is happening and when &mdash; and flags the pattern before it compounds into a structural margin problem.</li>
+          <li>PRICING MISALIGNMENT &mdash; Leaving money on the table with customers who would pay more, or driving away price-sensitive segments with rates set by feel rather than demand curves and competitive positioning data.</li>
+          <li>WRONG CUSTOMER TARGETING &mdash; Spending marketing budget on segments that do not convert, because the ideal customer profile was built on memory rather than transaction data. The gut remembers the wins. Data shows the full distribution.</li>
+          <li>LATE DETECTION OF PROBLEMS &mdash; Data flags trends weeks before a human notices. By the time a return rate spike feels wrong, it has often already damaged a supplier relationship or a margin line.</li>
+        </ul>
+        <p>Each of these is individually recoverable. Together, across a twelve-month period, they compound into a structural gap between what the business earns and what it could earn with the same inputs and better information processing.</p>
+        <div class="key-insight">
+          <span class="key-insight-label">KEY_INSIGHT_01</span>
+          <p>One Casablanca import company reduced dead stock by 31% in 4 months simply by tracking demand patterns they already had in their own invoice data. No new data collection. No external tools. Just consistent analysis of what was already there.</p>
+        </div>
+        <h2><span class="section-num">// 03</span> The Data Advantage in Numbers</h2>
+        <p>If the costs above feel qualitative, the research record is not. The evidence for data-driven decision making is consistent, replicated, and no longer controversial in the management science literature. What follows is a condensed version of the quantitative case.</p>
+        <ul>
+          <li>MCKINSEY (2021) &mdash; Companies using data-driven decisions are 23x more likely to acquire customers than competitors who rely on intuition alone.</li>
+          <li>REVENUE UPLIFT &mdash; Businesses that act on analytics see 8&ndash;10% revenue uplift on average, controlling for sector and market conditions.</li>
+          <li>MODEL VS. JUDGMENT &mdash; Simple statistical models outperform expert judgment in 60% of documented business decision studies, across pricing, inventory, and credit risk domains.</li>
+        </ul>
+        <p>That last figure deserves emphasis. Not complex deep learning models. Not enterprise analytics platforms. <strong>Simple models</strong> &mdash; linear regressions, moving averages, demand curves fitted to historical invoices &mdash; outperform experienced human judgment in the majority of studied cases. The gap is not because experts are incompetent. It is because the volume and velocity of relevant signals simply exceeds what human working memory can process consistently and without fatigue.</p>
+        <div class="pullquote">
+          <p>&ldquo;The gut is not wrong. It is just slow, unscalable, and impossible to audit. Data does not replace judgment &mdash; it multiplies it.&rdquo;</p>
+        </div>
+        <p>The implication is not that you should stop trusting your experience. It is that your experience should be the prior &mdash; the starting model &mdash; and data should be the update mechanism. The combination outperforms both in isolation. This is not a philosophical position. It is what the decision science literature shows, repeatedly, across industries and geographies.</p>
+        <h2><span class="section-num">// 04</span> What You Actually Need to Start</h2>
+        <p>The most common objection is infrastructure: &ldquo;We are not big enough for a data team.&rdquo; This is a category error. You do not need a data lake. You do not need a PhD. You need three things, and two of them you likely already have:</p>
+        <ul>
+          <li>CONSISTENT DATA COLLECTION &mdash; Invoices, orders, and customer interactions recorded in a structured format. If you already use any accounting or ERP software, this data exists right now.</li>
+          <li>A DEFINED QUESTION &mdash; Not &ldquo;show me all the data.&rdquo; A specific, answerable decision question: &ldquo;Why are returns increasing?&rdquo; or &ldquo;Which product lines are margin-positive after fulfillment costs?&rdquo;</li>
+          <li>A BASIC ANALYTICAL TOOL OR PARTNER &mdash; A Python script, a well-configured spreadsheet pivot table, or a session with a trained analyst. The tool matters less than the discipline of repeating the question and acting on the result.</li>
+        </ul>
+        <p>To make this concrete: the following is a minimal Python snippet that loads invoice data and computes a monthly returns rate. It runs on a standard laptop in seconds and requires no infrastructure beyond a CSV export from your accounting system.</p>
+        <div class="code-block">
+          <div class="code-block-header">Analysis // returns_rate_monthly.py</div>
+          <pre><span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+
+<span class="code-comment"># Load invoice data exported from accounting system</span>
+<span class="code-var">df</span> = pd.read_csv(<span class="code-string">"invoices.csv"</span>, parse_dates=[<span class="code-string">"date"</span>])
+
+<span class="code-comment"># Compute monthly returns rate</span>
+<span class="code-var">df</span>[<span class="code-string">"month"</span>] = <span class="code-var">df</span>[<span class="code-string">"date"</span>].dt.to_period(<span class="code-string">"M"</span>)
+<span class="code-var">monthly</span> = <span class="code-var">df</span>.groupby(<span class="code-string">"month"</span>).agg(
+    total_orders=(<span class="code-string">"order_id"</span>, <span class="code-string">"count"</span>),
+    total_returns=(<span class="code-string">"is_return"</span>, <span class="code-string">"sum"</span>)
+).reset_index()
+
+<span class="code-var">monthly</span>[<span class="code-string">"return_rate"</span>] = (
+    <span class="code-var">monthly</span>[<span class="code-string">"total_returns"</span>] / <span class="code-var">monthly</span>[<span class="code-string">"total_orders"</span>]
+).round(3)
+
+<span class="code-comment"># Flag months where return rate exceeds threshold</span>
+<span class="code-var">threshold</span> = <span class="code-string">0.08</span>  <span class="code-comment"># 8% &mdash; adjust to your baseline</span>
+<span class="code-var">alerts</span> = <span class="code-var">monthly</span>[<span class="code-var">monthly</span>[<span class="code-string">"return_rate"</span>] &gt; <span class="code-var">threshold</span>]
+<span class="code-keyword">print</span>(<span class="code-var">alerts</span>[[<span class="code-string">"month"</span>, <span class="code-string">"return_rate"</span>]])</pre>
+        </div>
+        <p>This is not a data science project. It is a decision support tool. The insight it surfaces &mdash; which months had abnormal return rates &mdash; is something an experienced manager could estimate from memory. The difference is that the script checks every month and every product category automatically, without fatigue, without confirmation bias, and in the same two seconds whether you have 200 invoices or 200,000.</p>
+        <h2><span class="section-num">// 05</span> Conclusion</h2>
+        <p>The transition from gut-feeling to data-driven decision making is not a technology upgrade &mdash; it is a culture shift. Culture shifts do not happen through grand announcements or expensive platform purchases. They happen through repeated small decisions where you reach for the data before reaching for the instinct.</p>
+        <p>Start with one decision. Track it. Measure the outcome. Let the result inform your next call on the same type of problem. Repeat. The compounding effect of this practice over twelve months is not marginal. <strong>It is the difference between a business that grows at the rate of one person&rsquo;s cognitive bandwidth and a business that grows at the rate of its actual data.</strong></p>
+        <p>The Engrammers build the infrastructure for this transition &mdash; from lightweight analytics pipelines to full BI deployments adapted to the Moroccan operational context. If you have invoice data and an unanswered question, that is enough to start. The rest is commitment to the process.</p>
+      </div>
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="sidebar-sticky">
+          <div class="cc-lift" style="padding:2.5rem;">
+            <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1.25rem;">ARTICLE_INDEX</div>
+            <div style="display:flex;flex-direction:column;">
+              <a href="#" class="sidebar-section-link">// 01 &nbsp; The Case for Intuition</a>
+              <a href="#" class="sidebar-section-link">// 02 &nbsp; Four Real Costs</a>
+              <a href="#" class="sidebar-section-link">// 03 &nbsp; Data Advantage in Numbers</a>
+              <a href="#" class="sidebar-section-link">// 04 &nbsp; What You Need to Start</a>
+              <a href="#" class="sidebar-section-link">// 05 &nbsp; Conclusion</a>
+            </div>
+            <div style="border-top:1px solid rgba(255,255,255,0.06);margin:1.75rem 0;"></div>
+            <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1rem;">TAGS</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              <span class="tag blue">Research</span>
+              <span class="tag">Business Intelligence</span>
+              <span class="tag">Decision Making</span>
+              <span class="tag">ROI</span>
+              <span class="tag">Analytics</span>
+            </div>
+            <div style="border-top:1px solid rgba(255,255,255,0.06);margin:1.75rem 0;"></div>
+            <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1rem;">NAVIGATION</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <a href="article-ai-vs-ml.html" style="border:1px solid rgba(255,255,255,0.06);background:#070b12;padding:10px 14px;display:flex;flex-direction:column;gap:4px;text-decoration:none;">
+                <span style="font-family:JetBrains Mono,monospace;font-size:8px;color:#475569;text-transform:uppercase;letter-spacing:0.2em;">&larr; PREV // DISPATCH #003</span>
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">AI vs ML</span>
+              </a>
+              <a href="article-clean-data.html" style="border:1px solid rgba(255,255,255,0.06);background:#070b12;padding:10px 14px;display:flex;flex-direction:column;gap:4px;text-decoration:none;">
+                <span style="font-family:JetBrains Mono,monospace;font-size:8px;color:#475569;text-transform:uppercase;letter-spacing:0.2em;">NEXT // DISPATCH #005 &rarr;</span>
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Clean Data</span>
+              </a>
+            </div>
+            <div style="border-top:1px solid rgba(255,255,255,0.06);margin:1.75rem 0;"></div>
+            <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1rem;">RELATED PROJECT</div>
+            <a href="task1.html#services" style="border:1px solid rgba(58,16,229,0.2);background:rgba(58,16,229,0.04);padding:1rem;display:block;text-decoration:none;">
+              <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:var(--cc-blue);font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px;">Service // BI</div>
+              <div style="font-size:0.875rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.05em;">Analytics &amp; Decision Support</div>
+            </a>
+            <div style="border-top:1px solid rgba(255,255,255,0.06);margin:1.75rem 0;"></div>
+            <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1rem;">ARTICLE METRICS</div>
+            <div style="display:flex;flex-direction:column;">
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:0.15em;">WORDS</span>
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#fff;font-weight:900;">~1,700</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:0.15em;">SECTIONS</span>
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#fff;font-weight:900;">05</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;">
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:0.15em;">PUBLISHED</span>
+                <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#fff;font-weight:900;">FEB 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+<!-- DISPATCH ACTIONS BAR -->
+<div style="padding:80px 32px;border-top:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+    <span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#475569;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;">DISPATCH_COMPLETE // END_OF_ARTICLE</span>
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+      <a href="article-ai-vs-ml.html" class="btn-outline">&larr; PREV DISPATCH</a>
+      <button class="btn-outline">CITE DISPATCH</button>
+      <a href="article-clean-data.html" class="btn-primary">NEXT DISPATCH &rarr;</a>
+    </div>
+  </div>
+</div>
+<!-- AUTHOR CARD -->
+<div style="padding:96px 32px;border-top:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div class="cc-lift" style="padding:4rem;max-width:56rem;">
+      <div style="display:flex;align-items:flex-start;gap:3rem;flex-wrap:wrap;">
+        <div style="width:80px;height:80px;background:var(--cc-blue);display:flex;align-items:center;justify-content:center;font-family:JetBrains Mono,monospace;font-weight:900;font-size:2rem;color:#fff;flex-shrink:0;">E</div>
+        <div style="flex:1;min-width:200px;">
+          <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:#475569;font-weight:800;text-transform:uppercase;letter-spacing:0.4em;margin-bottom:0.75rem;">AUTHOR // NODE_CONTRIBUTOR</div>
+          <div style="font-size:1.25rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;color:#fff;margin-bottom:0.25rem;">The Engrammers Collective</div>
+          <div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--cc-blue);font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:1.25rem;">IASDO / UMI MEKNES</div>
+          <p style="color:#94a3b8;font-size:0.9rem;line-height:1.7;">The Engrammers is a student AI and Operations Research collective at the Faculty of Sciences, Universit&eacute; Moulay Ismail, Meknes. We build, document, and deploy AI systems for real-world problems in the Moroccan context &mdash; with a focus on grounded, auditable, locally-deployable intelligence.</p>
+          <div style="margin-top:1.5rem;display:flex;align-items:center;gap:1rem;">
+            <a href="task1.html#about" class="btn-outline" style="padding:10px 24px;font-size:0.65rem;">VIEW NODE</a>
+            <a href="articles.html" class="action-btn" style="padding:10px 20px;">ALL DISPATCHES &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- RELATED ARTICLES -->
+<section style="padding:128px 32px;border-top:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4rem;flex-wrap:wrap;gap:1.5rem;">
+      <div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.5em;color:#475569;margin-bottom:1rem;">// FURTHER READING</div>
+        <h2 class="section-header" style="font-size:clamp(2rem,4vw,3.5rem);">RELATED<br>DISPATCHES</h2>
+      </div>
+      <a href="articles.html" class="btn-outline">VIEW ALL ARTICLES</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;">
+      <a href="article-ai-vs-ml.html" class="related-card">
+        <div style="margin-bottom:1.25rem;">
+          <span class="tag blue" style="font-size:0.6rem;">AI</span>
+          <span class="tag" style="font-size:0.6rem;margin-left:6px;">Machine Learning</span>
+        </div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:#475569;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px;">DISPATCH #003</div>
+        <h3 style="font-size:1.125rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;color:#fff;line-height:1.2;margin-bottom:1rem;">AI vs. ML: What the Distinction Actually Means for Your Business</h3>
+        <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:1.25rem;">Cutting through terminology to explain what matters operationally when evaluating tools, vendors, and investment decisions.</p>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:var(--cc-blue);font-weight:800;text-transform:uppercase;letter-spacing:0.15em;">READ DISPATCH &rarr;</div>
+      </a>
+      <a href="article-clean-data.html" class="related-card">
+        <div style="margin-bottom:1.25rem;">
+          <span class="tag blue" style="font-size:0.6rem;">Data Quality</span>
+          <span class="tag" style="font-size:0.6rem;margin-left:6px;">Engineering</span>
+        </div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:#475569;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:6px;">DISPATCH #005</div>
+        <h3 style="font-size:1.125rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;color:#fff;line-height:1.2;margin-bottom:1rem;">Why Clean Data Is the Only Real Competitive Advantage</h3>
+        <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:1.25rem;">The unglamorous foundation that separates businesses that can act on their data from those that cannot &mdash; and how to build it without a dedicated data team.</p>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;color:var(--cc-blue);font-weight:800;text-transform:uppercase;letter-spacing:0.15em;">READ DISPATCH &rarr;</div>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- TICKER -->
+<div style="background:#0a0d12;border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);padding:18px 0;overflow:hidden;">
+  <div class="ticker-track">
+    <div class="ticker-inner">
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">THE ENGRAMMERS</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">DATA BEATS GUT FEELING</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">UMI MEKNES // IASDO</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">KNOWLEDGE NODE ACTIVE</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">BI // ROI // ANALYTICS</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">DISPATCH #004 &mdash; PUBLISHED</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">THE ENGRAMMERS</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">DATA BEATS GUT FEELING</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">UMI MEKNES // IASDO</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">KNOWLEDGE NODE ACTIVE</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#1e293b;padding:0 3rem;">BI // ROI // ANALYTICS</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:var(--cc-blue);padding:0 3rem;">DISPATCH #004 &mdash; PUBLISHED</span>
+    </div>
+  </div>
+</div>
+<!-- FOOTER -->
+<footer style="background:#05070a;border-top:1px solid rgba(255,255,255,0.05);padding:80px 32px 40px;">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:3rem;margin-bottom:4rem;">
+      <div>
+        <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:140px;height:35px;object-fit:contain;margin-bottom:1.5rem;" onerror="this.style.display=&apos;none&apos;" />
+        <p style="font-size:0.8rem;color:#475569;line-height:1.7;margin-bottom:1.5rem;">Student AI &amp; OR Collective.<br>UMI Meknes &mdash; IASDO Node.</p>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="pulse-dot" style="background:#10b981;"></span>
+          <span style="font-family:JetBrains Mono,monospace;font-size:0.6rem;color:#475569;text-transform:uppercase;letter-spacing:0.15em;">Node Online</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1.25rem;">Navigation</div>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <a href="task1.html#about" class="nav-link">Our Hub</a>
+          <a href="articles.html" class="nav-link">News_Hub</a>
+          <a href="task1.html#roadmap" class="nav-link">Roadmap</a>
+          <a href="task1.html#services" class="nav-link">Services</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1.25rem;">Community</div>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <a href="task1.html#forum" class="nav-link">Forum</a>
+          <a href="task1.html#collaboration" class="nav-link">Join Collective</a>
+          <a href="team.html" class="nav-link">The Team</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:JetBrains Mono,monospace;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.4em;color:#475569;margin-bottom:1.25rem;">System Status</div>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <div style="display:flex;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="color:#475569;">KNOWLEDGE NODE</span><span style="color:#10b981;">ACTIVE</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="color:#475569;">FORUM</span><span style="color:#10b981;">ONLINE</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;">
+            <span style="color:#475569;">PIPELINE</span><span style="color:var(--cc-blue);">BUILDING</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.05);padding-top:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <span style="font-family:JetBrains Mono,monospace;font-size:9px;color:#1e293b;text-transform:uppercase;letter-spacing:0.15em;">&copy; 2026 THE ENGRAMMERS // UMI MEKNES // ALL RIGHTS RESERVED</span>
+      <span style="font-family:JetBrains Mono,monospace;font-size:9px;color:#1e293b;text-transform:uppercase;letter-spacing:0.15em;">DISPATCH #004 // FEB 2026</span>
+    </div>
+  </div>
+</footer>
+<!-- JAVASCRIPT -->
+<script>
+  const revealEls = document.querySelectorAll(".reveal");
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
+  );
+  revealEls.forEach((el) => revealObserver.observe(el));
+  const progressBar = document.getElementById("reading-progress");
+  window.addEventListener("scroll", () => {
+    const docHeight = document.documentElement.scrollHeight;
+    const windowHeight = window.innerHeight;
+    const scrolled = window.scrollY;
+    const progress = Math.min((scrolled / (docHeight - windowHeight)) * 100, 100);
+    progressBar.style.width = progress + "%";
+  });
+</script>
+</body>
+</html>

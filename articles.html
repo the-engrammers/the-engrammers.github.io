@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knowledge Hub - All Articles | The Engrammers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --cc-bg:#05070a; --cc-text:#ffffff; --cc-blue:#3A10E5; --cc-blue-glow:rgba(58,16,229,0.4); --cc-card-bg:#0f141e; --cc-border:#ffffff; --cc-muted:#94a3b8; --cc-success:#10b981; --cc-shadow:rgba(58,16,229,0.3); }
+    * { box-sizing:border-box; margin:0; padding:0; border-radius:0 !important; }
+    body { background:var(--cc-bg); color:var(--cc-text); font-family:Inter,sans-serif; -webkit-font-smoothing:antialiased; }
+    .mono { font-family:JetBrains Mono,monospace; }
+    .cc-lift { border:1px solid white; background:var(--cc-card-bg); transition:box-shadow 0.2s ease,transform 0.2s ease,border-color 0.2s ease; position:relative; }
+    .cc-lift:hover { box-shadow:6px 6px 0px var(--cc-blue); transform:translate(-4px,-4px); border-color:var(--cc-blue); z-index:10; }
+    .btn-primary { background:var(--cc-blue); color:#fff; border:1px solid var(--cc-blue); padding:14px 40px; text-transform:uppercase; font-size:0.75rem; font-weight:800; letter-spacing:0.15em; cursor:pointer; display:inline-block; text-decoration:none; transition:transform 0.2s ease,box-shadow 0.2s ease; }
+    .btn-primary:hover { transform:translate(-3px,-3px); box-shadow:5px 5px 0px white; }
+    .btn-outline { border:1px solid white; color:white; padding:14px 40px; text-transform:uppercase; font-size:0.75rem; font-weight:800; letter-spacing:0.15em; cursor:pointer; display:inline-block; text-decoration:none; transition:transform 0.2s ease,box-shadow 0.2s ease; background:transparent; }
+    .btn-outline:hover { transform:translate(-3px,-3px); box-shadow:5px 5px 0px var(--cc-blue); }
+    .section-header { font-weight:900; font-size:clamp(2.5rem,6vw,5rem); line-height:0.95; letter-spacing:-0.04em; }
+    .badge { display:inline-block; padding:5px 14px; font-size:10px; font-weight:800; text-transform:uppercase; border:1px solid currentColor; letter-spacing:0.15em; margin-bottom:1.5rem; }
+    .tag { font-size:9px; font-weight:800; padding:2px 8px; border:1px solid rgba(255,255,255,0.2); color:var(--cc-muted); text-transform:uppercase; font-family:JetBrains Mono,monospace; letter-spacing:0.1em; }
+    .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.active { opacity:1; transform:translateY(0); }
+    .bg-grid { position:fixed; top:0; left:0; right:0; bottom:0; background-image:linear-gradient(rgba(58,16,229,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(58,16,229,0.03) 1px,transparent 1px); background-size:50px 50px; z-index:-1; pointer-events:none; }
+    .filter-btn { border:1px solid rgba(255,255,255,0.15); background:transparent; color:var(--cc-muted); padding:8px 20px; font-family:JetBrains Mono,monospace; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.15em; cursor:pointer; transition:all 0.2s ease; }
+    .filter-btn:hover { border-color:rgba(255,255,255,0.4); color:white; }
+    .filter-btn.active { background:var(--cc-blue); border-color:var(--cc-blue); color:white; }
+    @keyframes marquee-scroll { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+    .ticker-track { overflow:hidden; background:rgba(58,16,229,0.04); border-top:1px solid rgba(58,16,229,0.15); border-bottom:1px solid rgba(58,16,229,0.15); }
+    .ticker-inner { display:inline-flex; align-items:center; animation:marquee-scroll 50s linear infinite; white-space:nowrap; }
+    .ticker-inner:hover { animation-play-state:paused; }
+    .article-hidden { display:none !important; }
+    ::-webkit-scrollbar { width:8px; }
+    ::-webkit-scrollbar-track { background:var(--cc-bg); }
+    ::-webkit-scrollbar-thumb { background:var(--cc-blue); }
+    @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+    .pulse-dot { width:8px; height:8px; background:var(--cc-success); display:inline-block; animation:pulse-dot 2s ease-in-out infinite; flex-shrink:0; }
+    .pulse-dot-blue { width:8px; height:8px; background:var(--cc-blue); display:inline-block; animation:pulse-dot 1.5s ease-in-out infinite; flex-shrink:0; }
+    .featured-bg { background-color:#0a0f18; background-image:linear-gradient(rgba(58,16,229,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(58,16,229,0.06) 1px,transparent 1px); background-size:30px 30px; }
+    .card-img-02 { background:linear-gradient(135deg,#0c1420 0%,#0a1a10 100%); }
+    .card-img-03 { background:linear-gradient(135deg,rgba(58,16,229,0.15) 0%,#0a0f18 100%); }
+    .card-img-04 { background:linear-gradient(135deg,#12100f 0%,#1a1208 100%); }
+    .card-img-05 { background:linear-gradient(135deg,#0f0a18 0%,#180a14 100%); }
+    .card-img-06 { background:linear-gradient(135deg,#0a1214 0%,#081418 100%); }
+    nav { position:sticky; top:0; z-index:1000; }
+    a { text-decoration:none; }
+    .group-hover-blue { transition:color 0.2s ease; }
+    .group:hover .group-hover-blue { color:var(--cc-blue) !important; }
+  </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<nav style="background:rgba(0,0,0,0.95);border-bottom:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(8px);">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 32px;">
+    <a href="task1.html" style="display:flex;align-items:center;">
+      <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:160px;height:40px;object-fit:contain;" onerror="this.style.display=&apos;none&apos;;this.nextElementSibling.style.display=&apos;flex&apos;;" />
+      <div style="display:none;width:48px;height:48px;background:var(--cc-blue);align-items:center;justify-content:center;font-weight:900;font-size:1.5rem;">E</div>
+    </a>
+    <div style="display:flex;align-items:center;gap:40px;">
+      <a href="task1.html#about" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;rgba(255,255,255,0.6)&apos;">Our Hub</a>
+      <a href="articles.html" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ffffff;">News &amp; Articles</a>
+      <a href="task1.html#roadmap" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;rgba(255,255,255,0.6)&apos;">Roadmap</a>
+      <a href="task1.html#services" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;rgba(255,255,255,0.6)&apos;">Services</a>
+      <a href="task1.html#forum" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;rgba(255,255,255,0.6)&apos;">Forum</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:24px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="pulse-dot"></span>
+        <span class="mono" style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:var(--cc-muted);text-transform:uppercase;">Knowledge Node Active</span>
+      </div>
+      <button class="btn-primary" onclick="window.location=&apos;task1.html#collaboration&apos;">Join Collective</button>
+    </div>
+  </div>
+</nav>
+<section style="padding:128px 32px;">
+  <div style="max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+    <div class="reveal">
+      <span class="badge" style="color:var(--cc-blue);">Knowledge Hub // Dispatch Archive</span>
+      <h1 class="section-header" style="margin-bottom:24px;">ALL <span style="color:var(--cc-blue);">ARTICLES.</span></h1>
+      <p class="mono" style="font-size:13px;color:var(--cc-muted);line-height:1.8;letter-spacing:0.05em;max-width:480px;">
+        // ACCESSING COLLECTIVE KNOWLEDGE BASE<br/>
+        // DISPATCHES FROM UMI_FS_MEKNES RESEARCH NODE<br/>
+        // AI &middot; OPTIMIZATION &middot; OR &middot; INDUSTRIAL INTELLIGENCE
+      </p>
+    </div>
+    <div class="cc-lift reveal" style="padding:0;overflow:hidden;">
+      <div style="background:rgba(58,16,229,0.08);border-bottom:1px solid rgba(255,255,255,0.08);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;">
+        <span class="mono" style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--cc-blue);">ARCHIVE_STATUS</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="pulse-dot-blue"></span>
+          <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.15em;">ONLINE</span>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.05);">
+          <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.15em;text-transform:uppercase;">TOTAL_DISPATCHES</span>
+          <span class="mono" style="font-size:22px;font-weight:700;color:var(--cc-blue);">11</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.05);">
+          <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.15em;text-transform:uppercase;">CATEGORIES</span>
+          <span class="mono" style="font-size:22px;font-weight:700;color:white;">05</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.05);">
+          <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.15em;text-transform:uppercase;">LATEST</span>
+          <span class="mono" style="font-size:14px;font-weight:700;color:white;letter-spacing:0.1em;">MAR_10_2026</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;">
+          <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.15em;text-transform:uppercase;">NODE</span>
+          <span class="mono" style="font-size:11px;font-weight:700;color:var(--cc-success);letter-spacing:0.12em;">UMI_FS_MEKNES</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="ticker-track" style="padding:16px 0;">
+  <div class="ticker-inner mono" style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.3em;color:#475569;">
+    <span style="padding:0 32px;">[ AI NEWS ] &mdash; The Rise of RAG in Local Business Intelligence</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+    <span style="padding:0 32px;">[ AI NEWS ] &mdash; What Is Machine Learning? A 60-Second Explainer</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+    <span style="padding:0 32px;">[ AI NEWS ] &mdash; AI vs. ML vs. Data Science: What's the Actual Difference?</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+    <span style="padding:0 32px;">[ RESEARCH ] &mdash; The Hidden Cost of Gut Feeling Decisions</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+    <span style="padding:0 32px;">[ RESEARCH ] &mdash; Better Data Beats a Bigger Model Every Time</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+    <span style="padding:0 32px;">[ ANNOUNCEMENT ] &mdash; Inside the Engrammers Workflow</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+    <span style="padding:0 32px;">[ AI NEWS ] &mdash; The Rise of RAG in Local Business Intelligence</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+    <span style="padding:0 32px;">[ AI NEWS ] &mdash; What Is Machine Learning? A 60-Second Explainer</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+    <span style="padding:0 32px;">[ AI NEWS ] &mdash; AI vs. ML vs. Data Science: What's the Actual Difference?</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+    <span style="padding:0 32px;">[ RESEARCH ] &mdash; The Hidden Cost of Gut Feeling Decisions</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+    <span style="padding:0 32px;">[ RESEARCH ] &mdash; Better Data Beats a Bigger Model Every Time</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+    <span style="padding:0 32px;">[ ANNOUNCEMENT ] &mdash; Inside the Engrammers Workflow</span>
+    <span style="color:#3A10E5;padding:0 16px;">&mdash;&mdash;</span>
+  </div>
+</div>
+<div style="padding:48px 32px;border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="filter-btn active" onclick="filterArticles(this,&apos;all&apos;)">All</button>
+      <button class="filter-btn" onclick="filterArticles(this,&apos;ai-news&apos;)">AI News</button>
+      <button class="filter-btn" onclick="filterArticles(this,&apos;optimization&apos;)">Optimization</button>
+      <button class="filter-btn" onclick="filterArticles(this,&apos;research&apos;)">Research</button>
+      <button class="filter-btn" onclick="filterArticles(this,&apos;announcement&apos;)">Announcement</button>
+    </div>
+    <div class="mono" style="font-size:10px;color:#475569;letter-spacing:0.15em;text-transform:uppercase;">
+      SHOWING: <span id="article-count">11</span> DISPATCHES
+    </div>
+  </div>
+</div>
+<section style="padding:128px 32px;">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div class="cc-lift article-card group" data-category="ai-news" style="display:flex;flex-direction:row;border:1px solid white;margin-bottom:24px;">
+      <div class="featured-bg" style="width:40%;min-height:480px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(255,255,255,0.08);">
+        <div style="position:absolute;top:24px;left:24px;">
+          <span class="badge" style="color:var(--cc-blue);margin-bottom:0;">FEATURED DISPATCH</span>
+        </div>
+        <div style="position:absolute;bottom:-20px;right:-10px;font-family:Inter,sans-serif;font-size:clamp(100px,15vw,180px);font-weight:900;color:rgba(58,16,229,0.08);line-height:1;user-select:none;">01</div>
+        <div style="text-align:center;position:relative;z-index:2;">
+          <div class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:12px;">VISUAL_INSIGHT_01</div>
+          <div class="mono" style="font-size:11px;color:var(--cc-blue);letter-spacing:0.2em;font-weight:700;">__ RAG_ARCHITECTURE __</div>
+          <div style="margin-top:24px;display:flex;flex-direction:column;gap:6px;align-items:center;">
+            <div style="width:120px;height:1px;background:rgba(58,16,229,0.3);"></div>
+            <div style="width:80px;height:1px;background:rgba(58,16,229,0.2);"></div>
+            <div style="width:40px;height:1px;background:rgba(58,16,229,0.1);"></div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;padding:64px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+            <span class="tag" style="color:var(--cc-blue);border-color:rgba(58,16,229,0.4);">AI News</span>
+            <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.15em;">FEB 18, 2026</span>
+          </div>
+          <h2 class="group-hover-blue" style="font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;text-transform:uppercase;letter-spacing:-0.03em;line-height:1;margin-bottom:20px;">The Rise of RAG in Local Business Intelligence</h2>
+          <p style="font-style:italic;color:#94a3b8;font-size:0.95rem;line-height:1.7;margin-bottom:32px;max-width:600px;">Retrieval-Augmented Generation is reshaping how local enterprises access, process, and act on their internal knowledge. From Meknes-Fez SMEs to industrial operators &mdash; here is what changes and why it matters.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;">
+            <div class="cc-lift" style="padding:10px 16px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.02);">
+              <div class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.15em;text-transform:uppercase;">READ TIME</div>
+              <div class="mono" style="font-size:11px;font-weight:700;color:white;margin-top:4px;">8 MIN</div>
+            </div>
+            <div class="cc-lift" style="padding:10px 16px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.02);">
+              <div class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.15em;text-transform:uppercase;">CATEGORY</div>
+              <div class="mono" style="font-size:11px;font-weight:700;color:var(--cc-blue);margin-top:4px;">AI_NEWS</div>
+            </div>
+            <div class="cc-lift" style="padding:10px 16px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.02);">
+              <div class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.15em;text-transform:uppercase;">NODE</div>
+              <div class="mono" style="font-size:11px;font-weight:700;color:var(--cc-success);margin-top:4px;">UMI_FS</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+          <a href="article-rag.html" style="font-size:1.1rem;font-weight:800;color:white;text-decoration:underline;text-underline-offset:4px;transition:color 0.2s;" onmouseover="this.style.color=&apos;#3A10E5&apos;" onmouseout="this.style.color=&apos;white&apos;">Read full article &rarr;</a>
+          <button class="btn-outline" style="padding:10px 24px;font-size:9px;">SHARE_DISPATCH</button>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:24px;margin-bottom:64px;margin-top:80px;">
+      <span class="mono" style="font-size:10px;font-weight:700;letter-spacing:0.2em;color:var(--cc-muted);text-transform:uppercase;white-space:nowrap;">// MORE DISPATCHES</span>
+      <div style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2rem;">
+      <div class="cc-lift article-card reveal" data-category="ai-news" style="background:var(--cc-card-bg);overflow:hidden;">
+        <div style="height:4px;background:var(--cc-blue);"></div>
+        <div style="padding:2.5rem;">
+          <div class="mono" style="font-size:9px;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">#002 &mdash; DISPATCH</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="tag" style="color:var(--cc-blue);border-color:rgba(58,16,229,0.4);">AI News</span>
+            <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.12em;">FEB 20, 2026</span>
+          </div>
+          <h3 style="font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;">What Is Machine Learning? A 60-Second Explainer</h3>
+          <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:24px;">You've heard the term a thousand times. Here is what it actually means &mdash; and why it matters for your business in plain language.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;">6 MIN READ</span>
+            <a href="article-ml-explainer.html" class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.15em;text-transform:uppercase;" onmouseover="this.style.opacity=&apos;0.7&apos;" onmouseout="this.style.opacity=&apos;1&apos;">READ DISPATCH &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <div class="cc-lift article-card reveal" data-category="ai-news" style="background:var(--cc-card-bg);overflow:hidden;">
+        <div style="height:4px;background:var(--cc-blue);"></div>
+        <div style="padding:2.5rem;">
+          <div class="mono" style="font-size:9px;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">#003 &mdash; DISPATCH</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="tag" style="color:var(--cc-blue);border-color:rgba(58,16,229,0.4);">AI News</span>
+            <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.12em;">FEB 22, 2026</span>
+          </div>
+          <h3 style="font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;">AI vs. ML vs. Data Science: What's the Actual Difference?</h3>
+          <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:24px;">Everyone uses these three terms interchangeably. They are not the same &mdash; and confusing them costs businesses real money.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;">7 MIN READ</span>
+            <a href="article-ai-vs-ml.html" class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.15em;text-transform:uppercase;" onmouseover="this.style.opacity=&apos;0.7&apos;" onmouseout="this.style.opacity=&apos;1&apos;">READ DISPATCH &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <div class="cc-lift article-card reveal" data-category="research" style="background:var(--cc-card-bg);overflow:hidden;">
+        <div style="height:4px;background:var(--cc-blue);"></div>
+        <div style="padding:2.5rem;">
+          <div class="mono" style="font-size:9px;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">#004 &mdash; DISPATCH</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="tag" style="color:var(--cc-muted);border-color:rgba(255,255,255,0.2);">Research</span>
+            <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.12em;">FEB 24, 2026</span>
+          </div>
+          <h3 style="font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;">The Hidden Cost of Gut Feeling Decisions</h3>
+          <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:24px;">Intuition built your business. Data will scale it. Here is what relying on gut feeling actually costs &mdash; in money, time, and missed opportunity.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;">7 MIN READ</span>
+            <a href="article-gut-feeling.html" class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.15em;text-transform:uppercase;" onmouseover="this.style.opacity=&apos;0.7&apos;" onmouseout="this.style.opacity=&apos;1&apos;">READ DISPATCH &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <div class="cc-lift article-card reveal" data-category="research" style="background:var(--cc-card-bg);overflow:hidden;">
+        <div style="height:4px;background:var(--cc-blue);"></div>
+        <div style="padding:2.5rem;">
+          <div class="mono" style="font-size:9px;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">#005 &mdash; DISPATCH</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="tag" style="color:var(--cc-muted);border-color:rgba(255,255,255,0.2);">Research</span>
+            <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.12em;">FEB 26, 2026</span>
+          </div>
+          <h3 style="font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;">Better Data Beats a Bigger Model Every Time</h3>
+          <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:24px;">The AI industry chases bigger models. Most business problems are solved faster and cheaper by fixing the data.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;">6 MIN READ</span>
+            <a href="article-clean-data.html" class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.15em;text-transform:uppercase;" onmouseover="this.style.opacity=&apos;0.7&apos;" onmouseout="this.style.opacity=&apos;1&apos;">READ DISPATCH &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <div class="cc-lift article-card reveal" data-category="research" style="background:var(--cc-card-bg);overflow:hidden;">
+        <div style="height:4px;background:var(--cc-blue);"></div>
+        <div style="padding:2.5rem;">
+          <div class="mono" style="font-size:9px;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">#006 &mdash; DISPATCH</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="tag" style="color:var(--cc-muted);border-color:rgba(255,255,255,0.2);">Research</span>
+            <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.12em;">FEB 28, 2026</span>
+          </div>
+          <h3 style="font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;">Regression vs. Classification: A Business Context Guide</h3>
+          <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:24px;">Two fundamental ML techniques &mdash; but which one does your business actually need? The answer depends on the question you are trying to answer.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;">7 MIN READ</span>
+            <a href="article-regression.html" class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.15em;text-transform:uppercase;" onmouseover="this.style.opacity=&apos;0.7&apos;" onmouseout="this.style.opacity=&apos;1&apos;">READ DISPATCH &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <div class="cc-lift article-card reveal" data-category="research" style="background:var(--cc-card-bg);overflow:hidden;">
+        <div style="height:4px;background:var(--cc-blue);"></div>
+        <div style="padding:2.5rem;">
+          <div class="mono" style="font-size:9px;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">#007 &mdash; DISPATCH</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="tag" style="color:var(--cc-muted);border-color:rgba(255,255,255,0.2);">Research</span>
+            <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.12em;">MAR 2, 2026</span>
+          </div>
+          <h3 style="font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;">What Is RMSE and Why Should Businesses Care?</h3>
+          <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:24px;">Root Mean Square Error sounds intimidating. It is not. It is your model's report card &mdash; and it tells you exactly how wrong your predictions are.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;">6 MIN READ</span>
+            <a href="article-rmse.html" class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.15em;text-transform:uppercase;" onmouseover="this.style.opacity=&apos;0.7&apos;" onmouseout="this.style.opacity=&apos;1&apos;">READ DISPATCH &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <div class="cc-lift article-card reveal" data-category="announcement" style="background:var(--cc-card-bg);overflow:hidden;">
+        <div style="height:4px;background:var(--cc-blue);"></div>
+        <div style="padding:2.5rem;">
+          <div class="mono" style="font-size:9px;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">#008 &mdash; DISPATCH</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="tag" style="color:var(--cc-muted);border-color:rgba(255,255,255,0.2);">Announcement</span>
+            <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.12em;">MAR 4, 2026</span>
+          </div>
+          <h3 style="font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;">Inside the Engrammers Workflow</h3>
+          <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:24px;">Most AI projects fail before a single model is trained. Here is how we structure every engagement to ensure the work produces real results.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;">7 MIN READ</span>
+            <a href="article-workflow.html" class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.15em;text-transform:uppercase;" onmouseover="this.style.opacity=&apos;0.7&apos;" onmouseout="this.style.opacity=&apos;1&apos;">READ DISPATCH &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <div class="cc-lift article-card reveal" data-category="research" style="background:var(--cc-card-bg);overflow:hidden;">
+        <div style="height:4px;background:var(--cc-blue);"></div>
+        <div style="padding:2.5rem;">
+          <div class="mono" style="font-size:9px;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">#009 &mdash; DISPATCH</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="tag" style="color:var(--cc-muted);border-color:rgba(255,255,255,0.2);">Research</span>
+            <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.12em;">MAR 6, 2026</span>
+          </div>
+          <h3 style="font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;">Predictive Analytics and Profit Margins</h3>
+          <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:24px;">Predicting what will happen next is not a luxury. For businesses with thin margins, it is the difference between profit and loss.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;">8 MIN READ</span>
+            <a href="article-predictive.html" class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.15em;text-transform:uppercase;" onmouseover="this.style.opacity=&apos;0.7&apos;" onmouseout="this.style.opacity=&apos;1&apos;">READ DISPATCH &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <div class="cc-lift article-card reveal" data-category="research" style="background:var(--cc-card-bg);overflow:hidden;">
+        <div style="height:4px;background:var(--cc-blue);"></div>
+        <div style="padding:2.5rem;">
+          <div class="mono" style="font-size:9px;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">#010 &mdash; DISPATCH</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="tag" style="color:var(--cc-muted);border-color:rgba(255,255,255,0.2);">Research</span>
+            <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.12em;">MAR 8, 2026</span>
+          </div>
+          <h3 style="font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;">Industry Spotlight: AI in Moroccan E-Commerce</h3>
+          <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:24px;">Morocco's e-commerce sector is growing at 25% year-over-year. The businesses capturing that growth are running smarter systems.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;">8 MIN READ</span>
+            <a href="article-ecommerce.html" class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.15em;text-transform:uppercase;" onmouseover="this.style.opacity=&apos;0.7&apos;" onmouseout="this.style.opacity=&apos;1&apos;">READ DISPATCH &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <div class="cc-lift article-card reveal" data-category="ai-news" style="background:var(--cc-card-bg);overflow:hidden;">
+        <div style="height:4px;background:var(--cc-blue);"></div>
+        <div style="padding:2.5rem;">
+          <div class="mono" style="font-size:9px;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">#011 &mdash; DISPATCH</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="tag" style="color:var(--cc-blue);border-color:rgba(58,16,229,0.4);">AI News</span>
+            <span class="mono" style="font-size:10px;color:var(--cc-muted);letter-spacing:0.12em;">MAR 10, 2026</span>
+          </div>
+          <h3 style="font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;">AI Is Not Magic. Here Is What It Actually Is.</h3>
+          <p style="font-size:0.8rem;color:#64748b;line-height:1.6;margin-bottom:24px;">The hype cycle convinced businesses that AI is either a silver bullet or a threat. It is neither. It is a tool &mdash; and tools have specifications.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;">7 MIN READ</span>
+            <a href="article-ai-not-magic.html" class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.15em;text-transform:uppercase;" onmouseover="this.style.opacity=&apos;0.7&apos;" onmouseout="this.style.opacity=&apos;1&apos;">READ DISPATCH &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer style="background:#080b10;border-top:1px solid rgba(255,255,255,0.08);padding:80px 32px 40px;">
+  <div style="max-width:1600px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:48px;margin-bottom:64px;">
+      <div>
+        <a href="task1.html" style="display:inline-block;margin-bottom:20px;">
+          <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:160px;height:40px;object-fit:contain;" onerror="this.style.display=&apos;none&apos;;this.nextElementSibling.style.display=&apos;flex&apos;;" />
+          <div style="display:none;width:48px;height:48px;background:var(--cc-blue);align-items:center;justify-content:center;font-weight:900;font-size:1.5rem;">E</div>
+        </a>
+        <p class="mono" style="font-size:10px;color:var(--cc-muted);line-height:1.8;letter-spacing:0.05em;margin-bottom:20px;">Student AI &amp; OR Collective.<br/>UMI Meknes &mdash; IASDO Node.</p>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="pulse-dot"></span>
+          <span class="mono" style="font-size:9px;font-weight:700;color:var(--cc-success);letter-spacing:0.15em;text-transform:uppercase;">Node Online</span>
+        </div>
+      </div>
+      <div>
+        <div class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;">Navigation</div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <a href="task1.html#about" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">Our Hub</a>
+          <a href="articles.html" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">News_Hub</a>
+          <a href="task1.html#roadmap" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">Roadmap</a>
+          <a href="task1.html#services" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">Services</a>
+        </div>
+      </div>
+      <div>
+        <div class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;">Community</div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <a href="task1.html#forum" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">Forum</a>
+          <a href="task1.html#collaboration" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">Join Collective</a>
+          <a href="team.html" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">The Team</a>
+        </div>
+      </div>
+      <div>
+        <div class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;">System Status</div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:8px;height:8px;background:var(--cc-success);display:inline-block;flex-shrink:0;"></span>
+            <span class="mono" style="font-size:9px;font-weight:700;color:var(--cc-success);letter-spacing:0.12em;text-transform:uppercase;">Knowledge Node Active</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:8px;height:8px;background:var(--cc-success);display:inline-block;flex-shrink:0;"></span>
+            <span class="mono" style="font-size:9px;font-weight:700;color:var(--cc-success);letter-spacing:0.12em;text-transform:uppercase;">Forum Online</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:8px;height:8px;background:var(--cc-blue);display:inline-block;flex-shrink:0;"></span>
+            <span class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.12em;text-transform:uppercase;">Pipeline Building</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:32px;display:flex;align-items:center;justify-content:center;">
+      <span class="mono" style="font-size:9px;color:#334155;letter-spacing:0.2em;text-transform:uppercase;text-align:center;">&copy; 2026 THE ENGRAMMERS // UMI MEKNES // ALL RIGHTS RESERVED</span>
+    </div>
+  </div>
+</footer>
+<script>
+  function filterArticles(btn, cat) {
+    document.querySelectorAll(".filter-btn").forEach(function(b) { b.classList.remove("active"); });
+    btn.classList.add("active");
+    var cards = document.querySelectorAll(".article-card");
+    var visibleCount = 0;
+    cards.forEach(function(card) {
+      if (cat === "all" || card.getAttribute("data-category") === cat) {
+        card.classList.remove("article-hidden");
+        visibleCount++;
+      } else {
+        card.classList.add("article-hidden");
+      }
+    });
+    document.getElementById("article-count").textContent = visibleCount;
+  }
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -60px 0px" });
+  document.querySelectorAll(".reveal").forEach(function(el) { revealObserver.observe(el); });
+</script>
+</body>
+</html>

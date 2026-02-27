@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Better Data Beats a Bigger Model Every Time | The Engrammers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cc-bg: #05070a; --cc-text: #fff; --cc-blue: #3A10E5;
+      --cc-blue-glow: rgba(58,16,229,0.4); --cc-card-bg: #0f141e;
+      --cc-border: #fff; --cc-muted: #94a3b8; --cc-success: #10b981;
+      --cc-shadow: rgba(58,16,229,0.3);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
+    html { scroll-behavior: smooth; }
+    body { background:var(--cc-bg); color:var(--cc-text); font-family:"Inter",sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+    ::-webkit-scrollbar { width:8px; } ::-webkit-scrollbar-track { background:var(--cc-bg); } ::-webkit-scrollbar-thumb { background:var(--cc-blue); }
+    .mono { font-family:"JetBrains Mono",monospace; }
+    .cc-lift { border:1px solid white; background:var(--cc-card-bg); transition:box-shadow 0.2s,transform 0.2s,border-color 0.2s; }
+    .cc-lift:hover { box-shadow:6px 6px 0 var(--cc-blue); transform:translate(-4px,-4px); border-color:var(--cc-blue); }
+    .btn-primary { display:inline-block; background:var(--cc-blue); color:#fff; border:1px solid var(--cc-blue); padding:14px 40px; text-transform:uppercase; font-size:0.75rem; font-weight:800; letter-spacing:0.15em; font-family:"JetBrains Mono",monospace; cursor:pointer; transition:transform 0.2s,box-shadow 0.2s; text-decoration:none; line-height:1; }
+    .btn-primary:hover { transform:translate(-3px,-3px); box-shadow:5px 5px 0 rgba(255,255,255,0.3); }
+    .btn-outline { display:inline-block; background:transparent; color:#fff; border:1px solid #fff; padding:12px 32px; text-transform:uppercase; font-size:0.75rem; font-weight:800; letter-spacing:0.15em; font-family:"JetBrains Mono",monospace; cursor:pointer; transition:transform 0.2s,box-shadow 0.2s,background 0.2s; text-decoration:none; line-height:1; }
+    .btn-outline:hover { background:rgba(255,255,255,0.08); transform:translate(-3px,-3px); box-shadow:5px 5px 0 rgba(255,255,255,0.2); }
+    #reading-progress { position:fixed; top:0; left:0; height:3px; background:var(--cc-blue); z-index:9999; transition:width 0.1s; width:0%; }
+    .nav-sticky { position:sticky; top:0; z-index:100; background:rgba(5,7,10,0.95); border-bottom:1px solid rgba(255,255,255,0.15); backdrop-filter:blur(12px); }
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease,transform 0.6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .article-body h2 { font-size:clamp(1.5rem,3vw,2.25rem); font-weight:900; text-transform:uppercase; letter-spacing:-0.03em; line-height:1.1; margin-top:5rem; margin-bottom:2rem; padding-top:3rem; border-top:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; gap:1rem; color:#fff; }
+    .section-num { font-family:"JetBrains Mono",monospace; font-size:0.75rem; font-weight:900; color:var(--cc-blue); letter-spacing:0.3em; text-transform:uppercase; flex-shrink:0; }
+    .article-body p { color:#94a3b8; font-size:1.125rem; line-height:1.8; margin-bottom:1.75rem; }
+    .article-body ul { margin:2rem 0; padding-left:0; list-style:none; }
+    .article-body ul li { color:#e2e8f0; font-size:1rem; line-height:1.7; padding:1rem 0 1rem 2rem; position:relative; border-left:2px solid var(--cc-blue); margin-bottom:0.75rem; background:rgba(58,16,229,0.03); font-family:"JetBrains Mono",monospace; font-weight:500; text-transform:uppercase; letter-spacing:0.02em; }
+    .article-body ul li::before { display:none; }
+    .section-num { font-family:"JetBrains Mono",monospace; font-size:0.7rem; font-weight:700; color:var(--cc-blue); letter-spacing:0.15em; text-transform:uppercase; display:block; margin-bottom:0.5rem; }
+    .key-insight { background:rgba(58,16,229,0.06); border-left:4px solid var(--cc-blue); padding:2rem; margin:3rem 0; position:relative; }
+    .key-insight-label { font-family:"JetBrains Mono",monospace; font-size:0.7rem; font-weight:800; color:var(--cc-blue); letter-spacing:0.3em; text-transform:uppercase; display:block; margin-bottom:1rem; }
+    .key-insight p { color:#e2e8f0; font-size:1.1rem; line-height:1.75; margin:0; font-weight:500; }
+    .pullquote { border-left:6px solid var(--cc-blue); padding:2rem 0 2rem 2.5rem; margin:3rem 0; background:transparent; }
+    .pullquote p { font-size:1.4rem !important; font-weight:700; color:#fff; line-height:1.5; margin:0; font-style:normal; letter-spacing:-0.02em; }
+    .code-block { background:#0a0d12; border-left:3px solid var(--cc-blue); padding:2rem; margin:2.5rem 0; overflow-x:auto; }
+    .code-block .code-label { font-family:"JetBrains Mono",monospace; font-size:0.7rem; font-weight:800; color:var(--cc-blue); letter-spacing:0.3em; text-transform:uppercase; display:block; margin-bottom:1.25rem; }
+    .code-block pre { font-family:"JetBrains Mono",monospace; font-size:0.82rem; line-height:1.75; color:#94a3b8; white-space:pre; }
+    .code-block pre .kw { color:#818cf8; } .code-block pre .fn { color:#34d399; } .code-block pre .str { color:#fbbf24; } .code-block pre .cm { color:#4b5563; font-style:italic; }
+    .visual-banner { background:#0a0e17; border:1px solid rgba(255,255,255,0.12); padding:2rem; margin:0; overflow-x:auto; }
+    .visual-banner .banner-label { font-family:"JetBrains Mono",monospace; font-size:0.65rem; color:var(--cc-blue); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1.25rem; display:block; }
+    .pipeline { display:flex; align-items:center; flex-wrap:wrap; gap:0; font-family:"JetBrains Mono",monospace; font-size:0.78rem; font-weight:700; }
+    .pipeline .node { background:rgba(58,16,229,0.15); border:1px solid var(--cc-blue); color:#fff; padding:0.6rem 1rem; white-space:nowrap; }
+    .pipeline .node.raw { background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.3); color:#94a3b8; }
+    .pipeline .node.clean { background:rgba(16,185,129,0.12); border-color:#10b981; color:#10b981; }
+    .pipeline .node.model { background:rgba(58,16,229,0.25); border-color:var(--cc-blue); color:var(--cc-blue); }
+    .pipeline .arrow { color:var(--cc-blue); padding:0 0.5rem; font-size:1rem; }
+    .dispatch-badge { display:inline-block; background:var(--cc-blue); color:#fff; font-family:"JetBrains Mono",monospace; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; padding:0.35rem 0.75rem; text-transform:uppercase; }
+    .tag-pill { display:inline-block; border:1px solid rgba(255,255,255,0.25); color:#94a3b8; font-family:"JetBrains Mono",monospace; font-size:0.65rem; font-weight:600; letter-spacing:0.12em; padding:0.3rem 0.7rem; text-transform:uppercase; transition:border-color 0.2s,color 0.2s; cursor:default; }
+    .tag-pill:hover { border-color:var(--cc-blue); color:var(--cc-blue); }
+    .metric-box { border:1px solid rgba(255,255,255,0.15); padding:1rem 1.25rem; background:rgba(255,255,255,0.02); }
+    .metric-box .metric-val { font-family:"JetBrains Mono",monospace; font-size:1.4rem; font-weight:800; color:#fff; line-height:1; }
+    .metric-box .metric-label { font-family:"JetBrains Mono",monospace; font-size:0.6rem; font-weight:600; color:var(--cc-muted); letter-spacing:0.15em; text-transform:uppercase; margin-top:0.3rem; }
+    .status-pill { display:inline-flex; align-items:center; gap:0.4rem; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.4); color:#10b981; font-family:"JetBrains Mono",monospace; font-size:0.65rem; font-weight:700; letter-spacing:0.12em; padding:0.3rem 0.75rem; text-transform:uppercase; }
+    .status-dot { width:6px; height:6px; background:#10b981; display:inline-block; animation:blink 1.4s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+    .sidebar-widget { border:1px solid rgba(255,255,255,0.12); background:var(--cc-card-bg); padding:1.25rem; margin-bottom:1.5rem; }
+    .sidebar-widget .widget-title { font-family:"JetBrains Mono",monospace; font-size:0.65rem; font-weight:700; color:var(--cc-blue); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1rem; padding-bottom:0.6rem; border-bottom:1px solid rgba(255,255,255,0.1); }
+    .index-link { display:flex; align-items:flex-start; gap:0.6rem; padding:0.5rem 0; border-bottom:1px solid rgba(255,255,255,0.06); text-decoration:none; color:#94a3b8; font-size:0.82rem; transition:color 0.2s; }
+    .index-link:hover { color:#fff; }
+    .index-link .idx-num { font-family:"JetBrains Mono",monospace; font-size:0.65rem; color:var(--cc-blue); font-weight:700; flex-shrink:0; margin-top:2px; }
+    .action-btn { display:inline-flex; align-items:center; gap:0.5rem; border:1px solid rgba(255,255,255,0.2); background:transparent; color:#94a3b8; font-family:"JetBrains Mono",monospace; font-size:0.65rem; font-weight:600; letter-spacing:0.1em; padding:0.5rem 1rem; text-transform:uppercase; cursor:pointer; transition:all 0.2s; text-decoration:none; }
+    .action-btn:hover { border-color:var(--cc-blue); color:var(--cc-blue); }
+    .ticker-wrap { overflow:hidden; background:#0a0e17; border-top:1px solid rgba(255,255,255,0.1); border-bottom:1px solid rgba(255,255,255,0.1); padding:0.6rem 0; }
+    .ticker-inner { display:flex; white-space:nowrap; animation:ticker 28s linear infinite; }
+    .ticker-inner:hover { animation-play-state:paused; }
+    @keyframes ticker { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+    .ticker-item { font-family:"JetBrains Mono",monospace; font-size:0.7rem; font-weight:600; letter-spacing:0.1em; color:#475569; text-transform:uppercase; padding:0 2rem; }
+    .ticker-item span { color:var(--cc-blue); }
+    .nav-link { font-family:"JetBrains Mono",monospace; font-size:0.72rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#94a3b8; text-decoration:none; transition:color 0.2s; padding:0.25rem 0; }
+    .nav-link:hover { color:#fff; }
+    .footer-col-title { font-family:"JetBrains Mono",monospace; font-size:0.65rem; font-weight:700; color:var(--cc-blue); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1rem; }
+    .footer-link { display:block; font-size:0.8rem; color:#64748b; text-decoration:none; margin-bottom:0.5rem; transition:color 0.2s; font-family:"JetBrains Mono",monospace; }
+    .footer-link:hover { color:#fff; }
+    .checklist li { padding-left:2rem !important; }
+    .checklist li::before { content:"[x]" !important; font-family:"JetBrains Mono",monospace; font-size:0.7rem; color:var(--cc-blue) !important; }
+    .section-header { font-weight:900; font-size:clamp(2.5rem,6vw,5rem); line-height:0.95; letter-spacing:-0.04em; text-transform:uppercase; }
+    @media(max-width:768px){.section-header{font-size:clamp(1.8rem,5vw,3rem)!important;}.article-body p{font-size:1rem;}.article-body h2{font-size:1.25rem;flex-direction:column;align-items:flex-start;gap:0.5rem;}.code-block{padding:1rem;font-size:0.7rem;}.code-block pre{white-space:pre-wrap;word-break:break-word;}.pullquote p{font-size:1.1rem!important;}.btn-primary,.btn-outline{padding:12px 20px;font-size:0.65rem;}.article-grid{grid-template-columns:1fr!important;}aside{position:static!important;}.pipeline{flex-direction:column;align-items:flex-start;}}
+    /* MOBILE RESPONSIVE */
+    .nav-links{display:flex;align-items:center;gap:2.5rem;}
+    .nav-right{display:flex;align-items:center;gap:1.5rem;}
+    .nav-status{display:flex;align-items:center;gap:8px;}
+    .mobile-menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,0.2);padding:8px 12px;cursor:pointer;}
+    .mobile-menu{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(5,7,10,0.98);border-bottom:1px solid rgba(255,255,255,0.1);padding:1.5rem;flex-direction:column;gap:1rem;z-index:100;}
+    .mobile-menu.active{display:flex;}
+    @media(max-width:1023px){.nav-links,.nav-status{display:none;}.mobile-menu-btn{display:block;}aside{display:none!important;}}
+    @media(max-width:640px){header,section{padding:60px 16px!important;}nav{padding:12px 16px!important;}.metric-box{border-right:none;padding:0.5rem 0;}}
+  </style>
+</head>
+<body>
+<div class="bg-grid" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-image:linear-gradient(rgba(58,16,229,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(58,16,229,0.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;"></div>
+<div id="reading-progress"></div>
+
+<!-- NAV -->
+<nav style="background:rgba(0,0,0,0.95);position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.1);padding:20px 32px;">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;position:relative;">
+    <a href="task1.html" style="text-decoration:none;flex-shrink:0;">
+      <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:160px;height:40px;object-fit:contain;" />
+    </a>
+    <div class="nav-links">
+      <a href="task1.html#about" class="nav-link">Our Hub</a>
+      <a href="articles.html" class="nav-link" style="color:#fff;">News &amp; Articles</a>
+      <a href="task1.html#roadmap" class="nav-link">Roadmap</a>
+      <a href="task1.html#services" class="nav-link">Services</a>
+      <a href="task1.html#forum" class="nav-link">Forum</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-status">
+        <span class="pulse-dot" style="background:#10b981;width:8px;height:8px;display:inline-block;animation:blink 1.4s ease-in-out infinite;"></span>
+        <span style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#94a3b8;text-transform:uppercase;letter-spacing:0.12em;">Knowledge Node Active</span>
+      </div>
+      <a href="task1.html#collaboration" class="btn-primary" style="padding:10px 24px;">Join Collective</a>
+      <button class="mobile-menu-btn" onclick="document.querySelector('.mobile-menu').classList.toggle('active')">
+        <svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div class="mobile-menu">
+      <a href="task1.html#about" class="nav-link">Our Hub</a>
+      <a href="articles.html" class="nav-link">News &amp; Articles</a>
+      <a href="task1.html#roadmap" class="nav-link">Roadmap</a>
+      <a href="task1.html#services" class="nav-link">Services</a>
+      <a href="task1.html#forum" class="nav-link">Forum</a>
+      <a href="task1.html#collaboration" class="btn-primary" style="padding:10px 24px;text-align:center;">Join Collective</a>
+    </div>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span>//</span> DISPATCH #005</span>
+    <span class="ticker-item">DATA QUALITY <span>&gt;&gt;</span> MODEL SIZE</span>
+    <span class="ticker-item"><span>_</span> CLEAN FIRST</span>
+    <span class="ticker-item">80% DATA WORK <span>&gt;&gt;</span> 20% MODELLING</span>
+    <span class="ticker-item"><span>//</span> THE ENGRAMMERS</span>
+    <span class="ticker-item">SCHEMA VALIDATION <span>&gt;&gt;</span> HYPERPARAMETER TUNING</span>
+    <span class="ticker-item"><span>_</span> RAW DATA IS A LIABILITY</span>
+    <span class="ticker-item">GARBAGE IN <span>&gt;&gt;</span> GARBAGE OUT</span>
+    <span class="ticker-item"><span>//</span> DISPATCH #005</span>
+    <span class="ticker-item">DATA QUALITY <span>&gt;&gt;</span> MODEL SIZE</span>
+    <span class="ticker-item"><span>_</span> CLEAN FIRST</span>
+    <span class="ticker-item">80% DATA WORK <span>&gt;&gt;</span> 20% MODELLING</span>
+    <span class="ticker-item"><span>//</span> THE ENGRAMMERS</span>
+    <span class="ticker-item">SCHEMA VALIDATION <span>&gt;&gt;</span> HYPERPARAMETER TUNING</span>
+    <span class="ticker-item"><span>_</span> RAW DATA IS A LIABILITY</span>
+    <span class="ticker-item">GARBAGE IN <span>&gt;&gt;</span> GARBAGE OUT</span>
+  </div>
+</div>
+
+<!-- DISPATCH TOOLBAR -->
+<div style="background:#0a0e17;border-bottom:1px solid rgba(255,255,255,0.1);padding:0.75rem 0;">
+  <div class="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-between gap-3">
+    <div style="display:flex;align-items:center;gap:0.5rem;font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#475569;letter-spacing:0.1em;text-transform:uppercase;">
+      <a href="index.html" style="color:#475569;text-decoration:none;" onmouseover="this.style.color=&quot;#fff&quot;" onmouseout="this.style.color=&quot;#475569&quot;">HOME</a>
+      <span style="color:var(--cc-blue);">&gt;</span>
+      <a href="index.html#knowledge" style="color:#475569;text-decoration:none;" onmouseover="this.style.color=&quot;#fff&quot;" onmouseout="this.style.color=&quot;#475569&quot;">KNOWLEDGE HUB</a>
+      <span style="color:var(--cc-blue);">&gt;</span>
+      <span style="color:#94a3b8;">RESEARCH</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+      <div class="status-pill"><span class="status-dot"></span> PUBLISHED</div>
+      <a href="#" class="action-btn">&#9965; BOOKMARK</a>
+      <a href="#" class="action-btn">&#8679; SHARE</a>
+      <a href="index.html#knowledge" class="action-btn">&larr; ALL DISPATCHES</a>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="background:linear-gradient(180deg,#0a0e17 0%,var(--cc-bg) 100%);border-bottom:1px solid rgba(255,255,255,0.08);padding:3.5rem 0 2.5rem;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem;margin-bottom:1.5rem;">
+      <span class="dispatch-badge">DISPATCH #005</span>
+      <span class="tag-pill">Data Quality</span>
+      <span class="tag-pill">ML</span>
+      <span class="tag-pill">Strategy</span>
+      <span class="tag-pill">Engineering</span>
+    </div>
+    <div style="max-width:860px;">
+      <div class="section-num" style="font-size:0.7rem;margin-bottom:0.75rem;">// RESEARCH &mdash; FEB 26, 2026</div>
+      <h1 style="font-family:JetBrains Mono,monospace;font-size:clamp(1.6rem,4vw,2.8rem);font-weight:900;line-height:1.15;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:1.25rem;">BETTER DATA BEATS A BIGGER MODEL EVERY TIME</h1>
+      <p style="font-size:1.05rem;color:#94a3b8;line-height:1.7;max-width:680px;margin-bottom:2rem;">The AI industry chases bigger models. Most business problems are solved faster by fixing the data.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+        <div class="metric-box"><div class="metric-val">6</div><div class="metric-label">Minutes Read</div></div>
+        <div class="metric-box"><div class="metric-val">#005</div><div class="metric-label">Dispatch</div></div>
+        <div class="metric-box"><div class="metric-val">5</div><div class="metric-label">Sections</div></div>
+        <div class="metric-box"><div class="metric-val">01</div><div class="metric-label">Code Block</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- VISUAL BANNER -->
+<div style="background:#080b12;border-bottom:1px solid rgba(255,255,255,0.08);padding:1.5rem 0;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="visual-banner">
+      <span class="banner-label">// PIPELINE_OVERVIEW &mdash; DATA FLOW TO MODEL</span>
+      <div class="pipeline">
+        <div class="node raw">RAW_DATA</div>
+        <div class="arrow">&rarr;</div>
+        <div class="node">[VALIDATOR]</div>
+        <div class="arrow">&rarr;</div>
+        <div class="node">[DEDUPLICATOR]</div>
+        <div class="arrow">&rarr;</div>
+        <div class="node">[NORMALISER]</div>
+        <div class="arrow">&rarr;</div>
+        <div class="node clean">CLEAN_DATASET</div>
+        <div class="arrow">&rarr;</div>
+        <div class="node model">[MODEL]</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE GRID -->
+<div class="max-w-7xl mx-auto px-6 py-12">
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:3rem;align-items:start;" class="article-grid">
+
+    <!-- ARTICLE BODY -->
+    <main class="article-body">
+
+      <!-- 01 -->
+      <section class="reveal" id="section-01" style="margin-bottom:3rem;">
+        <span class="section-num">// 01 &mdash; THE MODEL OBSESSION</span>
+        <h2>The Model Obsession</h2>
+        <p>The default assumption across business teams and AI consultancies alike is that a more complex model produces better results. More parameters. Larger context windows. Fancier architecture. This assumption is almost always wrong for real-world business use cases.</p>
+        <p>The model is rarely the bottleneck. The data is. And yet the industry&rsquo;s attention &mdash; its headlines, its benchmark races, its conference talks &mdash; is almost entirely focused on the model side of the equation. Meanwhile, in production, systems fail quietly because no one validated the input.</p>
+        <div class="key-insight">
+          <p>On a 10,000-row business dataset with 15% duplicate records, a gradient boosted tree trained on clean data will outperform GPT-4 trained on dirty data. Every time.</p>
+        </div>
+        <p>This is not an argument against sophisticated models. It is an argument for sequencing. You do not optimise the engine before you fix the fuel supply. Data quality is the fuel. The model is the engine.</p>
+      </section>
+
+      <!-- 02 -->
+      <section class="reveal" id="section-02" style="margin-bottom:3rem;">
+        <span class="section-num">// 02 &mdash; WHAT BAD DATA LOOKS LIKE</span>
+        <h2>What Bad Data Looks Like</h2>
+        <p>Bad data rarely announces itself. It hides inside normal-looking tables. It passes initial inspection. It only reveals itself when the model starts producing nonsense &mdash; or worse, plausible-looking nonsense. Here is what we find most often:</p>
+        <ul>
+          <li>Duplicate customer records inflating churn and lifetime value calculations</li>
+          <li>Missing values filled with zeros, skewing numeric distributions</li>
+          <li>Dates stored as plain text in inconsistent regional formats</li>
+          <li>Inconsistent category labels &mdash; &ldquo;SME&rdquo;, &ldquo;sme&rdquo;, &ldquo;Small-Medium Enterprise&rdquo; as separate classes</li>
+          <li>Outliers from data entry errors &mdash; a salary of 99999 meaning &ldquo;not provided&rdquo;</li>
+        </ul>
+        <p>None of these are exotic edge cases. They are standard findings in almost every client dataset we have ever opened. The only variable is proportion.</p>
+      </section>
+
+      <!-- 03 -->
+      <section class="reveal" id="section-03" style="margin-bottom:3rem;">
+        <span class="section-num">// 03 &mdash; THE 80/20 OF DATA WORK</span>
+        <h2>The 80/20 of Data Work</h2>
+        <p>Ask any practitioner who has shipped ML in production what the actual time split looks like. The answer is consistent: 80% of the project is data work. Ingestion, profiling, cleaning, normalisation, validation, feature engineering. The remaining 20% is the modelling, evaluation, and deployment.</p>
+        <p>Yet most project proposals are written in reverse &mdash; heavy on model selection, light on data pipeline. This misalignment between effort and narrative creates chronic timeline underestimation and persistent quality problems at the model layer.</p>
+        <p>A basic data quality audit at project start pays back its cost in the first week. Here is the minimal version we run on every new dataset:</p>
+        <div class="code-block">
+          <span class="code-label">Pipeline // data_quality_audit.py</span>
+          <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="cm"># Load dataset</span>
+df = pd.<span class="fn">read_csv</span>(<span class="str">"dataset.csv"</span>)
+
+<span class="cm"># 01 -- Null audit</span>
+<span class="fn">print</span>(<span class="str">"=== NULL AUDIT ==="</span>)
+<span class="fn">print</span>(df.<span class="fn">isnull</span>().<span class="fn">sum</span>().<span class="fn">sort_values</span>(ascending=<span class="kw">False</span>))
+
+<span class="cm"># 02 -- Dtype check</span>
+<span class="fn">print</span>(<span class="str">"
+=== DTYPE CHECK ==="</span>)
+<span class="fn">print</span>(df.<span class="fn">dtypes</span>)
+
+<span class="cm"># 03 -- Duplicate rows</span>
+<span class="fn">print</span>(<span class="str">"
+=== DUPLICATES ==="</span>)
+n_dupes = df.<span class="fn">duplicated</span>().<span class="fn">sum</span>()
+<span class="fn">print</span>(<span class="fn">f</span><span class="str">"Duplicate rows: {n_dupes} ({n_dupes/len(df)*100:.1f}%)"</span>)
+
+<span class="cm"># 04 -- Cardinality on object columns</span>
+<span class="fn">print</span>(<span class="str">"
+=== CARDINALITY (OBJECT COLS) ==="</span>)
+<span class="kw">for</span> col <span class="kw">in</span> df.<span class="fn">select_dtypes</span>(include=<span class="str">"object"</span>).columns:
+    <span class="fn">print</span>(<span class="fn">f</span><span class="str">"{col}: {df[col].nunique()} unique values"</span>)</pre>
+        </div>
+        <p>This takes under two minutes to run. It consistently surfaces problems that would have cost days later in the pipeline. Run it before writing a single model line.</p>
+      </section>
+
+      <!-- 04 -->
+      <section class="reveal" id="section-04" style="margin-bottom:3rem;">
+        <span class="section-num">// 04 &mdash; WHAT CLEAN DATA ENABLES</span>
+        <h2>What Clean Data Enables</h2>
+        <p>The benefits of clean data are invisible in the same way that good infrastructure is invisible &mdash; you only notice it when it is absent. When data is clean, the rest of the project flows:</p>
+        <ul>
+          <li>Faster iteration &mdash; no debugging time lost to data artefacts</li>
+          <li>Interpretable results &mdash; patterns reflect reality, not noise</li>
+          <li>Models that generalise &mdash; trained on signal, not on systematic error</li>
+          <li>Cheaper compute &mdash; no wasted cycles on junk records</li>
+          <li>Trustworthy outputs &mdash; stakeholders can act with confidence</li>
+        </ul>
+        <div class="pullquote">
+          <p>&ldquo;Clean data is not glamorous. It does not make conference presentations. But it is the single variable with the highest ROI in any analytics project.&rdquo;</p>
+        </div>
+        <p>The compounding effect is significant. A project that starts with clean data reaches a qualitatively different level of reliability. Edge cases that would have caused silent failures are surfaced and handled. Stakeholder trust is earned from the first demo rather than rebuilt after the first failure.</p>
+      </section>
+
+      <!-- 05 -->
+      <section class="reveal" id="section-05" style="margin-bottom:3rem;">
+        <span class="section-num">// 05 &mdash; PRACTICAL CHECKLIST</span>
+        <h2>Practical Checklist</h2>
+        <p>Before any model training begins, the following checklist should be completed and documented. Not as a bureaucratic exercise &mdash; as a technical hygiene requirement:</p>
+        <ul class="checklist">
+          <li>Schema validation &mdash; all columns present, correct types, expected ranges</li>
+          <li>Null handling policy &mdash; defined per column, not a global fill strategy</li>
+          <li>Deduplication strategy &mdash; primary key audit, fuzzy match for name fields</li>
+          <li>Date standardisation &mdash; single timezone, consistent format, parsed not stored as string</li>
+          <li>Categorical encoding &mdash; agreed vocabulary, unknown class handling documented</li>
+          <li>Outlier audit &mdash; statistical bounds checked, domain expert sign-off on edge values</li>
+        </ul>
+        <p>This is what Engrammers does before writing a single line of model code. Every engagement. Every dataset size. Without exception. The checklist is not optional when the outputs are going to be used to make business decisions. It is the foundation on which good inference is built.</p>
+      </section>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside style="position:sticky;top:80px;">
+
+      <!-- Article Index -->
+      <div class="sidebar-widget reveal">
+        <div class="widget-title">Article Index</div>
+        <a href="#section-01" class="index-link"><span class="idx-num">01</span>The Model Obsession</a>
+        <a href="#section-02" class="index-link"><span class="idx-num">02</span>What Bad Data Looks Like</a>
+        <a href="#section-03" class="index-link"><span class="idx-num">03</span>The 80/20 of Data Work</a>
+        <a href="#section-04" class="index-link"><span class="idx-num">04</span>What Clean Data Enables</a>
+        <a href="#section-05" class="index-link"><span class="idx-num">05</span>Practical Checklist</a>
+      </div>
+
+      <!-- Tags -->
+      <div class="sidebar-widget reveal">
+        <div class="widget-title">Tags</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+          <span class="tag-pill">Data Quality</span>
+          <span class="tag-pill">ML</span>
+          <span class="tag-pill">Strategy</span>
+          <span class="tag-pill">Engineering</span>
+          <span class="tag-pill">Pandas</span>
+          <span class="tag-pill">Python</span>
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="sidebar-widget reveal">
+        <div class="widget-title">Dispatch Metrics</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <div class="metric-box"><div class="metric-val">6 MIN</div><div class="metric-label">Read Time</div></div>
+          <div class="metric-box"><div class="metric-val">#005</div><div class="metric-label">Dispatch</div></div>
+          <div class="metric-box"><div class="metric-val">5</div><div class="metric-label">Sections</div></div>
+          <div class="metric-box"><div class="metric-val">FEB 26</div><div class="metric-label">Published</div></div>
+        </div>
+      </div>
+
+      <!-- Related Service -->
+      <div class="sidebar-widget reveal cc-lift" style="cursor:default;">
+        <div class="widget-title">Related Service</div>
+        <p style="font-size:0.82rem;color:#94a3b8;line-height:1.65;margin-bottom:1rem;">We build production-grade data pipelines with full auditability &mdash; from raw ingestion to clean, model-ready datasets.</p>
+        <a href="index.html#services" class="btn-primary" style="font-size:0.65rem;padding:10px 20px;">View Services</a>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- DISPATCH ACTIONS BAR -->
+<div style="border-top:1px solid rgba(255,255,255,0.1);border-bottom:1px solid rgba(255,255,255,0.1);background:#0a0e17;padding:1.5rem 0;">
+  <div class="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4">
+    <a href="article-gut-feeling.html" class="btn-outline" style="font-size:0.65rem;padding:10px 20px;">&larr; PREV &mdash; DISPATCH #004</a>
+    <div style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#475569;text-align:center;letter-spacing:0.1em;">DISPATCH #005 &mdash; BETTER DATA BEATS A BIGGER MODEL EVERY TIME</div>
+    <a href="article-regression.html" class="btn-primary" style="font-size:0.65rem;padding:10px 20px;">NEXT &mdash; DISPATCH #006 &rarr;</a>
+  </div>
+</div>
+
+<!-- AUTHOR CARD -->
+<div class="max-w-7xl mx-auto px-6 py-10">
+  <div class="cc-lift reveal" style="padding:2rem;display:flex;gap:1.5rem;align-items:flex-start;">
+    <div style="width:56px;height:56px;background:var(--cc-blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:JetBrains Mono,monospace;font-size:1.1rem;font-weight:900;color:#fff;">EN</div>
+    <div>
+      <div style="font-family:JetBrains Mono,monospace;font-size:0.7rem;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.4rem;">Author</div>
+      <div style="font-weight:800;font-size:1rem;margin-bottom:0.5rem;">The Engrammers Collective</div>
+      <p style="font-size:0.85rem;color:#94a3b8;line-height:1.65;max-width:600px;">The Engrammers is a data and AI consultancy focused on practical, production-grade machine learning. We publish technical dispatches to share what we learn across engagements &mdash; without the hype.</p>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED ARTICLES -->
+<div class="max-w-7xl mx-auto px-6 pb-16">
+  <div style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(255,255,255,0.1);">// RELATED DISPATCHES</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;">
+
+    <a href="article-gut-feeling.html" class="cc-lift reveal" style="padding:1.75rem;text-decoration:none;display:block;">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+        <span class="dispatch-badge" style="font-size:0.6rem;padding:0.25rem 0.6rem;">DISPATCH #004</span>
+        <span class="tag-pill">Strategy</span>
+      </div>
+      <h3 style="font-family:JetBrains Mono,monospace;font-size:0.95rem;font-weight:800;text-transform:uppercase;letter-spacing:0.04em;line-height:1.3;margin-bottom:0.75rem;">#004 The Hidden Cost of Gut Feeling</h3>
+      <p style="font-size:0.82rem;color:#64748b;line-height:1.65;">Why intuition-led decisions erode competitive edge and what data-driven alternatives actually look like in practice.</p>
+    </a>
+
+    <a href="article-regression.html" class="cc-lift reveal" style="padding:1.75rem;text-decoration:none;display:block;">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+        <span class="dispatch-badge" style="font-size:0.6rem;padding:0.25rem 0.6rem;">DISPATCH #006</span>
+        <span class="tag-pill">ML</span>
+      </div>
+      <h3 style="font-family:JetBrains Mono,monospace;font-size:0.95rem;font-weight:800;text-transform:uppercase;letter-spacing:0.04em;line-height:1.3;margin-bottom:0.75rem;">#006 Regression vs Classification</h3>
+      <p style="font-size:0.82rem;color:#64748b;line-height:1.65;">A plain-language guide to choosing the right model type for your business problem before writing a single line of code.</p>
+    </a>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:#080b12;border-top:1px solid rgba(255,255,255,0.1);padding:4rem 0 2rem;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2.5rem;margin-bottom:3rem;">
+
+      <!-- Branding -->
+      <div>
+        <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="height:28px;width:auto;margin-bottom:1rem;" />
+        <p style="font-size:0.8rem;color:#475569;line-height:1.65;max-width:220px;">Data and AI consultancy. We build systems that work in production, not just in demos.</p>
+        <div style="margin-top:1rem;font-family:JetBrains Mono,monospace;font-size:0.65rem;color:var(--cc-blue);letter-spacing:0.1em;">SYS_STATUS: <span style="color:#10b981;">ONLINE</span></div>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="index.html#knowledge" class="footer-link">Knowledge Hub</a>
+        <a href="index.html#services" class="footer-link">Services</a>
+        <a href="index.html#about" class="footer-link">About</a>
+        <a href="index.html#contact" class="footer-link">Contact</a>
+      </div>
+
+      <!-- Community -->
+      <div>
+        <div class="footer-col-title">Community</div>
+        <a href="#" class="footer-link">Newsletter</a>
+        <a href="#" class="footer-link">LinkedIn</a>
+        <a href="#" class="footer-link">GitHub</a>
+        <a href="#" class="footer-link">RSS Feed</a>
+      </div>
+
+      <!-- System Status -->
+      <div>
+        <div class="footer-col-title">System Status</div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#475569;">
+            <span>WEBSITE</span><span style="color:#10b981;">ONLINE</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#475569;">
+            <span>KNOWLEDGE HUB</span><span style="color:#10b981;">ACTIVE</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#475569;">
+            <span>DISPATCHES</span><span style="color:#10b981;">#005 LIVE</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#475569;">
+            <span>BUILD</span><span style="color:#10b981;">2026.02.26</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:1.5rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+      <div style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#2d3748;letter-spacing:0.1em;">&copy; 2026 THE ENGRAMMERS. ALL RIGHTS RESERVED.</div>
+      <div style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#2d3748;letter-spacing:0.1em;">DISPATCH #005 &mdash; DATA QUALITY</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reading progress bar
+  window.addEventListener("scroll", function() {
+    var el = document.documentElement;
+    var pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+    document.getElementById("reading-progress").style.width = pct + "%";
+  });
+
+  // Reveal on scroll via IntersectionObserver
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) e.target.classList.add("visible");
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach(function(el) { observer.observe(el); });
+</script>
+</body>
+</html>
