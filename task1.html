@@ -198,7 +198,6 @@
                     <span>Knowledge Node Active</span>
                 </div>
                 <button onclick="document.getElementById('collaboration').scrollIntoView({behavior:'smooth'})" class="btn-primary py-2 px-4 md:py-2.5 md:px-8 text-[10px] md:text-[11px]">Join</button>
-                <!-- Mobile Menu Button -->
                 <button id="mobile-menu-btn" class="lg:hidden flex flex-col gap-1.5 p-2">
                     <span class="w-6 h-0.5 bg-white"></span>
                     <span class="w-6 h-0.5 bg-white"></span>
@@ -206,7 +205,6 @@
                 </button>
             </div>
         </div>
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-white/10 pt-4">
             <div class="flex flex-col space-y-4 font-bold text-sm uppercase tracking-widest text-slate-400">
                 <a href="#about" class="hover:text-white transition-colors py-2">Our Hub</a>
@@ -219,35 +217,35 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="py-16 md:py-32 lg:py-60 px-4 md:px-8 relative overflow-hidden">
-        <div class="max-w-[1600px] mx-auto grid lg:grid-cols-2 gap-12 md:gap-24 items-center">
+    <header class="py-32 md:py-60 px-8 relative overflow-hidden">
+        <div class="max-w-[1600px] mx-auto grid lg:grid-cols-2 gap-24 items-center">
             <div class="reveal">
-                <div class="badge text-[#3A10E5] border-[#3A10E5] text-[8px] md:text-[10px]">Master IASDO // UMI Meknes</div>
-                <h1 class="section-header mb-6 md:mb-12 text-white uppercase text-3xl md:text-5xl lg:text-7xl">
+                <div class="badge text-[#3A10E5] border-[#3A10E5]">Master IASDO // UMI Meknes Faculty of Sciences</div>
+                <h1 class="section-header mb-12 text-white uppercase">
                     SHARE. BUILD. <br>
                     <span class="text-[#3A10E5] italic">OPTIMIZE.</span> <br>
                     TOGETHER.
                 </h1>
-                <p class="text-base md:text-xl lg:text-3xl text-slate-400 leading-relaxed mb-8 md:mb-16 max-w-2xl font-light">
+                <p class="text-xl md:text-3xl text-slate-400 leading-relaxed mb-16 max-w-2xl font-light">
                     We are a collective of students dedicated to sharing knowledge, publishing research, and building industrial-grade AI and Optimization solutions.
                 </p>
-                <div class="flex flex-wrap gap-4 md:gap-8">
-                    <a href="articles.html" class="btn-primary text-[10px] md:text-xs py-3 px-6 md:py-4 md:px-10">Browse Articles</a>
-                    <a href="#roadmap" class="btn-outline text-[10px] md:text-xs py-3 px-6 md:py-4 md:px-10">Upcoming Projects</a>
+                <div class="flex flex-wrap gap-8">
+                    <a href="articles.html" class="btn-primary">Browse Articles</a>
+                    <a href="#roadmap" class="btn-outline">Upcoming Projects</a>
                 </div>
                 
-                <div class="mt-12 md:mt-24 grid grid-cols-3 gap-4 md:gap-12 opacity-40">
-                    <div class="border-l border-white/20 pl-3 md:pl-6">
-                        <div class="font-black text-xl md:text-3xl">NEWS</div>
-                        <div class="mono text-[8px] md:text-[10px] uppercase tracking-widest text-slate-500 mt-1 md:mt-2">Latest Insights</div>
+                <div class="mt-24 grid grid-cols-3 gap-12 opacity-40">
+                    <div class="border-l border-white/20 pl-6">
+                        <div class="font-black text-3xl">NEWS</div>
+                        <div class="mono text-[10px] uppercase tracking-widest text-slate-500 mt-2">Latest Insights</div>
                     </div>
-                    <div class="border-l border-white/20 pl-3 md:pl-6">
-                        <div class="font-black text-xl md:text-3xl">TECH</div>
-                        <div class="mono text-[8px] md:text-[10px] uppercase tracking-widest text-slate-500 mt-1 md:mt-2">Service Nodes</div>
+                    <div class="border-l border-white/20 pl-6">
+                        <div class="font-black text-3xl">TECH</div>
+                        <div class="mono text-[10px] uppercase tracking-widest text-slate-500 mt-2">Service Nodes</div>
                     </div>
-                    <div class="border-l border-white/20 pl-3 md:pl-6">
-                        <div class="font-black text-xl md:text-3xl">HUB</div>
-                        <div class="mono text-[8px] md:text-[10px] uppercase tracking-widest text-slate-500 mt-1 md:mt-2">Research Pool</div>
+                    <div class="border-l border-white/20 pl-6">
+                        <div class="font-black text-3xl">HUB</div>
+                        <div class="mono text-[10px] uppercase tracking-widest text-slate-500 mt-2">Research Pool</div>
                     </div>
                 </div>
             </div>
@@ -750,17 +748,17 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-48 border-t border-white/10 px-8">
-        <div class="max-w-[1600px] mx-auto grid md:grid-cols-4 gap-32">
+    <footer class="py-24 md:py-48 border-t border-white/10 px-4 md:px-8">
+        <div class="max-w-[1600px] mx-auto grid md:grid-cols-4 gap-16 md:gap-32">
             <div class="col-span-1 md:col-span-2">
-                <a href="index.html" class="flex items-center gap-3 mb-14">
+                <a href="index.html" class="flex items-center gap-3 mb-10 md:mb-14">
                     <img 
                         src="LOGO ENGRAMMERS.png" 
                         alt="Engrammers Logo" 
                         style="width:70px;height:70px;object-fit:contain;"
                         onerror="this.style.display='none'"
                     >
-                    <span class="font-black text-2xl md:text-4xl tracking-tighter uppercase text-white">the engrammers</span>
+                    <span class="font-black text-xl md:text-2xl tracking-tighter uppercase text-white">the engrammers</span>
                 </a>
                 <p class="text-slate-500 max-w-md leading-relaxed mb-20 italic text-xl font-medium">
                     A collective hub of students bridging AI and Decision Science. A sanctuary for sharing knowledge and building high-speed research at UMI Meknes.
@@ -809,7 +807,6 @@
             mobileMenuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
-            // Close menu when clicking a link
             mobileMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');

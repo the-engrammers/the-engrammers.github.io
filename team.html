@@ -47,24 +47,33 @@
 <body>
 <div class=bg-grid></div>
 <!-- NAVIGATION -->
-<nav style="position:sticky;top:0;left:0;right:0;z-index:50;border-bottom:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.95);backdrop-filter:blur(12px);padding:20px 32px;">
-  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;">
-    <a href="task1.html" style="display:flex;align-items:center;text-decoration:none;">
-      <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:160px;height:40px;object-fit:contain;" />
+<nav style="position:sticky;top:0;left:0;right:0;z-index:50;border-bottom:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.95);backdrop-filter:blur(12px);padding:12px 16px;" id="main-nav">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;">
+    <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;">
+      <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:70px;height:70px;object-fit:contain;" />
+      <span style="font-weight:900;font-size:1.1rem;letter-spacing:-0.02em;text-transform:uppercase;color:#fff;">the engrammers</span>
     </a>
-    <div style="display:flex;align-items:center;gap:2.5rem;">
-      <a href="task1.html#about" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Our Hub</a>
+    <div id="desktop-nav" style="display:none;align-items:center;gap:2.5rem;">
+      <a href="index.html#about" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Our Hub</a>
       <a href="articles.html" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">News &amp; Articles</a>
-      <a href="task1.html#roadmap" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Roadmap</a>
-      <a href="task1.html#services" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Services</a>
-      <a href="task1.html#forum" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Forum</a>
+      <a href="index.html#roadmap" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Roadmap</a>
+      <a href="index.html#services" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Services</a>
     </div>
-    <div style="display:flex;align-items:center;gap:1.5rem;">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <span class="pulse-dot" style="background:#10b981;"></span>
-        <span class="mono" style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.12em;">Knowledge Node Active</span>
-      </div>
-      <a href="task1.html#collaboration" class="btn-primary" style="font-size:10px;padding:10px 24px;">Join Collective</a>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <a href="index.html#collaboration" class="btn-primary" style="font-size:9px;padding:8px 16px;">Join</a>
+      <button id="mobile-menu-btn" style="display:flex;flex-direction:column;gap:5px;padding:8px;background:none;border:none;cursor:pointer;">
+        <span style="width:24px;height:2px;background:#fff;"></span>
+        <span style="width:24px;height:2px;background:#fff;"></span>
+        <span style="width:24px;height:2px;background:#fff;"></span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" style="display:none;padding:16px 0;border-top:1px solid rgba(255,255,255,0.1);margin-top:12px;">
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <a href="index.html#about" class="mono" style="color:#94a3b8;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">Our Hub</a>
+      <a href="articles.html" class="mono" style="color:#94a3b8;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">News &amp; Articles</a>
+      <a href="index.html#roadmap" class="mono" style="color:#94a3b8;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">Roadmap</a>
+      <a href="index.html#services" class="mono" style="color:#94a3b8;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">Services</a>
     </div>
   </div>
 </nav>
@@ -294,7 +303,7 @@
 <a href="task1.html" style="text-decoration:none;color:#475569;font-size:13px;font-weight:600;">Our Hub</a>
 <a href="team.html" style="text-decoration:none;color:#475569;font-size:13px;font-weight:600;">The Collective</a>
 <a href="articles.html" style="text-decoration:none;color:#475569;font-size:13px;font-weight:600;">Articles</a>
-<a href="projects.html" style="text-decoration:none;color:#475569;font-size:13px;font-weight:600;">Projects</a>
+<a href="coming-soon.html" style="text-decoration:none;color:#475569;font-size:13px;font-weight:600;">Projects</a>
 <a href="task1.html#collaboration" style="text-decoration:none;color:#475569;font-size:13px;font-weight:600;">Collaborate</a>
 </div></div>
 <!-- Domains -->
@@ -337,6 +346,36 @@ const revealObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll(".reveal").forEach(el => {
   revealObserver.observe(el);
 });
+
+// Mobile menu toggle
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const desktopNav = document.getElementById('desktop-nav');
+
+function handleResize() {
+  if (window.innerWidth >= 1024) {
+    desktopNav.style.display = 'flex';
+    mobileMenuBtn.style.display = 'none';
+    mobileMenu.style.display = 'none';
+  } else {
+    desktopNav.style.display = 'none';
+    mobileMenuBtn.style.display = 'flex';
+  }
+}
+
+if (mobileMenuBtn && mobileMenu) {
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.style.display = 'none';
+    });
+  });
+}
+
+handleResize();
+window.addEventListener('resize', handleResize);
 </script>
 </body>
 </html>

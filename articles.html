@@ -49,46 +49,65 @@
     a { text-decoration:none; }
     .group-hover-blue { transition:color 0.2s ease; }
     .group:hover .group-hover-blue { color:var(--cc-blue) !important; }
+    
+    /* Mobile responsive styles */
+    @media (min-width: 768px) {
+      .articles-hero-grid { grid-template-columns: 1fr 1fr !important; gap: 80px !important; }
+      section { padding: 80px 32px !important; }
+    }
+    @media (max-width: 767px) {
+      .articles-grid { grid-template-columns: 1fr !important; }
+      .article-card { min-height: auto !important; }
+    }
   </style>
 </head>
 <body>
 <div class="bg-grid"></div>
-<nav style="background:rgba(0,0,0,0.95);border-bottom:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(8px);">
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 32px;">
-    <a href="task1.html" style="display:flex;align-items:center;">
-      <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:160px;height:40px;object-fit:contain;" onerror="this.style.display=&apos;none&apos;;this.nextElementSibling.style.display=&apos;flex&apos;;" />
-      <div style="display:none;width:48px;height:48px;background:var(--cc-blue);align-items:center;justify-content:center;font-weight:900;font-size:1.5rem;">E</div>
+<nav style="background:rgba(0,0,0,0.95);border-bottom:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(8px);padding:12px 16px;position:sticky;top:0;z-index:50;">
+  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;">
+    <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;">
+      <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:70px;height:70px;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <div style="display:none;width:70px;height:70px;background:var(--cc-blue);align-items:center;justify-content:center;font-weight:900;font-size:2rem;color:#fff;">E</div>
+      <span style="font-weight:900;font-size:1.1rem;letter-spacing:-0.02em;text-transform:uppercase;color:#fff;">the engrammers</span>
     </a>
-    <div style="display:flex;align-items:center;gap:40px;">
-      <a href="task1.html#about" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;rgba(255,255,255,0.6)&apos;">Our Hub</a>
+    <div id="desktop-nav" style="display:none;align-items:center;gap:40px;">
+      <a href="index.html#about" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Our Hub</a>
       <a href="articles.html" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ffffff;">News &amp; Articles</a>
-      <a href="task1.html#roadmap" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;rgba(255,255,255,0.6)&apos;">Roadmap</a>
-      <a href="task1.html#services" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;rgba(255,255,255,0.6)&apos;">Services</a>
-      <a href="task1.html#forum" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;rgba(255,255,255,0.6)&apos;">Forum</a>
+      <a href="index.html#roadmap" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Roadmap</a>
+      <a href="index.html#services" class="mono" style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Services</a>
     </div>
-    <div style="display:flex;align-items:center;gap:24px;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <span class="pulse-dot"></span>
-        <span class="mono" style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:var(--cc-muted);text-transform:uppercase;">Knowledge Node Active</span>
-      </div>
-      <button class="btn-primary" onclick="window.location=&apos;task1.html#collaboration&apos;">Join Collective</button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="btn-primary" style="font-size:9px;padding:8px 16px;" onclick="window.location='index.html#collaboration'">Join</button>
+      <button id="mobile-menu-btn" style="display:flex;flex-direction:column;gap:5px;padding:8px;background:none;border:none;cursor:pointer;">
+        <span style="width:24px;height:2px;background:#fff;"></span>
+        <span style="width:24px;height:2px;background:#fff;"></span>
+        <span style="width:24px;height:2px;background:#fff;"></span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" style="display:none;padding:16px 0;border-top:1px solid rgba(255,255,255,0.1);margin-top:12px;">
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <a href="index.html#about" class="mono" style="color:#94a3b8;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">Our Hub</a>
+      <a href="articles.html" class="mono" style="color:#fff;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">News &amp; Articles</a>
+      <a href="index.html#roadmap" class="mono" style="color:#94a3b8;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">Roadmap</a>
+      <a href="index.html#services" class="mono" style="color:#94a3b8;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">Services</a>
     </div>
   </div>
 </nav>
-<section style="padding:128px 32px;">
-  <div style="max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+<section style="padding:60px 16px;">
+  <div style="max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:40px;align-items:center;" class="articles-hero-grid">
     <div class="reveal">
-      <span class="badge" style="color:var(--cc-blue);">Knowledge Hub // Dispatch Archive</span>
-      <h1 class="section-header" style="margin-bottom:24px;">ALL <span style="color:var(--cc-blue);">ARTICLES.</span></h1>
-      <p class="mono" style="font-size:13px;color:var(--cc-muted);line-height:1.8;letter-spacing:0.05em;max-width:480px;">
+      <span class="badge" style="color:var(--cc-blue);font-size:8px;">Knowledge Hub // Dispatch Archive</span>
+      <h1 class="section-header" style="margin-bottom:24px;font-size:clamp(2rem, 8vw, 5rem);">ALL <span style="color:var(--cc-blue);">ARTICLES.</span></h1>
+      <p class="mono" style="font-size:11px;color:var(--cc-muted);line-height:1.8;letter-spacing:0.05em;max-width:480px;">
         // ACCESSING COLLECTIVE KNOWLEDGE BASE<br/>
         // DISPATCHES FROM UMI_FS_MEKNES RESEARCH NODE<br/>
         // AI &middot; OPTIMIZATION &middot; OR &middot; INDUSTRIAL INTELLIGENCE
       </p>
     </div>
     <div class="cc-lift reveal" style="padding:0;overflow:hidden;">
-      <div style="background:rgba(58,16,229,0.08);border-bottom:1px solid rgba(255,255,255,0.08);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;">
-        <span class="mono" style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--cc-blue);">ARCHIVE_STATUS</span>
+      <div style="background:rgba(58,16,229,0.08);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+        <span class="mono" style="font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--cc-blue);">ARCHIVE_STATUS</span>
         <div style="display:flex;align-items:center;gap:8px;">
           <span class="pulse-dot-blue"></span>
           <span class="mono" style="font-size:9px;color:var(--cc-muted);letter-spacing:0.15em;">ONLINE</span>
@@ -204,11 +223,11 @@
         </div>
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:24px;margin-bottom:64px;margin-top:80px;">
-      <span class="mono" style="font-size:10px;font-weight:700;letter-spacing:0.2em;color:var(--cc-muted);text-transform:uppercase;white-space:nowrap;">// MORE DISPATCHES</span>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:40px;margin-top:48px;">
+      <span class="mono" style="font-size:9px;font-weight:700;letter-spacing:0.2em;color:var(--cc-muted);text-transform:uppercase;white-space:nowrap;">// MORE DISPATCHES</span>
       <div style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2rem;">
+    <div class="articles-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
       <div class="cc-lift article-card reveal" data-category="ai-news" style="background:var(--cc-card-bg);overflow:hidden;">
         <div style="height:4px;background:var(--cc-blue);"></div>
         <div style="padding:2.5rem;">
@@ -372,13 +391,14 @@
     </div>
   </div>
 </section>
-<footer style="background:#080b10;border-top:1px solid rgba(255,255,255,0.08);padding:80px 32px 40px;">
+<footer style="background:#080b10;border-top:1px solid rgba(255,255,255,0.08);padding:60px 16px 30px;">
   <div style="max-width:1600px;margin:0 auto;">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:48px;margin-bottom:64px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-bottom:48px;">
       <div>
-        <a href="task1.html" style="display:inline-block;margin-bottom:20px;">
-          <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:160px;height:40px;object-fit:contain;" onerror="this.style.display=&apos;none&apos;;this.nextElementSibling.style.display=&apos;flex&apos;;" />
-          <div style="display:none;width:48px;height:48px;background:var(--cc-blue);align-items:center;justify-content:center;font-weight:900;font-size:1.5rem;">E</div>
+        <a href="index.html" style="display:flex;align-items:center;gap:12px;margin-bottom:20px;text-decoration:none;">
+          <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:70px;height:70px;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div style="display:none;width:70px;height:70px;background:var(--cc-blue);align-items:center;justify-content:center;font-weight:900;font-size:2rem;color:#fff;">E</div>
+          <span style="font-weight:900;font-size:1rem;letter-spacing:-0.02em;text-transform:uppercase;color:#fff;">the engrammers</span>
         </a>
         <p class="mono" style="font-size:10px;color:var(--cc-muted);line-height:1.8;letter-spacing:0.05em;margin-bottom:20px;">Student AI &amp; OR Collective.<br/>UMI Meknes &mdash; IASDO Node.</p>
         <div style="display:flex;align-items:center;gap:8px;">
@@ -389,16 +409,16 @@
       <div>
         <div class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;">Navigation</div>
         <div style="display:flex;flex-direction:column;gap:14px;">
-          <a href="task1.html#about" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">Our Hub</a>
-          <a href="articles.html" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">News_Hub</a>
-          <a href="task1.html#roadmap" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">Roadmap</a>
-          <a href="task1.html#services" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">Services</a>
+          <a href="index.html#about" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--cc-muted)'">Our Hub</a>
+          <a href="articles.html" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--cc-muted)'">News_Hub</a>
+          <a href="index.html#roadmap" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--cc-muted)'">Roadmap</a>
+          <a href="index.html#services" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--cc-muted)'">Services</a>
         </div>
       </div>
       <div>
         <div class="mono" style="font-size:9px;font-weight:700;color:var(--cc-blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;">Community</div>
         <div style="display:flex;flex-direction:column;gap:14px;">
-          <a href="task1.html#forum" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">Forum</a>
+          <a href="index.html#forum" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--cc-muted)'">Forum</a>
           <a href="task1.html#collaboration" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">Join Collective</a>
           <a href="team.html" class="mono" style="font-size:10px;font-weight:600;color:var(--cc-muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color=&apos;#fff&apos;" onmouseout="this.style.color=&apos;var(--cc-muted)&apos;">The Team</a>
         </div>
@@ -451,6 +471,36 @@
     });
   }, { threshold: 0.1, rootMargin: "0px 0px -60px 0px" });
   document.querySelectorAll(".reveal").forEach(function(el) { revealObserver.observe(el); });
+  
+  // Mobile menu toggle
+  var mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  var mobileMenu = document.getElementById('mobile-menu');
+  var desktopNav = document.getElementById('desktop-nav');
+  
+  function handleResize() {
+    if (window.innerWidth >= 1024) {
+      desktopNav.style.display = 'flex';
+      mobileMenuBtn.style.display = 'none';
+      mobileMenu.style.display = 'none';
+    } else {
+      desktopNav.style.display = 'none';
+      mobileMenuBtn.style.display = 'flex';
+    }
+  }
+  
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', function() {
+      mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+    });
+    mobileMenu.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        mobileMenu.style.display = 'none';
+      });
+    });
+  }
+  
+  handleResize();
+  window.addEventListener('resize', handleResize);
 </script>
 </body>
 </html>
