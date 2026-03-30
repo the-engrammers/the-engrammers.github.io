@@ -47,36 +47,53 @@
 <body>
 <div class=bg-grid></div>
 <!-- NAVIGATION -->
-<nav style="position:sticky;top:0;left:0;right:0;z-index:50;border-bottom:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.95);backdrop-filter:blur(12px);padding:12px 16px;" id="main-nav">
-  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;">
-    <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;">
-      <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:70px;height:70px;object-fit:contain;" />
-      <span style="font-weight:900;font-size:1.1rem;letter-spacing:-0.02em;text-transform:uppercase;color:#fff;">the engrammers</span>
-    </a>
-    <div id="desktop-nav" style="display:none;align-items:center;gap:2.5rem;">
-      <a href="index.html#about" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Our Hub</a>
-      <a href="articles.html" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">News &amp; Articles</a>
-      <a href="index.html#roadmap" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Roadmap</a>
-      <a href="index.html#services" class="mono" style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Services</a>
-    </div>
-    <div style="display:flex;align-items:center;gap:1rem;">
-      <a href="index.html#collaboration" class="btn-primary" style="font-size:9px;padding:8px 16px;">Join</a>
-      <button id="mobile-menu-btn" style="display:flex;flex-direction:column;gap:5px;padding:8px;background:none;border:none;cursor:pointer;">
-        <span style="width:24px;height:2px;background:#fff;"></span>
-        <span style="width:24px;height:2px;background:#fff;"></span>
-        <span style="width:24px;height:2px;background:#fff;"></span>
-      </button>
-    </div>
-  </div>
-  <div id="mobile-menu" style="display:none;padding:16px 0;border-top:1px solid rgba(255,255,255,0.1);margin-top:12px;">
-    <div style="display:flex;flex-direction:column;gap:16px;">
-      <a href="index.html#about" class="mono" style="color:#94a3b8;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">Our Hub</a>
-      <a href="articles.html" class="mono" style="color:#94a3b8;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">News &amp; Articles</a>
-      <a href="index.html#roadmap" class="mono" style="color:#94a3b8;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">Roadmap</a>
-      <a href="index.html#services" class="mono" style="color:#94a3b8;font-size:14px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;padding:8px 0;">Services</a>
-    </div>
-  </div>
-</nav>
+<nav class="bg-black/95 backdrop-blur-2xl border-b border-white/10 sticky top-0 z-[1000] px-4 md:px-8 py-3 md:py-5">
+        <div class="max-w-[1600px] mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group flex-shrink-0">
+                <img src="LOGO ENGRAMMERS.png" alt="The Engrammers Logo"
+                    style="width:70px;height:70px;object-fit:contain;"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div
+                    style="display:none;width:70px;height:70px;background:#3A10E5;align-items:center;justify-content:center;font-weight:900;font-size:2rem;color:#fff;">
+                    E</div>
+                <span class="font-black text-lg md:text-xl tracking-tighter uppercase text-white">the engrammers</span>
+            </a>
+
+            <div class="hidden lg:flex space-x-10 font-bold text-[11px] uppercase tracking-[0.3em] text-slate-500">
+                <a href="index.html#about" class="hover:text-white transition-colors">Our Hub</a>
+                <a href="articles.html" class="hover:text-white transition-colors">News & Articles</a>
+                <a href="index.html#roadmap" class="hover:text-white transition-colors">Roadmap</a>
+                <a href="index.html#services" class="hover:text-white transition-colors">Services</a>
+                <a href="index.html#forum" class="hover:text-white transition-colors">Forum</a>
+            </div>
+
+            <div class="flex items-center space-x-4 md:space-x-10">
+                <div
+                    class="hidden xl:flex items-center space-x-3 mono text-[10px] text-slate-500 uppercase tracking-widest">
+                    <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_#10b981]"></span>
+                    <span>Knowledge Node Active</span>
+                </div>
+                <a href="index.html#collaboration"
+                    class="btn-primary py-2 px-4 md:py-2.5 md:px-8 text-[10px] md:text-[11px] flex items-center justify-center text-center">Join</a>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="lg:hidden flex flex-col gap-1.5 p-2">
+                    <span class="w-6 h-0.5 bg-white"></span>
+                    <span class="w-6 h-0.5 bg-white"></span>
+                    <span class="w-6 h-0.5 bg-white"></span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-white/10 pt-4">
+            <div class="flex flex-col space-y-4 font-bold text-sm uppercase tracking-widest text-slate-400">
+                <a href="index.html#about" class="hover:text-white transition-colors py-2">Our Hub</a>
+                <a href="articles.html" class="hover:text-white transition-colors py-2">News & Articles</a>
+                <a href="index.html#roadmap" class="hover:text-white transition-colors py-2">Roadmap</a>
+                <a href="index.html#services" class="hover:text-white transition-colors py-2">Services</a>
+                <a href="index.html#forum" class="hover:text-white transition-colors py-2">Forum</a>
+            </div>
+        </div>
+    </nav>
 <div style="height:20px;"></div>
 <!-- HERO -->
 <section style="padding:160px 32px;border-bottom:1px solid rgba(255,255,255,0.05);">
@@ -280,58 +297,65 @@
 <a href="task1.html#collaboration" class="btn-primary">Initialize Connection &rarr;</a>
 </div></div></section>
 <!-- FOOTER -->
-<footer style="padding:192px 32px 64px;border-top:1px solid rgba(255,255,255,0.1);">
-<div style="max-width:1600px;margin:0 auto;">
-<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:64px;margin-bottom:96px;">
-<!-- Branding -->
-<div>
-<div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
-<div style="width:32px;height:32px;background:#3A10E5;display:flex;align-items:center;justify-content:center;">
-<span class="mono" style="color:white;font-size:13px;font-weight:900;">E</span></div>
-<span class="mono" style="color:white;font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.2em;">The Engrammers</span>
-</div>
-<p style="color:#475569;font-size:14px;line-height:1.7;margin-bottom:32px;max-width:300px;">A collective of six IASDO Master students engineering the intersection of AI and operations research from Meknes, Morocco.</p>
-<div style="display:flex;gap:12px;">
-<a href="#" style="width:36px;height:36px;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;text-decoration:none;"><span class="mono" style="color:#64748b;font-size:9px;font-weight:900;">GH</span></a>
-<a href="#" style="width:36px;height:36px;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;text-decoration:none;"><span class="mono" style="color:#64748b;font-size:9px;font-weight:900;">LI</span></a>
-<a href="#" style="width:36px;height:36px;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;text-decoration:none;"><span class="mono" style="color:#64748b;font-size:9px;font-weight:900;">TW</span></a>
-</div></div>
-<!-- Platform Nodes -->
-<div>
-<div class="mono" style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.3em;color:#3A10E5;margin-bottom:24px;">Platform Nodes</div>
-<div style="display:flex;flex-direction:column;gap:14px;">
-<a href="task1.html" style="text-decoration:none;color:#475569;font-size:13px;font-weight:600;">Our Hub</a>
-<a href="team.html" style="text-decoration:none;color:#475569;font-size:13px;font-weight:600;">The Collective</a>
-<a href="articles.html" style="text-decoration:none;color:#475569;font-size:13px;font-weight:600;">Articles</a>
-<a href="coming-soon.html" style="text-decoration:none;color:#475569;font-size:13px;font-weight:600;">Projects</a>
-<a href="task1.html#collaboration" style="text-decoration:none;color:#475569;font-size:13px;font-weight:600;">Collaborate</a>
-</div></div>
-<!-- Domains -->
-<div>
-<div class="mono" style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.3em;color:#3A10E5;margin-bottom:24px;">Domains</div>
-<div style="display:flex;flex-direction:column;gap:14px;">
-<span style="color:#475569;font-size:13px;font-weight:600;">Machine Learning</span>
-<span style="color:#475569;font-size:13px;font-weight:600;">Operations Research</span>
-<span style="color:#475569;font-size:13px;font-weight:600;">NLP &amp; Language AI</span>
-<span style="color:#475569;font-size:13px;font-weight:600;">Data Engineering</span>
-<span style="color:#475569;font-size:13px;font-weight:600;">Stochastic Modeling</span>
-</div></div>
-<!-- Metrics -->
-<div>
-<div class="mono" style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.3em;color:#3A10E5;margin-bottom:24px;">Node Metrics</div>
-<div style="display:flex;flex-direction:column;gap:20px;">
-<div><div style="font-size:1.8rem;font-weight:900;color:white;line-height:1;">07</div><div class="mono" style="font-size:9px;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.2em;margin-top:4px;">Active Nodes</div></div>
-<div><div style="font-size:1.8rem;font-weight:900;color:white;line-height:1;">14</div><div class="mono" style="font-size:9px;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.2em;margin-top:4px;">Projects Queued</div></div>
-<div><div style="font-size:1.8rem;font-weight:900;color:#10b981;line-height:1;">LIVE</div><div class="mono" style="font-size:9px;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.2em;margin-top:4px;">System Status</div></div>
-</div></div>
-</div>
-<!-- Copyright -->
-<div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
-<span class="mono" style="font-size:9px;font-weight:900;color:#334155;text-transform:uppercase;letter-spacing:.2em;">&copy; 2026 The Engrammers. All nodes reserved.</span>
-<span class="mono" style="font-size:9px;font-weight:900;color:#334155;text-transform:uppercase;letter-spacing:.2em;">IASDO_M2 // UMI MEKNES // GROWTH_PHASE_01</span>
-</div>
-</div>
-</footer>
+<footer class="py-48 border-t border-white/10 px-8">
+        <div class="max-w-[1600px] mx-auto grid md:grid-cols-4 gap-32">
+            <div class="col-span-1 md:col-span-2">
+                <a href="index.html" class="flex items-center gap-3 mb-14">
+                    <img src="LOGO ENGRAMMERS.png" alt="Engrammers Logo"
+                        style="width:70px;height:70px;object-fit:contain;" onerror="this.style.display='none'">
+                    <span class="font-black text-2xl md:text-4xl tracking-tighter uppercase text-white">the
+                        engrammers</span>
+                </a>
+                <p class="text-slate-500 max-w-md leading-relaxed mb-20 italic text-xl font-medium">
+                    A collective hub of students bridging AI and Decision Science. A sanctuary for sharing knowledge and
+                    building high-speed research at UMI Meknes.
+                </p>
+                <div class="flex space-x-16 mono text-[12px] font-black text-[#3A10E5] uppercase tracking-[0.5em]">
+                    <a href="https://github.com/the-engrammers/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-all underline underline-offset-[12px]">GitHub</a>
+                    <a href="https://www.linkedin.com/company/the-engrammers/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-all underline underline-offset-[12px]">LinkedIn</a>
+                </div>
+            </div>
+
+            <div>
+                <h4
+                    class="font-black text-[12px] uppercase tracking-[0.5em] mb-14 text-slate-400 underline underline-offset-[16px]">
+                    Platform Node</h4>
+                <ul class="space-y-8 mono text-[12px] font-black uppercase text-slate-500">
+                    <li><a href="#about"
+                            class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">Identity_Report</a></li>
+                    <li><a href="articles.html"
+                            class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">News_Hub</a></li>
+                    <li><a href="#roadmap"
+                            class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">Project_Roadmap</a></li>
+                    <li><a href="#services"
+                            class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">Industrial_Services</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4
+                    class="font-black text-[12px] uppercase tracking-[0.5em] mb-14 text-slate-400 underline underline-offset-[16px]">
+                    Node Metrics</h4>
+                <ul class="space-y-8 mono text-[12px] uppercase text-slate-600 font-bold">
+                    <li class="flex justify-between border-b border-white/5 pb-5"><span>Status:</span> <span
+                            class="text-cc-success uppercase">Sharing_Active</span></li>
+                    <li class="flex justify-between border-b border-white/5 pb-5"><span>Affiliation:</span> <span
+                            class="text-white">UMI_FS</span></li>
+                    <li class="flex justify-between border-b border-white/5 pb-5"><span>Region:</span> <span
+                            class="text-white font-black">MEKNES_MA</span></li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="max-w-[1600px] mx-auto mt-60 pt-20 border-t border-white/5 text-center flex flex-col md:flex-row justify-between items-center gap-16">
+            <div class="mono text-[11px] text-slate-700 uppercase tracking-[0.8em] font-black">
+                &copy; 2026 THE_ENGRAMMERS_HUB // POWERED_BY_PASSION
+            </div>
+            <div class="mono text-[11px] text-slate-700 uppercase tracking-[0.5em] italic font-black">
+                "Sharing the engrams of our shared intelligence."
+            </div>
+        </div>
+    </footer>
 <!-- JAVASCRIPT -->
 <script>
 const revealObserver = new IntersectionObserver((entries) => {

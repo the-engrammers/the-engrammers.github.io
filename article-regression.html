@@ -77,10 +77,10 @@
     .related-card .rc-cat{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cc-muted);}
     footer{border-top:1px solid rgba(255,255,255,.1);background:var(--cc-bg);}
     .banner-wrap{position:relative;background:var(--cc-card-bg);border:1px solid rgba(255,255,255,.12);overflow:hidden;}
-    .banner-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(34,211,238,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.06) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}
+    .banner-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(58,16,229,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(58,16,229,.06) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}
     .banner-panel{flex:1;padding:2rem;position:relative;z-index:1;}
     .banner-panel-left{border-right:1px solid rgba(255,255,255,.1);}
-    .panel-type-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#22d3ee;margin-bottom:1.25rem;padding-bottom:.6rem;border-bottom:1px solid rgba(34,211,238,.4);}
+    .panel-type-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:1.25rem;padding-bottom:.6rem;border-bottom:1px solid rgba(58,16,229,.3);}
     .panel-row{display:flex;flex-direction:column;gap:.2rem;margin-bottom:1rem;}
     .panel-row-label{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:#475569;}
     .panel-row-value{font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;color:#e2e8f0;}
@@ -90,7 +90,7 @@
     .banner-divider{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem .75rem;position:relative;z-index:2;}
     .banner-divider-line{flex:1;width:1px;background:rgba(255,255,255,.12);}
     .banner-divider-or{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:800;letter-spacing:.15em;color:var(--cc-blue);padding:.4rem 0;}
-    .banner-algo-tag{display:inline-block;border:1px solid rgba(34,211,238,.5);background:rgba(34,211,238,.1);padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#22d3ee;margin:2px;}
+    .banner-algo-tag{display:inline-block;border:1px solid rgba(58,16,229,.4);background:rgba(58,16,229,.08);padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cc-blue);margin:2px;}
     .banner-meta{display:flex;justify-content:space-between;align-items:center;padding:.65rem 1.25rem;border-top:1px solid rgba(255,255,255,.08);background:rgba(5,7,10,.5);position:relative;z-index:1;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#475569;}
     .banner-meta .bm-highlight{color:var(--cc-blue);}
     @media(max-width:640px){.banner-panel{padding:1.25rem;}.panel-row-value.large{font-size:1rem;}.banner-divider{padding:.6rem .4rem;}.code-block .cb-row{grid-template-columns:1fr;gap:.2rem;}}
@@ -165,39 +165,53 @@
 </div>
 
 <!-- NAV -->
-<nav style="background:rgba(0,0,0,0.95);position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.1);padding:20px 32px;">
-  <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;position:relative;">
-    <a href="task1.html" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;gap:12px;">
-      <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="width:70px;height:70px;object-fit:contain;" />
-      <span class="mono" style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.05em;text-transform:uppercase;">the engrammers</span>
-    </a>
-    <div class="nav-links">
-      <a href="task1.html#about" class="nav-link" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;text-decoration:none;transition:color 0.2s;">Our Hub</a>
-      <a href="articles.html" class="nav-link" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#fff;text-decoration:none;transition:color 0.2s;">News &amp; Articles</a>
-      <a href="task1.html#roadmap" class="nav-link" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;text-decoration:none;transition:color 0.2s;">Roadmap</a>
-      <a href="task1.html#services" class="nav-link" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;text-decoration:none;transition:color 0.2s;">Services</a>
-      <a href="task1.html#forum" class="nav-link" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;text-decoration:none;transition:color 0.2s;">Forum</a>
-    </div>
-    <div class="nav-right">
-      <div class="nav-status">
-        <span style="width:8px;height:8px;background:#10b981;display:inline-block;animation:pulse-dot 1.5s ease-in-out infinite;"></span>
-        <span style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:#94a3b8;text-transform:uppercase;letter-spacing:0.12em;">Knowledge Node Active</span>
-      </div>
-      <a href="task1.html#collaboration" class="btn-primary" style="padding:10px 24px;">Join Collective</a>
-      <button class="mobile-menu-btn" onclick="document.querySelector('.mobile-menu').classList.toggle('active')">
-        <svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-    </div>
-    <div class="mobile-menu">
-      <a href="task1.html#about" class="nav-link">Our Hub</a>
-      <a href="articles.html" class="nav-link">News &amp; Articles</a>
-      <a href="task1.html#roadmap" class="nav-link">Roadmap</a>
-      <a href="task1.html#services" class="nav-link">Services</a>
-      <a href="task1.html#forum" class="nav-link">Forum</a>
-      <a href="task1.html#collaboration" class="btn-primary" style="padding:10px 24px;text-align:center;">Join Collective</a>
-    </div>
-  </div>
-</nav>
+<nav class="bg-black/95 backdrop-blur-2xl border-b border-white/10 sticky top-0 z-[1000] px-4 md:px-8 py-3 md:py-5">
+        <div class="max-w-[1600px] mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group flex-shrink-0">
+                <img src="LOGO ENGRAMMERS.png" alt="The Engrammers Logo"
+                    style="width:70px;height:70px;object-fit:contain;"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div
+                    style="display:none;width:70px;height:70px;background:#3A10E5;align-items:center;justify-content:center;font-weight:900;font-size:2rem;color:#fff;">
+                    E</div>
+                <span class="font-black text-lg md:text-xl tracking-tighter uppercase text-white">the engrammers</span>
+            </a>
+
+            <div class="hidden lg:flex space-x-10 font-bold text-[11px] uppercase tracking-[0.3em] text-slate-500">
+                <a href="index.html#about" class="hover:text-white transition-colors">Our Hub</a>
+                <a href="articles.html" class="hover:text-white transition-colors">News & Articles</a>
+                <a href="index.html#roadmap" class="hover:text-white transition-colors">Roadmap</a>
+                <a href="index.html#services" class="hover:text-white transition-colors">Services</a>
+                <a href="index.html#forum" class="hover:text-white transition-colors">Forum</a>
+            </div>
+
+            <div class="flex items-center space-x-4 md:space-x-10">
+                <div
+                    class="hidden xl:flex items-center space-x-3 mono text-[10px] text-slate-500 uppercase tracking-widest">
+                    <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_#10b981]"></span>
+                    <span>Knowledge Node Active</span>
+                </div>
+                <a href="index.html#collaboration"
+                    class="btn-primary py-2 px-4 md:py-2.5 md:px-8 text-[10px] md:text-[11px] flex items-center justify-center text-center">Join</a>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="lg:hidden flex flex-col gap-1.5 p-2">
+                    <span class="w-6 h-0.5 bg-white"></span>
+                    <span class="w-6 h-0.5 bg-white"></span>
+                    <span class="w-6 h-0.5 bg-white"></span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-white/10 pt-4">
+            <div class="flex flex-col space-y-4 font-bold text-sm uppercase tracking-widest text-slate-400">
+                <a href="index.html#about" class="hover:text-white transition-colors py-2">Our Hub</a>
+                <a href="articles.html" class="hover:text-white transition-colors py-2">News & Articles</a>
+                <a href="index.html#roadmap" class="hover:text-white transition-colors py-2">Roadmap</a>
+                <a href="index.html#services" class="hover:text-white transition-colors py-2">Services</a>
+                <a href="index.html#forum" class="hover:text-white transition-colors py-2">Forum</a>
+            </div>
+        </div>
+    </nav>
 
 <!-- HERO -->
 <section style="position:relative;z-index:1;border-bottom:1px solid rgba(255,255,255,.08);padding:3.5rem 0 2.5rem;">
@@ -522,43 +536,65 @@
 </div>
 
 <!-- FOOTER -->
-<footer style="padding:3rem 0;">
-  <div class="max-w-7xl mx-auto px-6">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2.5rem;margin-bottom:2.5rem;">
-      <div>
-        <img src="LOGO ENGRAMMERS.png" alt="The Engrammers" style="height:32px;width:auto;margin-bottom:1rem;" />
-        <p style="color:#475569;font-size:.82rem;line-height:1.7;max-width:220px;">Applied AI research and implementation for Moroccan business. IASDO &mdash; Universit&eacute; Moulay Ismail, Mekn&egrave;s.</p>
-      </div>
-      <div>
-        <div style="font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:1rem;">Navigation</div>
-        <div style="display:flex;flex-direction:column;gap:.5rem;">
-          <a href="task1.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">Home</a>
-          <a href="articles.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">All Dispatches</a>
-          <a href="team.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">The Team</a>
-          <a href="task1.html#roadmap" style="color:#64748b;font-size:.82rem;text-decoration:none;">Projects</a>
+<footer class="py-48 border-t border-white/10 px-8">
+        <div class="max-w-[1600px] mx-auto grid md:grid-cols-4 gap-32">
+            <div class="col-span-1 md:col-span-2">
+                <a href="index.html" class="flex items-center gap-3 mb-14">
+                    <img src="LOGO ENGRAMMERS.png" alt="Engrammers Logo"
+                        style="width:70px;height:70px;object-fit:contain;" onerror="this.style.display='none'">
+                    <span class="font-black text-2xl md:text-4xl tracking-tighter uppercase text-white">the
+                        engrammers</span>
+                </a>
+                <p class="text-slate-500 max-w-md leading-relaxed mb-20 italic text-xl font-medium">
+                    A collective hub of students bridging AI and Decision Science. A sanctuary for sharing knowledge and
+                    building high-speed research at UMI Meknes.
+                </p>
+                <div class="flex space-x-16 mono text-[12px] font-black text-[#3A10E5] uppercase tracking-[0.5em]">
+                    <a href="https://github.com/the-engrammers/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-all underline underline-offset-[12px]">GitHub</a>
+                    <a href="https://www.linkedin.com/company/the-engrammers/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-all underline underline-offset-[12px]">LinkedIn</a>
+                </div>
+            </div>
+
+            <div>
+                <h4
+                    class="font-black text-[12px] uppercase tracking-[0.5em] mb-14 text-slate-400 underline underline-offset-[16px]">
+                    Platform Node</h4>
+                <ul class="space-y-8 mono text-[12px] font-black uppercase text-slate-500">
+                    <li><a href="#about"
+                            class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">Identity_Report</a></li>
+                    <li><a href="articles.html"
+                            class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">News_Hub</a></li>
+                    <li><a href="#roadmap"
+                            class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">Project_Roadmap</a></li>
+                    <li><a href="#services"
+                            class="hover:text-[#3A10E5] transition-all tracking-[0.4em]">Industrial_Services</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4
+                    class="font-black text-[12px] uppercase tracking-[0.5em] mb-14 text-slate-400 underline underline-offset-[16px]">
+                    Node Metrics</h4>
+                <ul class="space-y-8 mono text-[12px] uppercase text-slate-600 font-bold">
+                    <li class="flex justify-between border-b border-white/5 pb-5"><span>Status:</span> <span
+                            class="text-cc-success uppercase">Sharing_Active</span></li>
+                    <li class="flex justify-between border-b border-white/5 pb-5"><span>Affiliation:</span> <span
+                            class="text-white">UMI_FS</span></li>
+                    <li class="flex justify-between border-b border-white/5 pb-5"><span>Region:</span> <span
+                            class="text-white font-black">MEKNES_MA</span></li>
+                </ul>
+            </div>
         </div>
-      </div>
-      <div>
-        <div style="font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:1rem;">Dispatches</div>
-        <div style="display:flex;flex-direction:column;gap:.5rem;">
-          <a href="article-rag.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">RAG in Local Business</a>
-          <a href="article-clean-data.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">#005 &mdash; Clean Data</a>
-          <a href="article-regression.html" style="color:#e2e8f0;font-size:.82rem;text-decoration:none;">#006 &mdash; Regression vs Classification</a>
-          <a href="article-rmse.html" style="color:#64748b;font-size:.82rem;text-decoration:none;">#007 &mdash; RMSE Explained</a>
+        <div
+            class="max-w-[1600px] mx-auto mt-60 pt-20 border-t border-white/5 text-center flex flex-col md:flex-row justify-between items-center gap-16">
+            <div class="mono text-[11px] text-slate-700 uppercase tracking-[0.8em] font-black">
+                &copy; 2026 THE_ENGRAMMERS_HUB // POWERED_BY_PASSION
+            </div>
+            <div class="mono text-[11px] text-slate-700 uppercase tracking-[0.5em] italic font-black">
+                "Sharing the engrams of our shared intelligence."
+            </div>
         </div>
-      </div>
-      <div>
-        <div style="font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cc-blue);margin-bottom:1rem;">Contact</div>
-        <p style="color:#64748b;font-size:.82rem;line-height:1.7;margin-bottom:1rem;">Have a business prediction problem? We scope and build it.</p>
-        <a href="task1.html#collaboration" class="btn-primary" style="padding:10px 20px;">WORK WITH US</a>
-      </div>
-    </div>
-    <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
-      <span style="font-family:JetBrains Mono,monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#334155;">&copy; 2026 The Engrammers &mdash; IASDO, UMI Mekn&egrave;s</span>
-      <span style="font-family:JetBrains Mono,monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#334155;">DISPATCH #006 &mdash; MACHINE_LEARNING</span>
-    </div>
-  </div>
-</footer>
+    </footer>
 
 <!-- JS -->
 <script>
